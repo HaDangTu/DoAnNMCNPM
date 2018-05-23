@@ -24,27 +24,28 @@ Partial Class FrmPhieuTiepNhan
     Private Sub InitializeComponent()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.tbMaCxe = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.tbDienThoai = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.tbDiaChi = New System.Windows.Forms.TextBox()
+        Me.tbTenCxe = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.tbMaphieu = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.tbTenCxe = New System.Windows.Forms.TextBox()
-        Me.tbDiaChi = New System.Windows.Forms.TextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.tbDienThoai = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
+        Me.cbHieuxe = New System.Windows.Forms.ComboBox()
+        Me.tbBsoxe = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.dtpNgTiepNhan = New System.Windows.Forms.DateTimePicker()
-        Me.tbBsoxe = New System.Windows.Forms.TextBox()
-        Me.cbHieuxe = New System.Windows.Forms.ComboBox()
         Me.dtgvDanhsach = New System.Windows.Forms.DataGridView()
         Me.Label12 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.dtgvDanhsach, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -54,7 +55,7 @@ Partial Class FrmPhieuTiepNhan
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Times New Roman", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(294, 23)
+        Me.Label1.Location = New System.Drawing.Point(233, 9)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(209, 36)
         Me.Label1.TabIndex = 0
@@ -63,7 +64,7 @@ Partial Class FrmPhieuTiepNhan
         'Panel1
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel1.Controls.Add(Me.TextBox1)
+        Me.Panel1.Controls.Add(Me.tbMaCxe)
         Me.Panel1.Controls.Add(Me.Label7)
         Me.Panel1.Controls.Add(Me.tbDienThoai)
         Me.Panel1.Controls.Add(Me.Label5)
@@ -75,6 +76,79 @@ Partial Class FrmPhieuTiepNhan
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(318, 253)
         Me.Panel1.TabIndex = 1
+        '
+        'tbMaCxe
+        '
+        Me.tbMaCxe.Location = New System.Drawing.Point(83, 13)
+        Me.tbMaCxe.Name = "tbMaCxe"
+        Me.tbMaCxe.ReadOnly = True
+        Me.tbMaCxe.Size = New System.Drawing.Size(100, 20)
+        Me.tbMaCxe.TabIndex = 4
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(3, 16)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(71, 17)
+        Me.Label7.TabIndex = 4
+        Me.Label7.Text = "Mã chủ xe"
+        '
+        'tbDienThoai
+        '
+        Me.tbDienThoai.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbDienThoai.Location = New System.Drawing.Point(83, 221)
+        Me.tbDienThoai.Name = "tbDienThoai"
+        Me.tbDienThoai.Size = New System.Drawing.Size(100, 25)
+        Me.tbDienThoai.TabIndex = 6
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(3, 224)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(68, 17)
+        Me.Label5.TabIndex = 5
+        Me.Label5.Text = "Điện thoại"
+        '
+        'tbDiaChi
+        '
+        Me.tbDiaChi.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbDiaChi.Location = New System.Drawing.Point(83, 130)
+        Me.tbDiaChi.Multiline = True
+        Me.tbDiaChi.Name = "tbDiaChi"
+        Me.tbDiaChi.Size = New System.Drawing.Size(205, 55)
+        Me.tbDiaChi.TabIndex = 4
+        '
+        'tbTenCxe
+        '
+        Me.tbTenCxe.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbTenCxe.Location = New System.Drawing.Point(83, 74)
+        Me.tbTenCxe.Name = "tbTenCxe"
+        Me.tbTenCxe.Size = New System.Drawing.Size(205, 25)
+        Me.tbTenCxe.TabIndex = 3
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(3, 133)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(50, 17)
+        Me.Label4.TabIndex = 1
+        Me.Label4.Text = "Địa chỉ"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(3, 77)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(74, 17)
+        Me.Label3.TabIndex = 0
+        Me.Label3.Text = "Tên chủ xe"
         '
         'Label2
         '
@@ -94,61 +168,6 @@ Partial Class FrmPhieuTiepNhan
         Me.tbMaphieu.Size = New System.Drawing.Size(100, 20)
         Me.tbMaphieu.TabIndex = 2
         '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(3, 77)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(74, 17)
-        Me.Label3.TabIndex = 0
-        Me.Label3.Text = "Tên chủ xe"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(3, 133)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(50, 17)
-        Me.Label4.TabIndex = 1
-        Me.Label4.Text = "Địa chỉ"
-        '
-        'tbTenCxe
-        '
-        Me.tbTenCxe.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbTenCxe.Location = New System.Drawing.Point(83, 74)
-        Me.tbTenCxe.Name = "tbTenCxe"
-        Me.tbTenCxe.Size = New System.Drawing.Size(205, 25)
-        Me.tbTenCxe.TabIndex = 3
-        '
-        'tbDiaChi
-        '
-        Me.tbDiaChi.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbDiaChi.Location = New System.Drawing.Point(83, 130)
-        Me.tbDiaChi.Multiline = True
-        Me.tbDiaChi.Name = "tbDiaChi"
-        Me.tbDiaChi.Size = New System.Drawing.Size(205, 55)
-        Me.tbDiaChi.TabIndex = 4
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(3, 224)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(68, 17)
-        Me.Label5.TabIndex = 5
-        Me.Label5.Text = "Điện thoại"
-        '
-        'tbDienThoai
-        '
-        Me.tbDienThoai.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbDienThoai.Location = New System.Drawing.Point(83, 221)
-        Me.tbDienThoai.Name = "tbDienThoai"
-        Me.tbDienThoai.Size = New System.Drawing.Size(100, 25)
-        Me.tbDienThoai.TabIndex = 6
-        '
         'Label6
         '
         Me.Label6.AutoSize = True
@@ -158,24 +177,6 @@ Partial Class FrmPhieuTiepNhan
         Me.Label6.Size = New System.Drawing.Size(106, 17)
         Me.Label6.TabIndex = 3
         Me.Label6.Text = "Thông tin chủ xe"
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(3, 16)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(71, 17)
-        Me.Label7.TabIndex = 4
-        Me.Label7.Text = "Mã chủ xe"
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(83, 13)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(100, 20)
-        Me.TextBox1.TabIndex = 4
         '
         'Panel2
         '
@@ -189,15 +190,32 @@ Partial Class FrmPhieuTiepNhan
         Me.Panel2.Size = New System.Drawing.Size(278, 138)
         Me.Panel2.TabIndex = 4
         '
-        'Label8
+        'cbHieuxe
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(504, 124)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(81, 17)
-        Me.Label8.TabIndex = 5
-        Me.Label8.Text = "Thông tin xe"
+        Me.cbHieuxe.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbHieuxe.FormattingEnabled = True
+        Me.cbHieuxe.Location = New System.Drawing.Point(91, 73)
+        Me.cbHieuxe.Name = "cbHieuxe"
+        Me.cbHieuxe.Size = New System.Drawing.Size(121, 25)
+        Me.cbHieuxe.TabIndex = 8
+        '
+        'tbBsoxe
+        '
+        Me.tbBsoxe.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbBsoxe.Location = New System.Drawing.Point(91, 8)
+        Me.tbBsoxe.Name = "tbBsoxe"
+        Me.tbBsoxe.Size = New System.Drawing.Size(100, 25)
+        Me.tbBsoxe.TabIndex = 7
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(3, 77)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(54, 17)
+        Me.Label10.TabIndex = 6
+        Me.Label10.Text = "Hiệu xe"
         '
         'Label9
         '
@@ -209,15 +227,15 @@ Partial Class FrmPhieuTiepNhan
         Me.Label9.TabIndex = 5
         Me.Label9.Text = "Biển số xe"
         '
-        'Label10
+        'Label8
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(3, 77)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(54, 17)
-        Me.Label10.TabIndex = 6
-        Me.Label10.Text = "Hiệu xe"
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(504, 124)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(81, 17)
+        Me.Label8.TabIndex = 5
+        Me.Label8.Text = "Thông tin xe"
         '
         'Label11
         '
@@ -231,27 +249,11 @@ Partial Class FrmPhieuTiepNhan
         '
         'dtpNgTiepNhan
         '
+        Me.dtpNgTiepNhan.Font = New System.Drawing.Font("Times New Roman", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpNgTiepNhan.Location = New System.Drawing.Point(507, 77)
         Me.dtpNgTiepNhan.Name = "dtpNgTiepNhan"
-        Me.dtpNgTiepNhan.Size = New System.Drawing.Size(185, 20)
+        Me.dtpNgTiepNhan.Size = New System.Drawing.Size(185, 21)
         Me.dtpNgTiepNhan.TabIndex = 8
-        '
-        'tbBsoxe
-        '
-        Me.tbBsoxe.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbBsoxe.Location = New System.Drawing.Point(91, 8)
-        Me.tbBsoxe.Name = "tbBsoxe"
-        Me.tbBsoxe.Size = New System.Drawing.Size(100, 25)
-        Me.tbBsoxe.TabIndex = 7
-        '
-        'cbHieuxe
-        '
-        Me.cbHieuxe.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbHieuxe.FormattingEnabled = True
-        Me.cbHieuxe.Location = New System.Drawing.Point(91, 73)
-        Me.cbHieuxe.Name = "cbHieuxe"
-        Me.cbHieuxe.Size = New System.Drawing.Size(121, 25)
-        Me.cbHieuxe.TabIndex = 8
         '
         'dtgvDanhsach
         '
@@ -271,11 +273,22 @@ Partial Class FrmPhieuTiepNhan
         Me.Label12.TabIndex = 10
         Me.Label12.Text = "Danh sách"
         '
-        'Form1
+        'Button1
+        '
+        Me.Button1.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Location = New System.Drawing.Point(414, 319)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(193, 78)
+        Me.Button1.TabIndex = 11
+        Me.Button1.Text = "Tiếp nhận"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'FrmPhieuTiepNhan
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(711, 690)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.dtgvDanhsach)
         Me.Controls.Add(Me.dtpNgTiepNhan)
@@ -287,7 +300,7 @@ Partial Class FrmPhieuTiepNhan
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Label1)
-        Me.Name = "Form1"
+        Me.Name = "FrmPhieuTiepNhan"
         Me.Text = "Form1"
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
@@ -301,7 +314,7 @@ Partial Class FrmPhieuTiepNhan
 
     Friend WithEvents Label1 As Label
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents tbMaCxe As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents tbDienThoai As TextBox
     Friend WithEvents Label5 As Label
@@ -322,4 +335,5 @@ Partial Class FrmPhieuTiepNhan
     Friend WithEvents dtpNgTiepNhan As DateTimePicker
     Friend WithEvents dtgvDanhsach As DataGridView
     Friend WithEvents Label12 As Label
+    Friend WithEvents Button1 As Button
 End Class

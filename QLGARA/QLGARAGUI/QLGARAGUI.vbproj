@@ -95,6 +95,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FrmPhieuTiepNhan.resx">
+      <DependentUpon>FrmPhieuTiepNhan.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -113,6 +116,20 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QLGARABUS\QLGARABUS.vbproj">
+      <Project>{127b1d26-f74a-42f3-9082-4d6452398c6c}</Project>
+      <Name>QLGARABUS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QLGARADTO\QLGARADTO.vbproj">
+      <Project>{98890c6d-b1a1-40a5-9baf-6d5c33debaf3}</Project>
+      <Name>QLGARADTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.vbproj">
+      <Project>{ac9d408a-10a6-4e83-9944-4b2864c6ba53}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

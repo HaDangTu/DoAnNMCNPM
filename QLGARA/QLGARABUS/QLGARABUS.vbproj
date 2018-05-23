@@ -63,6 +63,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HieuXeBUS.vb" />
+    <Compile Include="HoSoSuaChuaBUS.vb" />
+    <Compile Include="KhachHangBUS.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -79,6 +82,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="PhieuTiepNhanBUS.vb" />
+    <Compile Include="ThongTinXeBUS.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -98,6 +102,20 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QLGARADAL\QLGARADAL.vbproj">
+      <Project>{ba597672-c49f-492e-aed2-bf2e00039c8a}</Project>
+      <Name>QLGARADAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QLGARADTO\QLGARADTO.vbproj">
+      <Project>{98890c6d-b1a1-40a5-9baf-6d5c33debaf3}</Project>
+      <Name>QLGARADTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.vbproj">
+      <Project>{ac9d408a-10a6-4e83-9944-4b2864c6ba53}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
