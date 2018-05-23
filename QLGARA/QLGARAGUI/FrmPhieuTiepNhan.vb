@@ -106,55 +106,69 @@ Public Class FrmPhieuTiepNhan
         Dim thongtinxeDTO As New ThongTinXeDTO()
         Dim phieutiepnhanDTO As New PhieuTiepNhanDTO()
 
-        khachhangDTO.MaKH = tbMaCxe.Text
         khachhangDTO.TenKH = tbTenCxe.Text
         khachhangDTO.DiaChi = tbDiaChi.Text
         khachhangDTO.DienThoai = tbDienThoai.Text
 
-        Dim nextMaTTX = "1"
-        thongtinxeBUS.BuildMaTTXe(nextMaTTX)
-        thongtinxeDTO.MaTTXe = nextMaTTX
-        thongtinxeDTO.MaKH = khachhangDTO.MaKH
         thongtinxeDTO.MaHX = cbHieuxe.SelectedValue
         thongtinxeDTO.BienSo = tbBsoxe.Text
+
+        Dim result As Result
+        If (khachhangBUS.isvalidKhachHang(khachhangDTO) = -1) Then
+            khachhangDTO.MaKH = tbMaCxe.Text
+            result = khachhangBUS.Insert(khachhangDTO)
+            If (result.FlagResult = True) Then
+                MessageBox.Show("Thêm khách hàng thành công.", "Information",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Dim nextMaKH = "1"
+                result = khachhangBUS.BuildMaKH(nextMaKH)
+                tbMaCxe.Text = nextMaKH
+                tbTenCxe.Text = String.Empty
+                tbDiaChi.Text = String.Empty
+                tbDienThoai.Text = String.Empty
+
+
+                ' lưu thông tin xe
+                Dim nextMaTTX = "1"
+                thongtinxeBUS.BuildMaTTXe(nextMaTTX)
+                thongtinxeDTO.MaTTXe = nextMaTTX
+                thongtinxeDTO.MaKH = khachhangDTO.MaKH
+
+                result = thongtinxeBUS.Insert(thongtinxeDTO)
+                If (result.FlagResult = True) Then
+                    MessageBox.Show("Thêm thông tin xe thành công.", "Information",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    tbBsoxe.Text = String.Empty
+                Else
+                    MessageBox.Show("Thêm thông tin xe  không thành công.", "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    System.Console.WriteLine(result.SystemMessage)
+                End If
+
+            Else
+                MessageBox.Show("Thêm khách hàng không thành công.", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error)
+                System.Console.WriteLine(result.SystemMessage)
+            End If
+        Else
+            Dim listofkhachang As New List(Of KhachHangDTO)
+            listofkhachang = khachhangBUS.SelectALL()
+            khachhangDTO.MaKH = listofkhachang.ElementAt(khachhangBUS.isvalidKhachHang(khachhangDTO)).MaKH
+
+            Dim listofthongtinxe As New List(Of ThongTinXeDTO)
+            listofthongtinxe = thongtinxeBUS.SelectALL()
+            thongtinxeDTO.MaTTXe = listofthongtinxe.ElementAt(thongtinxeBUS.isvalidthongtinxe(thongtinxeDTO)).MaTTXe
+        End If
+
 
 
         phieutiepnhanDTO.MaPhieu = tbMaphieu.Text
         phieutiepnhanDTO.MaTTXe = thongtinxeDTO.MaTTXe
         phieutiepnhanDTO.NgayTiepNhan = dtpNgTiepNhan.Value
-
         'kiểm tra số lượng xe tiếp nhận
         If (phieutiepnhanBUS.isvalidNumber() = False) Then
             MessageBox.Show("Vượt quá số lượng xe tiếp nhận sửa chữa")
             Return
-        End If
-        Dim result As Result
-        'insert KHACHHANG
-        result = khachhangBUS.Insert(khachhangDTO)
-        If (result.FlagResult = True) Then
-            MessageBox.Show("Thêm khách hàng thành công.", "Information",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Dim nextMaKH = "1"
-            result = khachhangBUS.BuildMaKH(nextMaKH)
-            tbMaCxe.Text = nextMaKH
-            tbTenCxe.Text = String.Empty
-            tbDiaChi.Text = String.Empty
-            tbDienThoai.Text = String.Empty
-        Else
-            MessageBox.Show("Thêm khách hàng không thành công.", "Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error)
-            System.Console.WriteLine(result.SystemMessage)
-
-        End If
-        'insert TT_XE
-        result = thongtinxeBUS.Insert(thongtinxeDTO)
-        If (result.FlagResult = True) Then
-            MessageBox.Show("Thêm thông tin xe thành công.", "Information",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information)
-        Else
-            MessageBox.Show("Thêm thông tin xe  không thành công.", "Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error)
-            System.Console.WriteLine(result.SystemMessage)
         End If
         'insert PHIEUTN
         result = phieutiepnhanBUS.Insert(phieutiepnhanDTO)

@@ -126,7 +126,7 @@ Public Class KhachHangDAL
                 Catch ex As Exception
                     conn.Close()
                     System.Console.WriteLine(ex.StackTrace)
-                    Return New Result(False, "Sửa phiếu tiếp nhận thất bại", ex.StackTrace)
+                    Return New Result(False, "Sửa thông tin khách hàng thất bại", ex.StackTrace)
                 End Try
             End Using
         End Using
@@ -160,4 +160,41 @@ Public Class KhachHangDAL
         End Using
         Return New Result(True)
     End Function
+
+    Public Function SelectAll() As List(Of KhachHangDTO)
+        Dim query As String
+        Dim ListofKhachhang As New List(Of KhachHangDTO)()
+        query = String.Empty
+        query &= "SELECT *"
+        query &= "FROM [KHACHHANG]"
+
+        Using conn As New SqlConnection(connectionstring)
+            Using comm As New SqlCommand()
+                With comm
+                    .Connection = conn
+                    .CommandType = CommandType.Text
+                    .CommandText = query
+                End With
+                Try
+                    conn.Open()
+                    comm.ExecuteNonQuery()
+                    Dim reader As SqlDataReader
+                    reader = comm.ExecuteReader()
+                    If (reader.HasRows) Then
+                        While (reader.Read())
+                            ListofKhachhang.Add(New KhachHangDTO(reader("MaKH"), reader("TenKH"),
+                                             reader("DiaChi"), reader("DienThoai")))
+                        End While
+                    End If
+                Catch ex As Exception
+                    conn.Close()
+                    System.Console.WriteLine(ex.StackTrace)
+                    Return ListofKhachhang
+                End Try
+            End Using
+        End Using
+        Return ListofKhachhang
+    End Function
+
+
 End Class

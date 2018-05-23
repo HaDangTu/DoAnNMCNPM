@@ -5,7 +5,7 @@ Imports Utility
 Public Class PhieuTiepNhanBUS
     Private phieutiepnhanDAL As New PhieuTiepNhanDAL()
 
-    Public Function isvalidNumber()
+    Public Function isvalidNumber() As Boolean
         If (phieutiepnhanDAL.Count() > 30) Then
             Return False
         End If

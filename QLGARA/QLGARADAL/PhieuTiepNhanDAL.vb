@@ -191,4 +191,5 @@ Public Class PhieuTiepNhanDAL
         End Using
         Return Soluongxe
     End Function
+
 End Class

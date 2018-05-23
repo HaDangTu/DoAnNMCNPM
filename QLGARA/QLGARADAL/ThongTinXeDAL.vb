@@ -104,4 +104,98 @@ Public Class ThongTinXeDAL
         Return New Result(True)
     End Function
 
+    Public Function Update(thongtinxe As ThongTinXeDTO)
+        Dim query As String
+        query = String.Empty
+        query &= "UPDATE [TT_XE]"
+        query &= "SET [MaKH] = @MaKH, [MaHX] = @MaHX, [BienSo] = @BienSo"
+        query &= "WHERE [MaTTXe] = @MaTTXe"
+
+        Using conn As New SqlConnection(connectionstring)
+            Using comm As New SqlCommand()
+                With comm
+                    .Connection = conn
+                    .CommandType = CommandType.Text
+                    .CommandText = query
+                    .Parameters.AddWithValue("@MaTTxe", thongtinxe.MaTTXe)
+                    .Parameters.AddWithValue("@MaKH", thongtinxe.MaKH)
+                    .Parameters.AddWithValue("@MaHX", thongtinxe.MaHX)
+                    .Parameters.AddWithValue("@BienSo", thongtinxe.BienSo)
+                End With
+                Try
+                    conn.Open()
+                    comm.ExecuteNonQuery()
+                Catch ex As Exception
+                    conn.Close()
+                    System.Console.WriteLine(ex.StackTrace)
+                    Return New Result(False, "Sửa thông tin xe thất bại", ex.StackTrace)
+                End Try
+            End Using
+        End Using
+        Return New Result(True)
+    End Function
+
+    Public Function Delete(mathongtinxe As String) As Result
+        Dim query As String
+        query = String.Empty
+        query &= "DELETE FROM [TT_Xe]"
+        query &= "WHERE [MaTTXe] =  @MaTTXe"
+
+
+        Using conn As New SqlConnection(connectionstring)
+            Using comm As New SqlCommand()
+                With comm
+                    .Connection = conn
+                    .CommandType = CommandType.Text
+                    .CommandText = query
+                    .Parameters.AddWithValue("@MaTTXe", mathongtinxe)
+                End With
+                Try
+                    conn.Open()
+                    comm.ExecuteNonQuery()
+                Catch ex As Exception
+                    conn.Close()
+                    System.Console.WriteLine(ex.StackTrace)
+                    Return New Result(False, "Xóa thông tin thất bại", ex.StackTrace)
+                End Try
+            End Using
+        End Using
+        Return New Result(True)
+    End Function
+
+
+    Public Function SelectAll() As List(Of ThongTinXeDTO)
+        Dim query As String
+        Dim Listofthongtinxe As New List(Of ThongTinXeDTO)()
+        query = String.Empty
+        query &= "SELECT *"
+        query &= "FROM [TT_Xe]"
+
+        Using conn As New SqlConnection(connectionstring)
+            Using comm As New SqlCommand()
+                With comm
+                    .Connection = conn
+                    .CommandType = CommandType.Text
+                    .CommandText = query
+                End With
+                Try
+                    conn.Open()
+                    comm.ExecuteNonQuery()
+                    Dim reader As SqlDataReader
+                    reader = comm.ExecuteReader()
+                    If (reader.HasRows) Then
+                        While (reader.Read())
+                            Listofthongtinxe.Add(New ThongTinXeDTO(reader("MaTTXe"), reader("MaKH"),
+                                             reader("MaHX"), reader("BienSo")))
+                        End While
+                    End If
+                Catch ex As Exception
+                    conn.Close()
+                    System.Console.WriteLine(ex.StackTrace)
+                    Return Listofthongtinxe
+                End Try
+            End Using
+        End Using
+        Return Listofthongtinxe
+    End Function
 End Class
