@@ -8,8 +8,11 @@ Public Class FrmPhieuTiepNhan
     Private hieuxeBUS As New HieuXeBUS()
     Private hososuachuaBUS As New HoSoSuaChuaBUS()
 
+    Public Function LoadListofthongtinxe(ByRef listofthongtinxe As List(Of ThongTinXeDTO))
+        listofthongtinxe = thongtinxeBUS.SelectALL()
+    End Function
     Private Sub FrmPhieuTiepNhan_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Build ma phieu tiep nhan
+        ' Build ma phieu tiep nhan
 
         Dim listofhieuxe As List(Of HieuXeDTO)
         Dim nextmaphieu = "1"
@@ -23,7 +26,7 @@ Public Class FrmPhieuTiepNhan
             Return
         End If
         tbMaphieu.Text = nextmaphieu
-        'tạo combobox Hiệu xe
+        'tạo ComboBox Hiệu xe
 
         listofhieuxe = New List(Of HieuXeDTO)()
         result = hieuxeBUS.SelectAll(listofhieuxe)
@@ -51,7 +54,7 @@ Public Class FrmPhieuTiepNhan
         End If
         tbMaCxe.Text = nextMaKH
 
-        'tạo datagridview hồ sơ sửa chữa
+        'tạo DataGridView hồ sơ sửa chữa
 
         Dim listofHoSoSuaChua As List(Of HoSoSuaChuaDTO)
         listofHoSoSuaChua = New List(Of HoSoSuaChuaDTO)()
@@ -105,75 +108,73 @@ Public Class FrmPhieuTiepNhan
         Dim khachhangDTO As New KhachHangDTO()
         Dim thongtinxeDTO As New ThongTinXeDTO()
         Dim phieutiepnhanDTO As New PhieuTiepNhanDTO()
-
+        Dim result As Result
+        'thông tin khách hàng
         khachhangDTO.TenKH = tbTenCxe.Text
         khachhangDTO.DiaChi = tbDiaChi.Text
         khachhangDTO.DienThoai = tbDienThoai.Text
-
-        thongtinxeDTO.MaHX = cbHieuxe.SelectedValue
+        'thông tin xe
         thongtinxeDTO.BienSo = tbBsoxe.Text
+        'thông tin phiếu tiếp nhận
 
-        Dim result As Result
-        If (khachhangBUS.isvalidKhachHang(khachhangDTO) = -1) Then
+        phieutiepnhanDTO.MaPhieu = tbMaphieu.Text
+        phieutiepnhanDTO.NgayTiepNhan = dtpNgTiepNhan.Value
+
+        'kiểm tra số lượng xe tiếp nhận
+        If (phieutiepnhanBUS.isvalidNumber() = False) Then
+            MessageBox.Show("Vượt quá số lượng xe tiếp nhận sửa chữa trong ngày")
+            Return
+        End If
+
+        'kiểm tra khách hàng đã có trong danh sách hay chưa
+        'nếu chưa có thì lưu thông tin khách hàng
+        If (khachhangBUS.isvalidKhachHang(khachhangDTO) = False) Then
             khachhangDTO.MaKH = tbMaCxe.Text
+            khachhangDTO.TienNo = 0
             result = khachhangBUS.Insert(khachhangDTO)
             If (result.FlagResult = True) Then
                 MessageBox.Show("Thêm khách hàng thành công.", "Information",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Dim nextMaKH = "1"
-                result = khachhangBUS.BuildMaKH(nextMaKH)
-                tbMaCxe.Text = nextMaKH
-                tbTenCxe.Text = String.Empty
-                tbDiaChi.Text = String.Empty
-                tbDienThoai.Text = String.Empty
-
-
-                ' lưu thông tin xe
-                Dim nextMaTTX = "1"
-                thongtinxeBUS.BuildMaTTXe(nextMaTTX)
-                thongtinxeDTO.MaTTXe = nextMaTTX
-                thongtinxeDTO.MaKH = khachhangDTO.MaKH
-
-                result = thongtinxeBUS.Insert(thongtinxeDTO)
-                If (result.FlagResult = True) Then
-                    MessageBox.Show("Thêm thông tin xe thành công.", "Information",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    tbBsoxe.Text = String.Empty
-                Else
-                    MessageBox.Show("Thêm thông tin xe  không thành công.", "Error",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    System.Console.WriteLine(result.SystemMessage)
-                End If
-
             Else
                 MessageBox.Show("Thêm khách hàng không thành công.", "Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error)
                 System.Console.WriteLine(result.SystemMessage)
             End If
+        End If
+
+        'kiểm tra đã biển số xe này đã có chưa 
+        'nếu chưa có thì lưu lại đồng thời lưu phiếu tiếp nhận mới
+        If (thongtinxeBUS.isvalidthongtinxe(thongtinxeDTO) = False) Then
+            Dim nextmattxe = "1"
+            thongtinxeBUS.BuildMaTTXe(nextmattxe)
+            thongtinxeDTO.MaTTXe = nextmattxe
+            thongtinxeDTO.MaKH = khachhangDTO.MaKH
+            thongtinxeDTO.MaHX = cbHieuxe.SelectedValue
+            result = thongtinxeBUS.Insert(thongtinxeDTO)
+            If (result.FlagResult = True) Then
+                MessageBox.Show("Thêm thông tin xe thành công.", "Information",
+                               MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                MessageBox.Show("Thêm thông tin xe không thành công.", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error)
+                System.Console.WriteLine(result.SystemMessage)
+            End If
+
         Else
-            Dim listofkhachang As New List(Of KhachHangDTO)
-            listofkhachang = khachhangBUS.SelectALL()
-            khachhangDTO.MaKH = listofkhachang.ElementAt(khachhangBUS.isvalidKhachHang(khachhangDTO)).MaKH
-
-            Dim listofthongtinxe As New List(Of ThongTinXeDTO)
-            listofthongtinxe = thongtinxeBUS.SelectALL()
-            thongtinxeDTO.MaTTXe = listofthongtinxe.ElementAt(thongtinxeBUS.isvalidthongtinxe(thongtinxeDTO)).MaTTXe
+            Dim listofthongtinxe As New List(Of ThongTinXeDTO)()
+            LoadListofthongtinxe(listofthongtinxe)
+            For i As Integer = 0 To listofthongtinxe.Count
+                If (listofthongtinxe.ElementAt(i).BienSo = tbBsoxe.Text) Then
+                    phieutiepnhanDTO.MaTTXe = listofthongtinxe.ElementAt(i).MaTTXe
+                    Exit For
+                End If
+            Next
         End If
 
-
-
-        phieutiepnhanDTO.MaPhieu = tbMaphieu.Text
-        phieutiepnhanDTO.MaTTXe = thongtinxeDTO.MaTTXe
-        phieutiepnhanDTO.NgayTiepNhan = dtpNgTiepNhan.Value
-        'kiểm tra số lượng xe tiếp nhận
-        If (phieutiepnhanBUS.isvalidNumber() = False) Then
-            MessageBox.Show("Vượt quá số lượng xe tiếp nhận sửa chữa")
-            Return
-        End If
         'insert PHIEUTN
         result = phieutiepnhanBUS.Insert(phieutiepnhanDTO)
         If (result.FlagResult = True) Then
-            MessageBox.Show("Thêm phiếu tiếp nhận  thành công.", "Information",
+            MessageBox.Show("Thêm phiếu tiếp nhận thành công.", "Information",
                             MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             Dim nextMaphieu = "1"
@@ -187,6 +188,7 @@ Public Class FrmPhieuTiepNhan
 
         End If
 
+        'Cập nhật danh sách hồ sơ sửa chữa
         Dim listofHoSoSuaChua As List(Of HoSoSuaChuaDTO)
         listofHoSoSuaChua = New List(Of HoSoSuaChuaDTO)()
         result = hososuachuaBUS.SelectALL(listofHoSoSuaChua)

@@ -2,7 +2,6 @@
 Imports System.Configuration
 Imports System.Data.SqlClient
 Imports Utility
-
 Public Class PhieuTiepNhanDAL
     Private connectionstring As String
     Public Sub New()
@@ -57,7 +56,7 @@ Public Class PhieuTiepNhanDAL
                         tmp = converttodecimal.ToString()
                         nextMaphieu = nextMaphieu + tmp1 + tmp
                         System.Console.WriteLine(nextMaphieu)
-                        End If
+                    End If
                 Catch ex As Exception
                     conn.Close() 'Thất bại
                     System.Console.WriteLine(ex.StackTrace)
@@ -72,8 +71,8 @@ Public Class PhieuTiepNhanDAL
         Dim query As String
         query = String.Empty
         query &= "INSERT INTO [PHIEUTIEPNHAN]"
-        query &= " ([MaPhieuTN], [MaTTXe],[NgayTiepNhan])"
-        query &= "VALUES (@MaPhieuTN, @MaTTXe, @NgayTiepNhan)"
+        query &= " ([MaPhieuTN], [MaTTXe],[NgayNhan])"
+        query &= "VALUES (@MaPhieuTN, @MaTTXe, @NgayNhan)"
 
         Dim nextMaphieu As String
         nextMaphieu = "1"
@@ -88,7 +87,7 @@ Public Class PhieuTiepNhanDAL
                     .CommandText = query
                     .Parameters.AddWithValue("@MaPhieuTN", phieutiepnhan.MaPhieu)
                     .Parameters.AddWithValue("@MaTTxe", phieutiepnhan.MaTTXe)
-                    .Parameters.AddWithValue("@NgayTiepNhan", phieutiepnhan.NgayTiepNhan)
+                    .Parameters.AddWithValue("@NgayNhan", phieutiepnhan.NgayTiepNhan)
                 End With
                 Try
                     conn.Open()
@@ -107,7 +106,7 @@ Public Class PhieuTiepNhanDAL
         Dim query As String
         query = String.Empty
         query &= "UPDATE [PHIEUTIEPNHAN]"
-        query &= "SET [MaTTXe] = @MaTTXe, [NgayTiepNhan] = @NgayTiepNhan"
+        query &= "SET [MaTTXe] = @MaTTXe, [NgayNhan] = @NgayNhan"
         query &= "WHERE [MaPhieuTN] = @MaPhieuTN"
 
         Using conn As New SqlConnection(connectionstring)
@@ -117,7 +116,7 @@ Public Class PhieuTiepNhanDAL
                     .CommandType = CommandType.Text
                     .CommandText = query
                     .Parameters.AddWithValue("@MaTTxe", phieutiepnhan.MaTTXe)
-                    .Parameters.AddWithValue("@NgayTiepNhan", phieutiepnhan.NgayTiepNhan)
+                    .Parameters.AddWithValue("@NgayNhan", phieutiepnhan.NgayTiepNhan)
                 End With
                 Try
                     conn.Open()
@@ -192,4 +191,78 @@ Public Class PhieuTiepNhanDAL
         Return Soluongxe
     End Function
 
+    Public Function SelectALL() As List(Of PhieuTiepNhanDTO)
+        Dim query As String
+        Dim listofphieutiepnhan As New List(Of PhieuTiepNhanDTO)()
+        query = String.Empty
+        query &= "SELECT *"
+        query &= "FROM [PHIEUTIEPNHAN]"
+
+        Using conn As New SqlConnection(connectionstring)
+            Using comm As New SqlCommand()
+                With comm
+                    .Connection = conn
+                    .CommandType = CommandType.Text
+                    .CommandText = query
+                End With
+                Try
+                    conn.Open()
+                    comm.ExecuteNonQuery()
+                    Dim reader As SqlDataReader
+                    reader = comm.ExecuteReader()
+                    If (reader.HasRows) Then
+                        While (reader.Read())
+                            listofphieutiepnhan.Add(New PhieuTiepNhanDTO(reader("MaPhieuTN"), reader("MaTTXe"),
+                                             reader("NgayTiepNhan")))
+                        End While
+                    End If
+                Catch ex As Exception
+                    conn.Close()
+                    System.Console.WriteLine(ex.StackTrace)
+                    Return listofphieutiepnhan
+                End Try
+            End Using
+        End Using
+        Return listofphieutiepnhan
+    End Function
+
+    Public Function SelectPhieutiepNhan_ByBienso(bienso As String) As PhieuTiepNhanDTO
+        Dim Phieutiepnhan As New PhieuTiepNhanDTO()
+        Dim query As String
+        query = String.Empty
+        query &= "SELECT TOP 1 [MaPhieuTN], [TT_XE.MaTTXe], [NgayTiepNhan]"
+        query &= "FROM [PHIEUTIEPNHAN], [TT_XE]"
+        query &= "WHERE KHACHHANG.MaTTXe = TT_XE.MaTTXe AND [BienSo] = @BienSo"
+        query &= "ORDER BY [MaPhieuTN] DESC"
+
+        Using conn As New SqlConnection(connectionstring)
+            Using comm As New SqlCommand()
+                With comm
+                    .Connection = conn
+                    .CommandType = CommandType.Text
+                    .CommandText = query
+                    .Parameters.AddWithValue("@BienSo", bienso)
+                End With
+                Try
+                    conn.Open()
+                    comm.ExecuteNonQuery()
+                    Dim reader As SqlDataReader
+                    reader = comm.ExecuteReader()
+                    If (reader.HasRows) Then
+                        While (reader.Read())
+                            Phieutiepnhan = New PhieuTiepNhanDTO(reader("MaPhieuTN"),
+                                                                 reader("PHIEUTIEPNHAN.MaTTXe"),
+                                                                 reader("NgayTiepNhan"))
+
+                        End While
+                    End If
+                Catch ex As Exception
+                    conn.Close()
+                    System.Console.WriteLine(ex.StackTrace)
+                    Return Nothing
+                End Try
+            End Using
+        End Using
+        Return Phieutiepnhan
+    End Function
 End Class

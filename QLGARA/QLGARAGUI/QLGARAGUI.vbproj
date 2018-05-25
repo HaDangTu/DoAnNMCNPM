@@ -72,6 +72,18 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmPhieuThuTien.Designer.vb">
+      <DependentUpon>FrmPhieuThuTien.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPhieuThuTien.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMenu.Designer.vb">
+      <DependentUpon>FrmMenu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMenu.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FrmPhieuTiepNhan.Designer.vb">
       <DependentUpon>FrmPhieuTiepNhan.vb</DependentUpon>
     </Compile>
@@ -93,8 +105,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="FrmQLKhachHang.Designer.vb">
+      <DependentUpon>FrmQLKhachHang.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmQLKhachHang.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FrmPhieuThuTien.resx">
+      <DependentUpon>FrmPhieuThuTien.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMenu.resx">
+      <DependentUpon>FrmMenu.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmPhieuTiepNhan.resx">
       <DependentUpon>FrmPhieuTiepNhan.vb</DependentUpon>
     </EmbeddedResource>
@@ -103,6 +127,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmQLKhachHang.resx">
+      <DependentUpon>FrmQLKhachHang.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

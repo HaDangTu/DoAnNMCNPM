@@ -4,15 +4,15 @@ Imports Utility
 Public Class ThongTinXeBUS
     Private thongtinxeDAL As New ThongTinXeDAL()
 
-    Public Function isvalidthongtinxe(thongtinxeDTO As ThongTinXeDTO) As Integer
+    Public Function isvalidthongtinxe(thongtinxeDTO As ThongTinXeDTO) As Boolean
         Dim ListofThongtinxe As List(Of ThongTinXeDTO)
         ListofThongtinxe = thongtinxeDAL.SelectAll()
         For i As Integer = 0 To ListofThongtinxe.Count - 1
             If (thongtinxeDTO.BienSo = ListofThongtinxe.ElementAt(i).BienSo) Then
-                Return i
+                Return True
             End If
         Next
-        Return -1
+        Return False
     End Function
 
     Public Function Insert(thongtinxeDTO As ThongTinXeDTO) As Result

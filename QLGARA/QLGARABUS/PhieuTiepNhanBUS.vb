@@ -23,7 +23,13 @@ Public Class PhieuTiepNhanBUS
     Public Function Delete(maphieu As String) As Result
         Return phieutiepnhanDAL.Delete(maphieu)
     End Function
+    Public Function SelectAll() As List(Of PhieuTiepNhanDTO)
+        Return phieutiepnhanDAL.SelectALL()
+    End Function
 
+    Public Function SelectPhieutiepnhan_ByBienso(bienso As String) As PhieuTiepNhanDTO
+        Return phieutiepnhanDAL.SelectPhieutiepNhan_ByBienso(bienso)
+    End Function
     Public Function BuildMaPhieuTN(ByRef nextMaphieuTN As String) As Result
         Return phieutiepnhanDAL.BuildMaPhieu(nextMaphieuTN)
     End Function

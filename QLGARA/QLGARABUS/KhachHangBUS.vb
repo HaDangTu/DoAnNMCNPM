@@ -2,9 +2,9 @@
 Imports QLGARADTO
 Imports Utility
 Public Class KhachHangBUS
-    Private khachhangDAL As New KhachHangDAL()
+    Private khachhangDAL As New KhachhangDAL()
 
-    Public Function isvalidKhachHang(khachhang As KhachHangDTO) As Integer
+    Public Function isvalidKhachHang(khachhang As KhachHangDTO) As Boolean
 
         Dim listofkhachhang As New List(Of KhachHangDTO)()
         listofkhachhang = khachhangDAL.SelectAll()
@@ -12,10 +12,10 @@ Public Class KhachHangBUS
             If (khachhang.TenKH = listofkhachhang.ElementAt(i).TenKH And
                     khachhang.DiaChi = listofkhachhang.ElementAt(i).DiaChi And
                     khachhang.DienThoai = listofkhachhang.ElementAt(i).DienThoai) Then
-                Return i
+                Return True
             End If
         Next
-        Return -1
+        Return False
     End Function
     Public Function Insert(khachhangDTO As KhachHangDTO) As Result
         Return khachhangDAL.Insert(khachhangDTO)
@@ -35,5 +35,9 @@ Public Class KhachHangBUS
 
     Public Function SelectALL() As List(Of KhachHangDTO)
         Return khachhangDAL.SelectAll()
+    End Function
+
+    Public Function SelectMaKH_ByBienSo(bienso As String) As KhachHangDTO
+        Return khachhangDAL.SelectMaKH_byBienso(bienso)
     End Function
 End Class
