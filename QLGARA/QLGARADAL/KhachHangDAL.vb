@@ -108,8 +108,8 @@ Public Class KhachhangDAL
         Dim query As String
         query = String.Empty
         query &= "UPDATE [KHACHHANG]"
-        query &= "SET [TenKH] = @TenKH, [DiaChi] = @DiaChi, [DienThoai] = @DienThoai"
-        query &= "WHERE [MaKH] = @MaKH"
+        query &= " SET [TenKH] = @TenKH, [DiaChi] = @DiaChi, [DienThoai] = @DienThoai, [TienNo] = @TienNo"
+        query &= " WHERE [MaKH] = @MaKH"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -117,9 +117,11 @@ Public Class KhachhangDAL
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
+                    .Parameters.AddWithValue("@MaKH", khachhang.MaKH)
                     .Parameters.AddWithValue("@TenKH", khachhang.TenKH)
                     .Parameters.AddWithValue("@DiaChi", khachhang.DiaChi)
                     .Parameters.AddWithValue("@DienThoai", khachhang.DienThoai)
+                    .Parameters.AddWithValue("@TienNo", khachhang.TienNo)
                 End With
                 Try
                     conn.Open()
@@ -201,9 +203,9 @@ Public Class KhachhangDAL
         Dim Khachhang As New KhachHangDTO()
         Dim query As String
         query = String.Empty
-        query &= "SELECT [KHACHHANG.MaKH], [TenKH], [DiaChi], [DienThoai], [TienNo]"
-        query &= "FROM [KHACHHANG], [TT_XE]"
-        query &= "WHERE KHACHHANG.MaKH = TT_XE.MaKH AND [BienSo] = @BienSo"
+        query &= "SELECT [KHACHHANG].[MaKH], [TenKH], [DiaChi], [DienThoai], [TienNo]"
+        query &= " FROM [KHACHHANG], [TT_XE]"
+        query &= " WHERE KHACHHANG.MaKH = TT_XE.MaKH AND [BienSo] = @BienSo"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -220,7 +222,7 @@ Public Class KhachhangDAL
                     reader = comm.ExecuteReader()
                     If (reader.HasRows) Then
                         While (reader.Read())
-                            Khachhang = New KhachHangDTO(reader("KHACHHANG.MaKH"), reader("TenKH"),
+                            Khachhang = New KhachHangDTO(reader("MaKH"), reader("TenKH"),
                                                          reader("DiaChi"), reader("DienThoai"),
                                                          reader("TienNo"))
 

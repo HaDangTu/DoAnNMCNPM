@@ -72,7 +72,7 @@ Public Class PhieuTiepNhanDAL
         query = String.Empty
         query &= "INSERT INTO [PHIEUTIEPNHAN]"
         query &= " ([MaPhieuTN], [MaTTXe],[NgayNhan])"
-        query &= "VALUES (@MaPhieuTN, @MaTTXe, @NgayNhan)"
+        query &= " VALUES (@MaPhieuTN, @MaTTXe, @NgayNhan)"
 
         Dim nextMaphieu As String
         nextMaphieu = "1"
@@ -106,8 +106,8 @@ Public Class PhieuTiepNhanDAL
         Dim query As String
         query = String.Empty
         query &= "UPDATE [PHIEUTIEPNHAN]"
-        query &= "SET [MaTTXe] = @MaTTXe, [NgayNhan] = @NgayNhan"
-        query &= "WHERE [MaPhieuTN] = @MaPhieuTN"
+        query &= " SET [MaTTXe] = @MaTTXe, [NgayNhan] = @NgayNhan"
+        query &= " WHERE [MaPhieuTN] = @MaPhieuTN"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -115,6 +115,7 @@ Public Class PhieuTiepNhanDAL
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
+                    .Parameters.AddWithValue("@MaPhieuTN", phieutiepnhan.MaPhieu)
                     .Parameters.AddWithValue("@MaTTxe", phieutiepnhan.MaTTXe)
                     .Parameters.AddWithValue("@NgayNhan", phieutiepnhan.NgayTiepNhan)
                 End With
@@ -230,9 +231,10 @@ Public Class PhieuTiepNhanDAL
         Dim Phieutiepnhan As New PhieuTiepNhanDTO()
         Dim query As String
         query = String.Empty
-        query &= "SELECT TOP 1 [MaPhieuTN], [TT_XE.MaTTXe], [NgayTiepNhan]"
+        query &= "SELECT [MaPhieuTN], [TT_XE].[MaTTXe], [NgayNhan]"
         query &= "FROM [PHIEUTIEPNHAN], [TT_XE]"
-        query &= "WHERE KHACHHANG.MaTTXe = TT_XE.MaTTXe AND [BienSo] = @BienSo"
+        query &= "WHERE PHIEUTIEPNHAN.MaTTXe = TT_XE.MaTTXe "
+        query &= "AND [BienSo] = @BienSo"
         query &= "ORDER BY [MaPhieuTN] DESC"
 
         Using conn As New SqlConnection(connectionstring)
@@ -241,7 +243,7 @@ Public Class PhieuTiepNhanDAL
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
-                    .Parameters.AddWithValue("@BienSo", bienso)
+                    .Parameters.Add("@BienSo", SqlDbType.VarChar).Value = bienso
                 End With
                 Try
                     conn.Open()
@@ -249,10 +251,10 @@ Public Class PhieuTiepNhanDAL
                     Dim reader As SqlDataReader
                     reader = comm.ExecuteReader()
                     If (reader.HasRows) Then
-                        While (reader.Read())
+                        While reader.Read()
                             Phieutiepnhan = New PhieuTiepNhanDTO(reader("MaPhieuTN"),
-                                                                 reader("PHIEUTIEPNHAN.MaTTXe"),
-                                                                 reader("NgayTiepNhan"))
+                                                                 reader("MaTTXe"),
+                                                                 reader("NgayNhan"))
 
                         End While
                     End If

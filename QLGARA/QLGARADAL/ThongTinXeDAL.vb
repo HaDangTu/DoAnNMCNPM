@@ -108,8 +108,8 @@ Public Class ThongTinXeDAL
         Dim query As String
         query = String.Empty
         query &= "UPDATE [TT_XE]"
-        query &= "SET [MaKH] = @MaKH, [MaHX] = @MaHX, [BienSo] = @BienSo"
-        query &= "WHERE [MaTTXe] = @MaTTXe"
+        query &= " SET [MaKH] = @MaKH, [MaHX] = @MaHX, [BienSo] = @BienSo"
+        query &= " WHERE [MaTTXe] = @MaTTXe"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -197,5 +197,46 @@ Public Class ThongTinXeDAL
             End Using
         End Using
         Return Listofthongtinxe
+    End Function
+
+    Public Function SelectPhieutiepNhan_ByBienso(bienso As String) As PhieuTiepNhanDTO
+        Dim Phieutiepnhan As New PhieuTiepNhanDTO()
+        Dim query As String
+        query = String.Empty
+        query &= "SELECT [MaPhieuTN], [TT_XE].[MaTTXe], [NgayNhan]"
+        query &= " FROM [PHIEUTIEPNHAN], [TT_XE]"
+        query &= " WHERE PHIEUTIEPNHAN.MaTTXe = TT_XE.MaTTXe "
+        query &= " AND [BienSo] = @BienSo"
+        query &= " ORDER BY [MaPhieuTN] DESC"
+
+        Using conn As New SqlConnection(connectionstring)
+            Using comm As New SqlCommand()
+                With comm
+                    .Connection = conn
+                    .CommandType = CommandType.Text
+                    .CommandText = query
+                    .Parameters.AddWithValue("@BienSo", bienso)
+                End With
+                Try
+                    conn.Open()
+                    comm.ExecuteNonQuery()
+                    Dim reader As SqlDataReader
+                    reader = comm.ExecuteReader()
+                    If (reader.HasRows) Then
+                        While reader.Read()
+                            Phieutiepnhan = New PhieuTiepNhanDTO(reader("MaPhieuTN"),
+                                                                 reader("MaTTXe"),
+                                                                 reader("NgayNhan"))
+
+                        End While
+                    End If
+                Catch ex As Exception
+                    conn.Close()
+                    System.Console.WriteLine(ex.StackTrace)
+                    Return Nothing
+                End Try
+            End Using
+        End Using
+        Return Phieutiepnhan
     End Function
 End Class

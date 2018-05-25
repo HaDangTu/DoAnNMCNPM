@@ -27,6 +27,9 @@ Public Class ThongTinXeBUS
         Return thongtinxeDAL.Delete(mattxe)
     End Function
 
+    Public Function SelectPhieutiepnhan_byBienso(bienso As String)
+        Return thongtinxeDAL.SelectPhieutiepNhan_ByBienso(bienso)
+    End Function
     Public Function BuildMaTTXe(ByRef nextMaTTXe As String) As Result
         Return thongtinxeDAL.BuidMaTTXe(nextMaTTXe)
     End Function

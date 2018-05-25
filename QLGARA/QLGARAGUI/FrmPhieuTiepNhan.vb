@@ -8,8 +8,9 @@ Public Class FrmPhieuTiepNhan
     Private hieuxeBUS As New HieuXeBUS()
     Private hososuachuaBUS As New HoSoSuaChuaBUS()
 
-    Public Function LoadListofthongtinxe(ByRef listofthongtinxe As List(Of ThongTinXeDTO))
+    Public Function LoadListofthongtinxe(ByRef listofthongtinxe As List(Of ThongTinXeDTO)) As List(Of ThongTinXeDTO)
         listofthongtinxe = thongtinxeBUS.SelectALL()
+        Return listofthongtinxe
     End Function
     Private Sub FrmPhieuTiepNhan_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Build ma phieu tiep nhan

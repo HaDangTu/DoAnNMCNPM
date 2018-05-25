@@ -21,7 +21,7 @@ Public Class PhieuThuTienDAL
         Dim query As String
         query = String.Empty
         query &= "SELECT TOP 1 [MaPhieuThuTien]"
-        query &= "FROM [PHIEUTHUTIN]"
+        query &= "FROM [PHIEUTHUTIEN]"
         query &= "ORDER BY [MaPhieuThuTien] DESC"
 
         Using conn As New SqlConnection(connectionstring)
@@ -70,7 +70,7 @@ Public Class PhieuThuTienDAL
     Public Function Insert(phieuthutien As PhieuThuTienDTO) As Result
         Dim query As String
         query = String.Empty
-        query &= "INSERT INTO [PHIEUTIEPNHAN]"
+        query &= "INSERT INTO [PHIEUTHUTIEN]"
         query &= " ([MaPhieuThuTien], [MaPhieuTN],[NgayThuTien], [SoTienThu])"
         query &= "VALUES (@MaPhieuThuTien, @MaPhieuTN, @NgayThuTien, @SoTienThu)"
 
@@ -167,9 +167,9 @@ Public Class PhieuThuTienDAL
         Dim tienno As Double
         query = String.Empty
         query &= "SELECT [TienNo]"
-        query &= "FROM [KHACHHANG], [TT_XE]"
-        query &= "WHERE KHACHHANG.MaKH = TT_XE.MaKH"
-        query &= "AND [BienSoXe] = @BienSoXe"
+        query &= " FROM [KHACHHANG], [TT_XE]"
+        query &= " WHERE KHACHHANG.MaKH = TT_XE.MaKH"
+        query &= " AND [BienSo] = @BienSo"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -177,7 +177,7 @@ Public Class PhieuThuTienDAL
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
-                    .Parameters.AddWithValue("@BienSoXe", biensoxe)
+                    .Parameters.AddWithValue("@BienSo", biensoxe)
                 End With
                 Try
                     conn.Open()

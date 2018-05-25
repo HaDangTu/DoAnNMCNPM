@@ -2,7 +2,7 @@
     Dim strmaphieuthutien As String
     Dim strmaphieutiepnhan As String
     Dim dtngaythutien As DateTime
-    Dim numsotienthu As Long
+    Dim numsotienthu As Double
 
     Public Property MaPhieuThuTien As String
         Get

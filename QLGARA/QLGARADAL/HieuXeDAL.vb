@@ -105,8 +105,8 @@ Public Class HieuXeDAL
         Dim query As String
         query = String.Empty
         query &= "UPDATE [HIEUXE]"
-        query &= "SET [TenHX] = @TenHX"
-        query &= "WHERE [MaHX] = @MaHX"
+        query &= " SET [TenHX] = @TenHX"
+        query &= " WHERE [MaHX] = @MaHX"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -114,6 +114,7 @@ Public Class HieuXeDAL
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
+                    .Parameters.AddWithValue("@MaHX", hieuxe.MaHX)
                     .Parameters.AddWithValue("@TenHX", hieuxe.TenHX)
                 End With
                 Try
