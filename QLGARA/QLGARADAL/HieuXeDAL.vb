@@ -39,20 +39,19 @@ Public Class HieuXeDAL
                     Reader = comm.ExecuteReader()
                     If (Reader.HasRows = True) Then
                         While Reader.Read()
-                            msOnDB = Reader("[MaHX]")
+                            msOnDB = Reader("MaHX")
                         End While
                     End If
 
                     If (msOnDB <> Nothing And msOnDB.Length >= 8) Then
                         Dim tmp As String
                         Dim tmp1 As String
-                        tmp = msOnDB.Substring(2)
-                        tmp1 = msOnDB.Substring(2, 5)
+                        tmp = msOnDB.Substring(2) '000010
                         Dim converttodecimal As Decimal
                         converttodecimal = Convert.ToDecimal(tmp)
                         converttodecimal += 1
                         Dim v = converttodecimal.ToString()
-                        tmp1.Substring(0, tmp1.Length - v.Length + 1)
+                        tmp1 = tmp.Substring(0, tmp.Length - v.Length)
                         tmp = converttodecimal.ToString()
                         nextMaHX = nextMaHX + tmp1 + tmp
                         System.Console.WriteLine(nextMaHX)
@@ -71,8 +70,8 @@ Public Class HieuXeDAL
         Dim query As String
         query = String.Empty
         query &= "INSERT INTO [HIEUXE]"
-        query &= " ([MaHX], [TenHX])"
-        query &= "VALUES (@MaHX, @TenHX)"
+        query &= " ([MaHX], [TenHX], [NhanSua])"
+        query &= "VALUES (@MaHX, @TenHX, @NhanSua)"
 
         Dim nextMaHX As String
         nextMaHX = "1"
@@ -87,6 +86,7 @@ Public Class HieuXeDAL
                     .CommandText = query
                     .Parameters.AddWithValue("@MaHX", hieuxe.MaHX)
                     .Parameters.AddWithValue("@TenHX", hieuxe.TenHX)
+                    .Parameters.AddWithValue("@NhanSua", hieuxe.NhanSua)
                 End With
                 Try
                     conn.Open()
@@ -105,7 +105,7 @@ Public Class HieuXeDAL
         Dim query As String
         query = String.Empty
         query &= "UPDATE [HIEUXE]"
-        query &= " SET [TenHX] = @TenHX"
+        query &= " SET [TenHX] = @TenHX, [NhanSua] = @NhanSua"
         query &= " WHERE [MaHX] = @MaHX"
 
         Using conn As New SqlConnection(connectionstring)
@@ -116,6 +116,7 @@ Public Class HieuXeDAL
                     .CommandText = query
                     .Parameters.AddWithValue("@MaHX", hieuxe.MaHX)
                     .Parameters.AddWithValue("@TenHX", hieuxe.TenHX)
+                    .Parameters.AddWithValue("@NhanSua", hieuxe.NhanSua)
                 End With
                 Try
                     conn.Open()
@@ -161,7 +162,7 @@ Public Class HieuXeDAL
     Public Function Select_ALL(ByRef ListofHieuxe As List(Of HieuXeDTO)) As Result
         Dim query As String
         query = String.Empty
-        query &= "SELECT [MaHX], [TenHX] FROM [HIEUXE]"
+        query &= "SELECT * FROM [HIEUXE]"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -176,7 +177,7 @@ Public Class HieuXeDAL
                     Reader = comm.ExecuteReader()
                     If Reader.HasRows Then
                         While Reader.Read()
-                            ListofHieuxe.Add(New HieuXeDTO(Reader("MaHX"), Reader("TenHX")))
+                            ListofHieuxe.Add(New HieuXeDTO(Reader("MaHX"), Reader("TenHX"), Reader("NhanSua")))
                         End While
                     End If
                 Catch ex As Exception

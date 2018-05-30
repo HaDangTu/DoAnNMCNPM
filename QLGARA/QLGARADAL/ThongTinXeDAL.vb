@@ -48,12 +48,11 @@ Public Class ThongTinXeDAL
                         Dim tmp As String
                         Dim tmp1 As String
                         tmp = msOnDB.Substring(2)
-                        tmp1 = msOnDB.Substring(2, 5)
                         Dim converttodecimal As Decimal
                         converttodecimal = Convert.ToDecimal(tmp)
                         converttodecimal += 1
                         Dim v = converttodecimal.ToString()
-                        tmp1.Substring(0, tmp1.Length - v.Length + 1)
+                        tmp1 = tmp.Substring(0, tmp.Length - v.Length)
                         tmp = converttodecimal.ToString()
                         nextMaTTXe = nextMaTTXe + tmp1 + tmp
                         System.Console.WriteLine(nextMaTTXe)

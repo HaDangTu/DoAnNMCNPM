@@ -16,4 +16,10 @@
         frmLPthutien.MdiParent = Me
         frmLPthutien.Show()
     End Sub
+
+    Private Sub QuảnLíHiệuXeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles QuảnLíHiệuXeToolStripMenuItem.Click
+        Dim frmQLHieuXe As New FrmQLHieuXe()
+        frmQLHieuXe.MdiParent = Me
+        frmQLHieuXe.Show()
+    End Sub
 End Class

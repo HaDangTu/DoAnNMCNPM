@@ -128,7 +128,6 @@ Partial Class FrmQLKhachHang
         Me.tbMaKH.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbMaKH.Location = New System.Drawing.Point(116, 76)
         Me.tbMaKH.Name = "tbMaKH"
-        Me.tbMaKH.ReadOnly = True
         Me.tbMaKH.Size = New System.Drawing.Size(210, 25)
         Me.tbMaKH.TabIndex = 16
         '
@@ -180,7 +179,7 @@ Partial Class FrmQLKhachHang
         Me.btXoa.Text = "Xóa"
         Me.btXoa.UseVisualStyleBackColor = True
         '
-        'QLKhachHang
+        'FrmQLKhachHang
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -200,7 +199,7 @@ Partial Class FrmQLKhachHang
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.tbTenKH)
         Me.Controls.Add(Me.Label2)
-        Me.Name = "QLKhachHang"
+        Me.Name = "FrmQLKhachHang"
         Me.Text = "QLKhachHang"
         CType(Me.dgvDanhSachKH, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

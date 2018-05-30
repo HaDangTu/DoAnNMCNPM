@@ -66,6 +66,7 @@
     <Compile Include="HieuXeDTO.vb" />
     <Compile Include="HoSoSuaChuaDTO.vb" />
     <Compile Include="KhachHangDTO.vb" />
+    <Compile Include="LoaiTienCongDTO.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -81,9 +82,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="PhieuSuaChuaDTO.vb" />
     <Compile Include="PhieuThuTienDTO.vb" />
     <Compile Include="PhieuTiepNhanDTO.vb" />
+    <Compile Include="PhuTungDTO.vb" />
     <Compile Include="ThongTinXeDTO.vb" />
+    <Compile Include="TTPhieuSuaChuaDTO.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
