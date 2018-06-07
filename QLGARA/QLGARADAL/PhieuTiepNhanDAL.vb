@@ -231,10 +231,10 @@ Public Class PhieuTiepNhanDAL
         Dim query As String
         query = String.Empty
         query &= "SELECT [MaPhieuTN], [TT_XE].[MaTTXe], [NgayNhan]"
-        query &= "FROM [PHIEUTIEPNHAN], [TT_XE]"
-        query &= "WHERE PHIEUTIEPNHAN.MaTTXe = TT_XE.MaTTXe "
-        query &= "AND [BienSo] = @BienSo"
-        query &= "ORDER BY [MaPhieuTN] DESC"
+        query &= " FROM [PHIEUTIEPNHAN], [TT_XE]"
+        query &= " WHERE PHIEUTIEPNHAN.MaTTXe = TT_XE.MaTTXe "
+        query &= " AND [BienSo] = @BienSo"
+        query &= " ORDER BY [MaPhieuTN] DESC"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -242,7 +242,7 @@ Public Class PhieuTiepNhanDAL
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
-                    .Parameters.Add("@BienSo", SqlDbType.VarChar).Value = bienso
+                    .Parameters.AddWithValue("@BienSo", bienso)
                 End With
                 Try
                     conn.Open()

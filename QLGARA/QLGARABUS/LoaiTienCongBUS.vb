@@ -7,6 +7,7 @@ Public Class LoaiTienCongBUS
 
     Public Function isvalid_LoaiTienCong(matiencong As String) As Boolean
         Dim ListofLoaiTienCong As New List(Of LoaiTienCongDTO)()
+        ListofLoaiTienCong = loaitiencongDAL.SelectAll()
         For Each loaitiencongDTO As LoaiTienCongDTO In ListofLoaiTienCong
             If (loaitiencongDTO.MaTC = matiencong) Then
                 Return True

@@ -21,8 +21,8 @@ Public Class PhieuSuaChuaDAL
         Dim query As String
         query = String.Empty
         query &= "SELECT TOP 1 [MaPhieuSC]"
-        query &= "FROM [PHIEUSUACHUA]"
-        query &= "ORDER BY [MaPhieuSC] DESC"
+        query &= " FROM [PHIEUSUACHUA]"
+        query &= " ORDER BY [MaPhieuSC] DESC"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -135,7 +135,7 @@ Public Class PhieuSuaChuaDAL
         Dim query As String
         query = String.Empty
         query &= "DELETE FROM [PHIEUSUACHUA]"
-        query &= "WHERE [MaPhieuSC] =  @MaPhieuSC"
+        query &= " WHERE [MaPhieuSC] =  @MaPhieuSC"
 
 
         Using conn As New SqlConnection(connectionstring)
@@ -164,7 +164,7 @@ Public Class PhieuSuaChuaDAL
         Dim ListOfPhieuSuaChua As New List(Of PhieuSuaChuaDTO)()
         query = String.Empty
         query &= "SELECT *"
-        query &= "FROM [PHIEUSUACHUA]"
+        query &= " FROM [PHIEUSUACHUA]"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()

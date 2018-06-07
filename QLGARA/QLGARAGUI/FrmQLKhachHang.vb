@@ -130,6 +130,58 @@ Public Class FrmQLKhachHang
     End Sub
 
     Private Sub btXoa_Click(sender As Object, e As EventArgs) Handles btXoa.Click
+        ' Get the current cell location.
+        Dim currentRowIndex As Integer = dgvDanhSachKH.CurrentCellAddress.Y 'current row selected
 
+
+        'Verify that indexing OK
+        If (-1 < currentRowIndex And currentRowIndex < dgvDanhSachKH.RowCount) Then
+            Select Case MsgBox("Bạn có thực sự muốn xóa khách hàng có mã: " + tbMaKH.Text,
+                               MsgBoxStyle.YesNo, "Information")
+                Case MsgBoxResult.Yes
+                    Try
+
+                        '1. Delete from DB
+                        Dim result As Result
+                        result = khachhangBUS.Delete(tbMaKH.Text)
+                        If (result.FlagResult = True) Then
+
+                            ' reload Khahhang list
+                            loadListofKhachHang()
+
+                            ' Hightlight the next row on table
+                            If (currentRowIndex >= dgvDanhSachKH.Rows.Count) Then
+                                currentRowIndex = currentRowIndex - 1
+                            End If
+                            If (currentRowIndex >= 0) Then
+                                dgvDanhSachKH.Rows(currentRowIndex).Selected = True
+                                Try
+                                    Dim lkh = CType(dgvDanhSachKH.Rows(currentRowIndex).DataBoundItem,
+                                        KhachHangDTO)
+                                    tbMaKH.Text = lkh.MaKH
+                                    tbTenKH.Text = lkh.TenKH
+                                    tbDiaChi.Text = lkh.DiaChi
+                                    tbDienThoai.Text = lkh.DienThoai
+                                    tbTienNo.Text = lkh.TienNo.ToString()
+
+                                Catch ex As Exception
+                                    Console.WriteLine(ex.StackTrace)
+                                End Try
+                            End If
+                            MessageBox.Show("Xóa khách hàng thành công.", "Information", MessageBoxButtons.OK,
+                                            MessageBoxIcon.Information)
+                        Else
+                            MessageBox.Show("Xóa khách hàng không thành công.", "Error", MessageBoxButtons.OK,
+                                            MessageBoxIcon.Error)
+                            System.Console.WriteLine(result.SystemMessage)
+                        End If
+                    Catch ex As Exception
+                        Console.WriteLine(ex.StackTrace)
+                    End Try
+                Case MsgBoxResult.No
+                    Return
+            End Select
+
+        End If
     End Sub
 End Class

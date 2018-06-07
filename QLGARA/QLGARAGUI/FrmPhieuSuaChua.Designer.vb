@@ -32,6 +32,7 @@ Partial Class FrmPhieuSuaChua
         Me.btLapPhieu = New System.Windows.Forms.Button()
         Me.dgvTT_PhieuSC = New System.Windows.Forms.DataGridView()
         Me.Label10 = New System.Windows.Forms.Label()
+        Me.btRefresh = New System.Windows.Forms.Button()
         CType(Me.dgvTT_PhieuSC, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -86,7 +87,7 @@ Partial Class FrmPhieuSuaChua
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Times New Roman", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(376, 9)
+        Me.Label4.Location = New System.Drawing.Point(341, 9)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(187, 33)
         Me.Label4.TabIndex = 3
@@ -103,7 +104,7 @@ Partial Class FrmPhieuSuaChua
         'btLapPhieu
         '
         Me.btLapPhieu.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btLapPhieu.Location = New System.Drawing.Point(426, 417)
+        Me.btLapPhieu.Location = New System.Drawing.Point(303, 417)
         Me.btLapPhieu.Name = "btLapPhieu"
         Me.btLapPhieu.Size = New System.Drawing.Size(89, 43)
         Me.btLapPhieu.TabIndex = 6
@@ -128,11 +129,22 @@ Partial Class FrmPhieuSuaChua
         Me.Label10.TabIndex = 8
         Me.Label10.Text = "Thông tin phiếu sửa chữa"
         '
+        'btRefresh
+        '
+        Me.btRefresh.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btRefresh.Location = New System.Drawing.Point(475, 417)
+        Me.btRefresh.Name = "btRefresh"
+        Me.btRefresh.Size = New System.Drawing.Size(89, 43)
+        Me.btRefresh.TabIndex = 9
+        Me.btRefresh.Text = "Refresh"
+        Me.btRefresh.UseVisualStyleBackColor = True
+        '
         'FrmPhieuSuaChua
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(895, 567)
+        Me.Controls.Add(Me.btRefresh)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.dgvTT_PhieuSC)
         Me.Controls.Add(Me.btLapPhieu)
@@ -161,4 +173,5 @@ Partial Class FrmPhieuSuaChua
     Friend WithEvents btLapPhieu As Button
     Friend WithEvents dgvTT_PhieuSC As DataGridView
     Friend WithEvents Label10 As Label
+    Friend WithEvents btRefresh As Button
 End Class

@@ -1,4 +1,5 @@
 Public Class TTPhieuSuaChuaDTO
+    Dim strmattphieusuachua As String
     Dim strmaphieusc As String
     Dim strmaphutung As String
     Dim strnoidung As String
@@ -23,7 +24,7 @@ Public Class TTPhieuSuaChuaDTO
         End Set
     End Property
 
-     Public Property NoiDung As String
+    Public Property NoiDung As String
         Get
             Return strnoidung
         End Get
@@ -50,14 +51,24 @@ Public Class TTPhieuSuaChuaDTO
         End Set
     End Property
 
+    Public Property MaTTPhieuSuaChua As String
+        Get
+            Return strmattphieusuachua
+        End Get
+        Set(value As String)
+            strmattphieusuachua = value
+        End Set
+    End Property
+
     Public Sub New()
 
     End Sub
 
-    Public Sub New(a As String, b As String, c As String, d As Double, e As String)
+    Public Sub New(mattphieusc As String, a As String, b As String, c As String, d As Double, e As String)
+        strmattphieusuachua = mattphieusc
         strmaphieusc = a
         strmaphutung = b
-	strnoidung = c
+        strnoidung = c
         numsoluong = d
         strmatiencong = e
     End Sub

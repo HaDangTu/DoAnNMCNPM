@@ -7,8 +7,9 @@ Public Class PhuTungBUS
 
     Public Function isvalidPhuTung(phutung As String) As Boolean
         Dim ListofPhuTung As New List(Of PhuTungDTO)()
+        ListofPhuTung = phutungDAL.SelectAll()
         For Each phutungDTO As PhuTungDTO In ListofPhuTung
-            If (phutung = phutungDTO.TenPhuTung) Then
+            If (phutung = phutungDTO.MaPhuTung) Then
                 Return True
             End If
         Next

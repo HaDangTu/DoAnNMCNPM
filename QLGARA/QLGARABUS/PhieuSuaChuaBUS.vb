@@ -26,7 +26,7 @@ Public Class PhieuSuaChuaBUS
         Return phieusuachuaDAL.Delete(maphieuSC)
     End Function
 
-    Public Function BuildMaPhieuSC(nextMaPhieuSC As String)
+    Public Function BuildMaPhieuSC(ByRef nextMaPhieuSC As String)
         Return phieusuachuaDAL.BuildMaPhieuSC(nextMaPhieuSC)
     End Function
 
