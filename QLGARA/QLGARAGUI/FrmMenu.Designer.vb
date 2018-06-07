@@ -31,6 +31,7 @@ Partial Class FrmMenu
         Me.LậpPhiếuThuTiềnToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TraCứuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BáoBiểuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LậpPhiếuSửaChữaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -64,7 +65,7 @@ Partial Class FrmMenu
         '
         'LưuTrữToolStripMenuItem
         '
-        Me.LưuTrữToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LậpPhiếuTiếpNhậnToolStripMenuItem, Me.LậpPhiếuThuTiềnToolStripMenuItem})
+        Me.LưuTrữToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LậpPhiếuTiếpNhậnToolStripMenuItem, Me.LậpPhiếuSửaChữaToolStripMenuItem, Me.LậpPhiếuThuTiềnToolStripMenuItem})
         Me.LưuTrữToolStripMenuItem.Name = "LưuTrữToolStripMenuItem"
         Me.LưuTrữToolStripMenuItem.Size = New System.Drawing.Size(71, 20)
         Me.LưuTrữToolStripMenuItem.Text = "Lập Phiếu"
@@ -93,6 +94,12 @@ Partial Class FrmMenu
         Me.BáoBiểuToolStripMenuItem.Size = New System.Drawing.Size(65, 20)
         Me.BáoBiểuToolStripMenuItem.Text = "Báo biểu"
         '
+        'LậpPhiếuSửaChữaToolStripMenuItem
+        '
+        Me.LậpPhiếuSửaChữaToolStripMenuItem.Name = "LậpPhiếuSửaChữaToolStripMenuItem"
+        Me.LậpPhiếuSửaChữaToolStripMenuItem.Size = New System.Drawing.Size(179, 22)
+        Me.LậpPhiếuSửaChữaToolStripMenuItem.Text = "Lập phiếu sửa chữa"
+        '
         'FrmMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -120,4 +127,5 @@ Partial Class FrmMenu
     Friend WithEvents BáoBiểuToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LậpPhiếuTiếpNhậnToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LậpPhiếuThuTiềnToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents LậpPhiếuSửaChữaToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -22,4 +22,10 @@
         frmQLHieuXe.MdiParent = Me
         frmQLHieuXe.Show()
     End Sub
+
+    Private Sub LậpPhiếuSửaChữaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LậpPhiếuSửaChữaToolStripMenuItem.Click
+        Dim frmPhieuSuaChua As New FrmPhieuSuaChua()
+        frmPhieuSuaChua.MdiParent = Me
+        frmPhieuSuaChua.Show()
+    End Sub
 End Class

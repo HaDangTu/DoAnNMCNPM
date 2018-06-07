@@ -2,7 +2,7 @@
 Imports System.Configuration
 Imports System.Data.SqlClient
 Imports Utility
-Public Class KhachhangDAL
+Public Class PhieuSuaChuaDAL
     Private connectionstring As String
     Public Sub New()
         'Read ConnectionString value from App.config file
@@ -13,16 +13,16 @@ Public Class KhachhangDAL
         connectionstring = connstring
     End Sub
 
-    Public Function BuildMaKH(ByRef nextMaKH As String) As Result
-        nextMaKH = String.Empty
-        Dim prefix = "KH"
-        nextMaKH = prefix
+    Public Function BuildMaPhieuSC(ByRef nextMaPhieuSC As String) As Result
+        nextMaPhieuSC = String.Empty
+        Dim prefix = "SC"
+        nextMaPhieuSC = prefix
 
         Dim query As String
         query = String.Empty
-        query &= "SELECT TOP 1 [MaKH]"
-        query &= " FROM [KHACHHANG]"
-        query &= " ORDER BY [MaKH] DESC"
+        query &= "SELECT TOP 1 [MaPhieuSC]"
+        query &= "FROM [PHIEUSUACHUA]"
+        query &= "ORDER BY [MaPhieuSC] DESC"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -39,7 +39,7 @@ Public Class KhachhangDAL
                     Reader = comm.ExecuteReader()
                     If (Reader.HasRows = True) Then
                         While Reader.Read()
-                            msOnDB = Reader("MaKH")
+                            msOnDB = Reader("MaPhieuSC")
                         End While
                     End If
 
@@ -53,30 +53,30 @@ Public Class KhachhangDAL
                         Dim v = converttodecimal.ToString()
                         tmp1 = tmp.Substring(0, tmp.Length - v.Length)
                         tmp = converttodecimal.ToString()
-                        nextMaKH = nextMaKH + tmp1 + tmp
-                        System.Console.WriteLine(nextMaKH)
+                        nextMaPhieuSC = nextMaPhieuSC + tmp1 + tmp
+                        System.Console.WriteLine(nextMaPhieuSC)
                     End If
                 Catch ex As Exception
                     conn.Close() 'Thất bại
                     System.Console.WriteLine(ex.StackTrace)
-                    Return New Result(False, "Lấy mã khách hàng kế tiếp không thành công", ex.StackTrace)
+                    Return New Result(False, "Lấy mã phiếu sửa chữa kế tiếp không thành công", ex.StackTrace)
                 End Try
             End Using
         End Using
         Return New Result(True) 'Thành công
     End Function
 
-    Public Function Insert(khachhang As KhachHangDTO) As Result
+    Public Function Insert(phieusuachua As PhieuSuaChuaDTO) As Result
         Dim query As String
         query = String.Empty
-        query &= "INSERT INTO [KHACHHANG]"
-        query &= " ([MaKH], [TenKH], [DiaChi], [DienThoai], [TienNo])"
-        query &= " VALUES (@MaKH, @TenKH, @DiaChi, @DienThoai, @TienNo)"
+        query &= "INSERT INTO [PHIEUSUACHUA]"
+        query &= " ([MaPhieuSC], [MaPhieuTN], [NgaySC])"
+        query &= " VALUES (@MaPhieuSC, @MaPhieuTN, @NgaySC)"
 
-        Dim nextMaKH As String
-        nextMaKH = "1"
-        BuildMaKH(nextMaKH)
-        khachhang.MaKH = nextMaKH
+        Dim nextMaPhieuSC As String
+        nextMaPhieuSC = "1"
+        BuildMaPhieuSC(nextMaPhieuSC)
+        phieusuachua.MaPhieuSC = nextMaPhieuSC
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -84,11 +84,9 @@ Public Class KhachhangDAL
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
-                    .Parameters.AddWithValue("@MaKH", khachhang.MaKH)
-                    .Parameters.AddWithValue("@TenKH", khachhang.TenKH)
-                    .Parameters.AddWithValue("@DiaChi", khachhang.DiaChi)
-                    .Parameters.AddWithValue("@DienThoai", khachhang.DienThoai)
-                    .Parameters.AddWithValue("@TienNo", khachhang.TienNo)
+                    .Parameters.AddWithValue("@MaPhieuSC", phieusuachua.MaPhieuSC)
+                    .Parameters.AddWithValue("@MaPhieuTN", phieusuachua.MaPhieuTN)
+                    .Parameters.AddWithValue("@NgaySC", phieusuachua.NgaySC)
                 End With
                 Try
                     conn.Open()
@@ -96,19 +94,19 @@ Public Class KhachhangDAL
                 Catch ex As Exception
                     conn.Close()
                     System.Console.WriteLine(ex.StackTrace)
-                    Return New Result(False, "Thêm khách hàng thất bại", ex.StackTrace)
+                    Return New Result(False, "Thêm phiếu sửa chữa thành công thất bại", ex.StackTrace)
                 End Try
             End Using
         End Using
         Return New Result(True)
     End Function
 
-    Public Function Update(khachhang As KhachHangDTO) As Result
+    Public Function Update(phieusuachua As PhieuSuaChuaDTO) As Result
         Dim query As String
         query = String.Empty
-        query &= "UPDATE [KHACHHANG]"
-        query &= " SET [TenKH] = @TenKH, [DiaChi] = @DiaChi, [DienThoai] = @DienThoai, [TienNo] = @TienNo"
-        query &= " WHERE [MaKH] = @MaKH"
+        query &= "UPDATE [PHIEUSUACHUA]"
+        query &= " SET [MaPhieuTN] = @MaPhieuTN, [NgaySC] = @NgaySC"
+        query &= " WHERE [MaPhieuSC] = @MaPhieuSC"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -116,11 +114,9 @@ Public Class KhachhangDAL
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
-                    .Parameters.AddWithValue("@MaKH", khachhang.MaKH)
-                    .Parameters.AddWithValue("@TenKH", khachhang.TenKH)
-                    .Parameters.AddWithValue("@DiaChi", khachhang.DiaChi)
-                    .Parameters.AddWithValue("@DienThoai", khachhang.DienThoai)
-                    .Parameters.AddWithValue("@TienNo", khachhang.TienNo)
+                    .Parameters.AddWithValue("@MaPhieuSC", phieusuachua.MaPhieuSC)
+                    .Parameters.AddWithValue("@MaPhieuTN", phieusuachua.MaPhieuTN)
+                    .Parameters.AddWithValue("@NgaySC", phieusuachua.NgaySC)
                 End With
                 Try
                     conn.Open()
@@ -128,18 +124,18 @@ Public Class KhachhangDAL
                 Catch ex As Exception
                     conn.Close()
                     System.Console.WriteLine(ex.StackTrace)
-                    Return New Result(False, "Sửa thông tin khách hàng thất bại", ex.StackTrace)
+                    Return New Result(False, "Sửa thông tin phiếu sửa chữa thất bại", ex.StackTrace)
                 End Try
             End Using
         End Using
         Return New Result(True)
     End Function
 
-    Public Function Delete(makh As String) As Result
+    Public Function Delete(maphieusc As String) As Result
         Dim query As String
         query = String.Empty
-        query &= " DELETE FROM [KHACHHANG]"
-        query &= " WHERE [MaKH] =  @MaKH"
+        query &= "DELETE FROM [PHIEUSUACHUA]"
+        query &= "WHERE [MaPhieuSC] =  @MaPhieuSC"
 
 
         Using conn As New SqlConnection(connectionstring)
@@ -148,7 +144,7 @@ Public Class KhachhangDAL
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
-                    .Parameters.AddWithValue("@MaKH", makh)
+                    .Parameters.AddWithValue("@MaPhieuSC", maphieusc)
                 End With
                 Try
                     conn.Open()
@@ -156,19 +152,19 @@ Public Class KhachhangDAL
                 Catch ex As Exception
                     conn.Close()
                     System.Console.WriteLine(ex.StackTrace)
-                    Return New Result(False, "Xóa khách hàng thất bại", ex.StackTrace)
+                    Return New Result(False, "Xóa phiếu sửa chữa  thất bại", ex.StackTrace)
                 End Try
             End Using
         End Using
         Return New Result(True)
     End Function
 
-    Public Function SelectAll() As List(Of KhachHangDTO)
+    Public Function SelectAll() As List(Of PhieuSuaChuaDTO)
         Dim query As String
-        Dim ListofKhachhang As New List(Of KhachHangDTO)()
+        Dim ListOfPhieuSuaChua As New List(Of PhieuSuaChuaDTO)()
         query = String.Empty
         query &= "SELECT *"
-        query &= " FROM [KHACHHANG]"
+        query &= "FROM [PHIEUSUACHUA]"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -184,8 +180,8 @@ Public Class KhachhangDAL
                     reader = comm.ExecuteReader()
                     If (reader.HasRows) Then
                         While (reader.Read())
-                            ListofKhachhang.Add(New KhachHangDTO(reader("MaKH"), reader("TenKH"),
-                                             reader("DiaChi"), reader("DienThoai"), reader("TienNo")))
+                            ListOfPhieuSuaChua.Add(New PhieuSuaChuaDTO(reader("MaPhieuSC"), reader("MaPhieuTN"),
+                                             reader("NgaySC")))
                         End While
                     End If
                 Catch ex As Exception
@@ -195,45 +191,6 @@ Public Class KhachhangDAL
                 End Try
             End Using
         End Using
-        Return ListofKhachhang
-    End Function
-
-    Public Function SelectMaKH_byBienso(bienso As String) As KhachHangDTO
-        Dim Khachhang As New KhachHangDTO()
-        Dim query As String
-        query = String.Empty
-        query &= "SELECT [KHACHHANG].[MaKH], [TenKH], [DiaChi], [DienThoai], [TienNo]"
-        query &= " FROM [KHACHHANG], [TT_XE]"
-        query &= " WHERE KHACHHANG.MaKH = TT_XE.MaKH AND [BienSo] = @BienSo"
-
-        Using conn As New SqlConnection(connectionstring)
-            Using comm As New SqlCommand()
-                With comm
-                    .Connection = conn
-                    .CommandType = CommandType.Text
-                    .CommandText = query
-                    .Parameters.AddWithValue("@BienSo", bienso)
-                End With
-                Try
-                    conn.Open()
-                    comm.ExecuteNonQuery()
-                    Dim reader As SqlDataReader
-                    reader = comm.ExecuteReader()
-                    If (reader.HasRows) Then
-                        While (reader.Read())
-                            Khachhang = New KhachHangDTO(reader("MaKH"), reader("TenKH"),
-                                                         reader("DiaChi"), reader("DienThoai"),
-                                                         reader("TienNo"))
-
-                        End While
-                    End If
-                Catch ex As Exception
-                    conn.Close()
-                    System.Console.WriteLine(ex.StackTrace)
-                    Return Nothing
-                End Try
-            End Using
-        End Using
-        Return Khachhang
+        Return ListOfPhieuSuaChua
     End Function
 End Class

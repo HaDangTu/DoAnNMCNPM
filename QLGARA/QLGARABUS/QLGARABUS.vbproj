@@ -66,6 +66,7 @@
     <Compile Include="HieuXeBUS.vb" />
     <Compile Include="HoSoSuaChuaBUS.vb" />
     <Compile Include="KhachHangBUS.vb" />
+    <Compile Include="LoaiTienCongBUS.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -81,9 +82,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="PhieuSuaChuaBUS.vb" />
     <Compile Include="PhieuThuTienBUS.vb" />
     <Compile Include="PhieuTiepNhanBUS.vb" />
+    <Compile Include="PhuTungBUS.vb" />
     <Compile Include="ThongTinXeBUS.vb" />
+    <Compile Include="TTPhieuSuaChuaBUS.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

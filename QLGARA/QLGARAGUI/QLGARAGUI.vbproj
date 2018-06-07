@@ -72,6 +72,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmPhieuSuaChua.Designer.vb">
+      <DependentUpon>FrmPhieuSuaChua.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPhieuSuaChua.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FrmPhieuThuTien.Designer.vb">
       <DependentUpon>FrmPhieuThuTien.vb</DependentUpon>
     </Compile>
@@ -119,6 +125,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FrmPhieuSuaChua.resx">
+      <DependentUpon>FrmPhieuSuaChua.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmPhieuThuTien.resx">
       <DependentUpon>FrmPhieuThuTien.vb</DependentUpon>
     </EmbeddedResource>
