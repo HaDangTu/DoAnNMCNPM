@@ -193,4 +193,43 @@ Public Class PhieuSuaChuaDAL
         End Using
         Return ListOfPhieuSuaChua
     End Function
+
+    Public Function Select_MaPhieuSC_byBienSo(bienso As String) As String
+        Dim mpSC As String
+        mpSC = String.Empty
+        Dim query As String
+        query = String.Empty
+        query &= "SELECT [MaPhieuSC] "
+        query &= "FROM [TT_XE], [PHIEUTIEPNHAN], [PHIEUSUACHUA] "
+        query &= "WHERE TT_XE.MaTTXe = PHIEUTIEPNHAN.MaTTXe "
+        query &= "AND PHIEUTIEPNHAN.MaPhieuTN = PHIEUSUACHUA.MaPhieuTN "
+        query &= "AND [BienSo] = @BienSo"
+
+        Using conn As New SqlConnection(connectionstring)
+            Using comm As New SqlCommand()
+                With comm
+                    .Connection = conn
+                    .CommandType = CommandType.Text
+                    .CommandText = query
+                    .Parameters.AddWithValue("@BienSo", bienso)
+                End With
+                Try
+                    conn.Open()
+                    comm.ExecuteNonQuery()
+                    Dim reader As SqlDataReader
+                    reader = comm.ExecuteReader()
+                    If (reader.HasRows) Then
+                        While (reader.Read())
+                            mpSC = reader("MaPhieuSC")
+                        End While
+                    End If
+                Catch ex As Exception
+                    conn.Close()
+                    System.Console.WriteLine(ex.StackTrace)
+                    Return Nothing
+                End Try
+            End Using
+        End Using
+        Return mpSC
+    End Function
 End Class

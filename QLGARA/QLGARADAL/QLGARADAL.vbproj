@@ -64,6 +64,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DanhSachXeDAL.vb" />
     <Compile Include="HieuXeDAL.vb" />
     <Compile Include="HoSoSuaChuaDAL.vb" />
     <Compile Include="KhachhangDAL.vb" />

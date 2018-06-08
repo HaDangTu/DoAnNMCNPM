@@ -105,6 +105,35 @@ Public Class FrmPhieuSuaChua
         Dim maphieutiepnhan As String
         maphieutiepnhan = phieutiepnhanBUS.SelectPhieutiepnhan_ByBienso(tbBienSo.Text).MaPhieu
 
+        'Kiểm tra mã phiếu đã lập phiếu sửa chữa hay chưa
+        If (phieusuachuaBUS.isvalidPhieuTN(maphieutiepnhan) = True) Then
+            'Insert Phiếu sửa chữa
+            phieusuachuaDTO.MaPhieuSC = tbMaPhieuSC.Text
+            phieusuachuaDTO.MaPhieuTN = maphieutiepnhan
+            phieusuachuaDTO.NgaySC = dtpNgaySuaChua.Value
+
+            result = phieusuachuaBUS.Insert(phieusuachuaDTO)
+            If (result.FlagResult = True) Then
+                MessageBox.Show("Lập phiếu sửa chữa thành công.", "Information", MessageBoxButtons.OK,
+                                MessageBoxIcon.Information)
+
+                Dim nextMaPhieuSC = "1"
+                result = phieusuachuaBUS.BuildMaPhieuSC(nextMaPhieuSC)
+                If (result.FlagResult = False) Then
+                    MessageBox.Show("Lấy mã phiếu sửa chữa kế tiếp không thành công.", "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return
+                End If
+                tbMaPhieuSC.Text = nextMaPhieuSC
+            Else
+                MessageBox.Show("Lập phiếu sửa chữa không thành công không thành công.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                System.Console.WriteLine(result.SystemMessage)
+                Return
+            End If
+        Else
+            phieusuachuaDTO.MaPhieuSC = phieusuachuaBUS.Select_MaPhieuSC_byBienSo(tbBienSo.Text)
+        End If
+
         'Kiểm tra loại vật tư phụ tùng có nằm trong danh sách vật tư phụ tùng hay không
         For Each row As DataGridViewRow In dgvTT_PhieuSC.Rows
             If (phutungBUS.isvalidPhuTung(row.Cells("TenPhuTung").Value) = False And
@@ -148,30 +177,6 @@ Public Class FrmPhieuSuaChua
             End If
         Next
 
-
-        'Insert Phiếu sửa chữa
-        phieusuachuaDTO.MaPhieuSC = tbMaPhieuSC.Text
-        phieusuachuaDTO.MaPhieuTN = maphieutiepnhan
-        phieusuachuaDTO.NgaySC = dtpNgaySuaChua.Value
-
-        result = phieusuachuaBUS.Insert(phieusuachuaDTO)
-        If (result.FlagResult = True) Then
-            MessageBox.Show("Lập phiếu sửa chữa thành công.", "Information", MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
-
-            Dim nextMaPhieuSC = "1"
-            result = phieusuachuaBUS.BuildMaPhieuSC(nextMaPhieuSC)
-            If (result.FlagResult = False) Then
-                MessageBox.Show("Lấy mã phiếu sửa chữa kế tiếp không thành công.", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End If
-            tbMaPhieuSC.Text = nextMaPhieuSC
-        Else
-            MessageBox.Show("Lập phiếu sửa chữa không thành công không thành công.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            System.Console.WriteLine(result.SystemMessage)
-        End If
-
         'Insert Thông tin sửa chữa
         tt_phieusuachuaDTO.MaPhieuSC = phieusuachuaDTO.MaPhieuSC
         For Each row As DataGridViewRow In dgvTT_PhieuSC.Rows
@@ -192,6 +197,7 @@ Public Class FrmPhieuSuaChua
                 Else
                     MessageBox.Show("Thêm thông tin phiếu sửa chữa không thành công.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     System.Console.WriteLine(result.SystemMessage)
+                    Return
                 End If
             End If
         Next

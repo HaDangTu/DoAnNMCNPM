@@ -28,4 +28,10 @@
         frmPhieuSuaChua.MdiParent = Me
         frmPhieuSuaChua.Show()
     End Sub
+
+    Private Sub TraCứuXeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TraCứuXeToolStripMenuItem.Click
+        Dim frmTraCuu As New FrmTraCuu()
+        frmTraCuu.MdiParent = Me
+        frmTraCuu.Show()
+    End Sub
 End Class

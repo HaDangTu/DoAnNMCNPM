@@ -30,5 +30,7 @@ Public Class PhieuSuaChuaBUS
         Return phieusuachuaDAL.BuildMaPhieuSC(nextMaPhieuSC)
     End Function
 
-
+    Public Function Select_MaPhieuSC_byBienSo(bienso As String) As String
+        Return phieusuachuaDAL.Select_MaPhieuSC_byBienSo(bienso)
+    End Function
 End Class

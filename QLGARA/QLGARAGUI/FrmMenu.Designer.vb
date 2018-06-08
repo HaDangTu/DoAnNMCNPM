@@ -28,10 +28,11 @@ Partial Class FrmMenu
         Me.QuảnLíHiệuXeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LưuTrữToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LậpPhiếuTiếpNhậnToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LậpPhiếuSửaChữaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LậpPhiếuThuTiềnToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TraCứuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BáoBiểuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LậpPhiếuSửaChữaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TraCứuXeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -76,6 +77,12 @@ Partial Class FrmMenu
         Me.LậpPhiếuTiếpNhậnToolStripMenuItem.Size = New System.Drawing.Size(179, 22)
         Me.LậpPhiếuTiếpNhậnToolStripMenuItem.Text = "Lập phiếu tiếp nhận"
         '
+        'LậpPhiếuSửaChữaToolStripMenuItem
+        '
+        Me.LậpPhiếuSửaChữaToolStripMenuItem.Name = "LậpPhiếuSửaChữaToolStripMenuItem"
+        Me.LậpPhiếuSửaChữaToolStripMenuItem.Size = New System.Drawing.Size(179, 22)
+        Me.LậpPhiếuSửaChữaToolStripMenuItem.Text = "Lập phiếu sửa chữa"
+        '
         'LậpPhiếuThuTiềnToolStripMenuItem
         '
         Me.LậpPhiếuThuTiềnToolStripMenuItem.Name = "LậpPhiếuThuTiềnToolStripMenuItem"
@@ -84,6 +91,7 @@ Partial Class FrmMenu
         '
         'TraCứuToolStripMenuItem
         '
+        Me.TraCứuToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TraCứuXeToolStripMenuItem})
         Me.TraCứuToolStripMenuItem.Name = "TraCứuToolStripMenuItem"
         Me.TraCứuToolStripMenuItem.Size = New System.Drawing.Size(58, 20)
         Me.TraCứuToolStripMenuItem.Text = "Tra cứu"
@@ -94,11 +102,11 @@ Partial Class FrmMenu
         Me.BáoBiểuToolStripMenuItem.Size = New System.Drawing.Size(65, 20)
         Me.BáoBiểuToolStripMenuItem.Text = "Báo biểu"
         '
-        'LậpPhiếuSửaChữaToolStripMenuItem
+        'TraCứuXeToolStripMenuItem
         '
-        Me.LậpPhiếuSửaChữaToolStripMenuItem.Name = "LậpPhiếuSửaChữaToolStripMenuItem"
-        Me.LậpPhiếuSửaChữaToolStripMenuItem.Size = New System.Drawing.Size(179, 22)
-        Me.LậpPhiếuSửaChữaToolStripMenuItem.Text = "Lập phiếu sửa chữa"
+        Me.TraCứuXeToolStripMenuItem.Name = "TraCứuXeToolStripMenuItem"
+        Me.TraCứuXeToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.TraCứuXeToolStripMenuItem.Text = "Tra cứu xe"
         '
         'FrmMenu
         '
@@ -128,4 +136,5 @@ Partial Class FrmMenu
     Friend WithEvents LậpPhiếuTiếpNhậnToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LậpPhiếuThuTiềnToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LậpPhiếuSửaChữaToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TraCứuXeToolStripMenuItem As ToolStripMenuItem
 End Class
