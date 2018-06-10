@@ -63,6 +63,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaoCaoTonDTO.vb" />
     <Compile Include="DanhSachXeDTO.vb" />
     <Compile Include="DoanhSoDTO.vb" />
     <Compile Include="HieuXeDTO.vb" />
@@ -85,12 +86,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="NhapPhatSinhDTO.vb" />
+    <Compile Include="NhapPhuTungDTO.vb" />
     <Compile Include="PhieuSuaChuaDTO.vb" />
     <Compile Include="PhieuThuTienDTO.vb" />
     <Compile Include="PhieuTiepNhanDTO.vb" />
     <Compile Include="PhuTungDTO.vb" />
     <Compile Include="ThanhTienDTO.vb" />
     <Compile Include="ThongTinXeDTO.vb" />
+    <Compile Include="TTNhapPhuTungDTO.vb" />
+    <Compile Include="TTPhatSinhDTO.vb" />
     <Compile Include="TTPhieuSuaChuaDTO.vb" />
     <Compile Include="TTDoanhSoDTO.vb" />
   </ItemGroup>
