@@ -2,27 +2,26 @@
 Imports System.Configuration
 Imports System.Data.SqlClient
 Imports Utility
-Public Class PhieuSuaChuaDAL
+
+Public Class DoanhSoDAL
     Private connectionstring As String
     Public Sub New()
-        'Read ConnectionString value from App.config file
         connectionstring = ConfigurationManager.AppSettings("ConnectionString")
     End Sub
-
-    Public Sub New(connstring As String)
-        connectionstring = connstring
+    Public Sub New(conn As String)
+        connectionstring = conn
     End Sub
 
-    Public Function BuildMaPhieuSC(ByRef nextMaPhieuSC As String) As Result
-        nextMaPhieuSC = String.Empty
-        Dim prefix = "SC"
-        nextMaPhieuSC = prefix
+    Public Function BuildMaDoanhSo(ByRef nextMaDoanhSo As String) As Result
+        nextMaDoanhSo = String.Empty
+        Dim prefix = "DS"
+        nextMaDoanhSo = prefix
 
         Dim query As String
         query = String.Empty
-        query &= "SELECT TOP 1 [MaPhieuSC]"
-        query &= " FROM [PHIEUSUACHUA]"
-        query &= " ORDER BY [MaPhieuSC] DESC"
+        query &= "SELECT TOP 1 [MaDoanhSo]"
+        query &= " FROM [DOANHSO]"
+        query &= " ORDER BY [MaDoanhSo] DESC"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -39,7 +38,7 @@ Public Class PhieuSuaChuaDAL
                     Reader = comm.ExecuteReader()
                     If (Reader.HasRows = True) Then
                         While Reader.Read()
-                            msOnDB = Reader("MaPhieuSC")
+                            msOnDB = Reader("MaDoanhSo")
                         End While
                     End If
 
@@ -53,30 +52,30 @@ Public Class PhieuSuaChuaDAL
                         Dim v = converttodecimal.ToString()
                         tmp1 = tmp.Substring(0, tmp.Length - v.Length)
                         tmp = converttodecimal.ToString()
-                        nextMaPhieuSC = nextMaPhieuSC + tmp1 + tmp
-                        System.Console.WriteLine(nextMaPhieuSC)
+                        nextMaDoanhSo = nextMaDoanhSo + tmp1 + tmp
+                        System.Console.WriteLine(nextMaDoanhSo)
                     End If
                 Catch ex As Exception
                     conn.Close() 'Thất bại
                     System.Console.WriteLine(ex.StackTrace)
-                    Return New Result(False, "Lấy mã phiếu sửa chữa kế tiếp không thành công", ex.StackTrace)
+                    Return New Result(False, "Lấy mã doanh số kế tiếp không thành công", ex.StackTrace)
                 End Try
             End Using
         End Using
         Return New Result(True) 'Thành công
     End Function
 
-    Public Function Insert(phieusuachua As PhieuSuaChuaDTO) As Result
+    Public Function Insert(doanhso As DoanhSoDTO) As Result
         Dim query As String
         query = String.Empty
-        query &= "INSERT INTO [PHIEUSUACHUA]"
-        query &= " ([MaPhieuSC], [MaPhieuTN], [NgaySC])"
-        query &= " VALUES (@MaPhieuSC, @MaPhieuTN, @NgaySC)"
+        query &= "INSERT INTO [DoanhSo]"
+        query &= " ([MaDoanhSo], [Thang], [TongDoanhThu]) "
+        query &= " VALUES (@MaDoanhSo, @Thang,@TongDoanhThu)"
 
-        Dim nextMaPhieuSC As String
-        nextMaPhieuSC = "1"
-        BuildMaPhieuSC(nextMaPhieuSC)
-        phieusuachua.MaPhieuSC = nextMaPhieuSC
+        Dim nextMaDoanhSo As String
+        nextMaDoanhSo = "1"
+        BuildMaDoanhSo(nextMaDoanhSo)
+        doanhso.MaDoanhSo = nextMaDoanhSo
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -84,9 +83,10 @@ Public Class PhieuSuaChuaDAL
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
-                    .Parameters.AddWithValue("@MaPhieuSC", phieusuachua.MaPhieuSC)
-                    .Parameters.AddWithValue("@MaPhieuTN", phieusuachua.MaPhieuTN)
-                    .Parameters.AddWithValue("@NgaySC", phieusuachua.NgaySC)
+                    .Parameters.AddWithValue("@MaDoanhSo", doanhso.MaDoanhSo)
+                    .Parameters.AddWithValue("@Thang", doanhso.Thang)
+                    .Parameters.AddWithValue("@TongDoanhThu", doanhso.TongDoanhThu)
+
                 End With
                 Try
                     conn.Open()
@@ -94,19 +94,24 @@ Public Class PhieuSuaChuaDAL
                 Catch ex As Exception
                     conn.Close()
                     System.Console.WriteLine(ex.StackTrace)
-                    Return New Result(False, "Thêm phiếu sửa chữa thành công thất bại", ex.StackTrace)
+                    Return New Result(False, "Lập báo cáo doanh số thành công thất bại", ex.StackTrace)
                 End Try
             End Using
         End Using
         Return New Result(True)
     End Function
 
-    Public Function Update(phieusuachua As PhieuSuaChuaDTO) As Result
+    Public Function TongDoanhThu(thang As Integer) As Integer
         Dim query As String
+        Dim Tong As Double
         query = String.Empty
-        query &= "UPDATE [PHIEUSUACHUA]"
-        query &= " SET [MaPhieuTN] = @MaPhieuTN, [NgaySC] = @NgaySC"
-        query &= " WHERE [MaPhieuSC] = @MaPhieuSC"
+        query &= "SELECT SUM ([SoLuong] * [DonGia] + [MucTien]) [TongThanhTien] "
+        query &= "FROM (SELECT [SoLuong], [DonGia], [MucTien] "
+        query &= "FROM [PHUTUNG], [TT_PHIEUSUACHUA], [LOAITIENCONG], [PHIEUSUACHUA] "
+        query &= "WHERE PHUTUNG.MaPhuTung = TT_PHIEUSUACHUA.MaPhuTung AND "
+        query &= "TT_PHIEUSUACHUA.MaTienCong = LOAITIENCONG.MaTienCong AND "
+        query &= "PHIEUSUACHUA.MaPhieuSC = TT_PHIEUSUACHUA.MaPhieuSC AND "
+        query &= "month(NgaySC) = @Thang) A "
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -114,64 +119,42 @@ Public Class PhieuSuaChuaDAL
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
-                    .Parameters.AddWithValue("@MaPhieuSC", phieusuachua.MaPhieuSC)
-                    .Parameters.AddWithValue("@MaPhieuTN", phieusuachua.MaPhieuTN)
-                    .Parameters.AddWithValue("@NgaySC", phieusuachua.NgaySC)
+                    .Parameters.AddWithValue("@Thang", thang)
                 End With
                 Try
                     conn.Open()
-                    comm.ExecuteNonQuery()
+                    Dim reader As SqlDataReader
+                    reader = comm.ExecuteReader()
+                    If reader.HasRows = True Then
+                        While (reader.Read())
+                            Tong = reader("TongThanhTien")
+                        End While
+                    End If
                 Catch ex As Exception
                     conn.Close()
                     System.Console.WriteLine(ex.StackTrace)
-                    Return New Result(False, "Sửa thông tin phiếu sửa chữa thất bại", ex.StackTrace)
+                    Return 0
                 End Try
             End Using
         End Using
-        Return New Result(True)
+        Return Tong
     End Function
 
-    Public Function Delete(maphieusc As String) As Result
+    Public Function TongSoLuotSua(thang As Integer) As Integer
         Dim query As String
         query = String.Empty
-        query &= "DELETE FROM [PHIEUSUACHUA]"
-        query &= " WHERE [MaPhieuSC] =  @MaPhieuSC"
+        query &= "Select Count ([MaPhieuSC]) [TongSoLuotSua] "
+        query &= "FROM [PHIEUSUACHUA] "
+        query &= "WHERE month(NgaySC) = @Thang"
 
-
+        Dim Tong As Integer
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
                 With comm
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
-                    .Parameters.AddWithValue("@MaPhieuSC", maphieusc)
-                End With
-                Try
-                    conn.Open()
-                    comm.ExecuteNonQuery()
-                Catch ex As Exception
-                    conn.Close()
-                    System.Console.WriteLine(ex.StackTrace)
-                    Return New Result(False, "Xóa phiếu sửa chữa  thất bại", ex.StackTrace)
-                End Try
-            End Using
-        End Using
-        Return New Result(True)
-    End Function
-
-    Public Function SelectAll() As List(Of PhieuSuaChuaDTO)
-        Dim query As String
-        Dim ListOfPhieuSuaChua As New List(Of PhieuSuaChuaDTO)()
-        query = String.Empty
-        query &= "SELECT *"
-        query &= " FROM [PHIEUSUACHUA]"
-
-        Using conn As New SqlConnection(connectionstring)
-            Using comm As New SqlCommand()
-                With comm
-                    .Connection = conn
-                    .CommandType = CommandType.Text
-                    .CommandText = query
+                    .Parameters.AddWithValue("@Thang", thang)
                 End With
                 Try
                     conn.Open()
@@ -180,8 +163,46 @@ Public Class PhieuSuaChuaDAL
                     reader = comm.ExecuteReader()
                     If (reader.HasRows) Then
                         While (reader.Read())
-                            ListOfPhieuSuaChua.Add(New PhieuSuaChuaDTO(reader("MaPhieuSC"), reader("MaPhieuTN"),
-                                             reader("NgaySC")))
+                            Tong = reader("TongSoLuotSua")
+                        End While
+                    End If
+                Catch ex As Exception
+                    conn.Close()
+                    System.Console.WriteLine(ex.StackTrace)
+                    Return 0
+                End Try
+            End Using
+        End Using
+        Return Tong
+    End Function
+
+    Public Function SoLuotSC_1_HieuXe(thang As Integer) As List(Of LuotSuaChuaDTO)
+        Dim query As String
+        Dim ListofLuotSuaChua As New List(Of LuotSuaChuaDTO)()
+        query = String.Empty
+        query &= "SELECT TenHX, count(PHIEUSUACHUA.MaPhieuSC) [SoLuotSua] "
+        query &= "FROM [PHIEUSUACHUA], [PHIEUTIEPNHAN], [TT_XE], [HIEUXE] "
+        query &= "WHERE PHIEUSUACHUA.MaPhieuTN = PHIEUTIEPNHAN.MaPhieuTN AND "
+        query &= "PHIEUTIEPNHAN.MaTTXe = TT_XE.MaTTXe AND "
+        query &= "TT_XE.MaHX = HIEUXE.MaHX AND "
+        query &= "month(NgaySC) = @Thang "
+        query &= "Group By TenHX"
+
+        Using conn As New SqlConnection(connectionstring)
+            Using comm As New SqlCommand()
+                With comm
+                    .Connection = conn
+                    .CommandType = CommandType.Text
+                    .CommandText = query
+                    .Parameters.AddWithValue("@Thang", thang)
+                End With
+                Try
+                    conn.Open()
+                    Dim reader As SqlDataReader
+                    reader = comm.ExecuteReader()
+                    If reader.HasRows = True Then
+                        While (reader.Read())
+                            ListofLuotSuaChua.Add(New LuotSuaChuaDTO(reader("TenHX"), reader("SoLuotSua")))
                         End While
                     End If
                 Catch ex As Exception
@@ -191,19 +212,24 @@ Public Class PhieuSuaChuaDAL
                 End Try
             End Using
         End Using
-        Return ListOfPhieuSuaChua
+        Return ListofLuotSuaChua
     End Function
 
-    Public Function Select_MaPhieuSC_byBienSo(bienso As String) As String
-        Dim mpSC As String
-        mpSC = String.Empty
+    Public Function ThanhTien(thang As Integer) As List(Of ThanhTienDTO)
         Dim query As String
+        Dim ListofThanhTien As New List(Of ThanhTienDTO)()
         query = String.Empty
-        query &= "SELECT [MaPhieuSC] "
-        query &= "FROM [TT_XE], [PHIEUTIEPNHAN], [PHIEUSUACHUA] "
-        query &= "WHERE TT_XE.MaTTXe = PHIEUTIEPNHAN.MaTTXe "
-        query &= "AND PHIEUTIEPNHAN.MaPhieuTN = PHIEUSUACHUA.MaPhieuTN "
-        query &= "AND [BienSo] = @BienSo"
+        query &= "SELECT [TenHX], sum (SoLuong * DonGia + MucTien) [ThanhTien] "
+        query &= "FROM (SELECT [TenHX], [SoLuong], [DonGia], [MucTien] "
+        query &= "FROM [HIEUXE], [TT_XE], [PHIEUTIEPNHAN], [PHIEUSUACHUA], [TT_PHIEUSUACHUA],[PHUTUNG], [LOAITIENCONG] "
+        query &= "WHERE HIEUXE.MaHX = TT_XE.MaHX AND "
+        query &= "TT_XE.MaTTXe = PHIEUTIEPNHAN.MaTTXe AND "
+        query &= "PHIEUTIEPNHAN.MaPhieuTN = PHIEUSUACHUA.MaPhieuTN AND "
+        query &= "PHIEUSUACHUA.MaPhieuSC = TT_PHIEUSUACHUA.MaPhieuSC AND "
+        query &= "TT_PHIEUSUACHUA.MaPhuTung = PHUTUNG.MaPhuTung AND "
+        query &= "TT_PHIEUSUACHUA.MaTienCong = LOAITIENCONG.MaTienCong AND "
+        query &= "month(NgaySC) = @Thang) A "
+        query &= "Group by [TenHX] "
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -211,16 +237,16 @@ Public Class PhieuSuaChuaDAL
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
-                    .Parameters.AddWithValue("@BienSo", bienso)
+                    .Parameters.AddWithValue("@Thang", thang)
                 End With
                 Try
                     conn.Open()
-                    comm.ExecuteNonQuery()
                     Dim reader As SqlDataReader
                     reader = comm.ExecuteReader()
-                    If (reader.HasRows) Then
+                    If reader.HasRows = True Then
                         While (reader.Read())
-                            mpSC = reader("MaPhieuSC")
+                            ListofThanhTien.Add(New ThanhTienDTO(reader("TenHX"), reader("ThanhTien")))
+
                         End While
                     End If
                 Catch ex As Exception
@@ -230,8 +256,7 @@ Public Class PhieuSuaChuaDAL
                 End Try
             End Using
         End Using
-        Return mpSC
+        Return ListofThanhTien
     End Function
-
-
 End Class
+

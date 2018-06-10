@@ -72,16 +72,28 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrmPhieuSuaChua.Designer.vb">
-      <DependentUpon>FrmPhieuSuaChua.vb</DependentUpon>
+    <Compile Include="FrmLapBaoCaoDoanhSo.Designer.vb">
+      <DependentUpon>FrmLapBaoCaoDoanhSo.vb</DependentUpon>
     </Compile>
-    <Compile Include="FrmPhieuSuaChua.vb">
+    <Compile Include="FrmLapBaoCaoDoanhSo.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmPhieuThuTien.Designer.vb">
-      <DependentUpon>FrmPhieuThuTien.vb</DependentUpon>
+    <Compile Include="FrmLapBaoCaoTon.Designer.vb">
+      <DependentUpon>FrmLapBaoCaoTon.vb</DependentUpon>
     </Compile>
-    <Compile Include="FrmPhieuThuTien.vb">
+    <Compile Include="FrmLapBaoCaoTon.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLapPhieuSuaChua.Designer.vb">
+      <DependentUpon>FrmLapPhieuSuaChua.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLapPhieuSuaChua.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLapPhieuThuTien.Designer.vb">
+      <DependentUpon>FrmLapPhieuThuTien.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLapPhieuThuTien.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmMenu.Designer.vb">
@@ -90,10 +102,10 @@
     <Compile Include="FrmMenu.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmPhieuTiepNhan.Designer.vb">
-      <DependentUpon>FrmPhieuTiepNhan.vb</DependentUpon>
+    <Compile Include="FrmLapPhieuTiepNhan.Designer.vb">
+      <DependentUpon>FrmLapPhieuTiepNhan.vb</DependentUpon>
     </Compile>
-    <Compile Include="FrmPhieuTiepNhan.vb">
+    <Compile Include="FrmLapPhieuTiepNhan.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmQLHieuXe.Designer.vb">
@@ -131,17 +143,23 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FrmPhieuSuaChua.resx">
-      <DependentUpon>FrmPhieuSuaChua.vb</DependentUpon>
+    <EmbeddedResource Include="FrmLapBaoCaoDoanhSo.resx">
+      <DependentUpon>FrmLapBaoCaoDoanhSo.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmPhieuThuTien.resx">
-      <DependentUpon>FrmPhieuThuTien.vb</DependentUpon>
+    <EmbeddedResource Include="FrmLapBaoCaoTon.resx">
+      <DependentUpon>FrmLapBaoCaoTon.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLapPhieuSuaChua.resx">
+      <DependentUpon>FrmLapPhieuSuaChua.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLapPhieuThuTien.resx">
+      <DependentUpon>FrmLapPhieuThuTien.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMenu.resx">
       <DependentUpon>FrmMenu.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmPhieuTiepNhan.resx">
-      <DependentUpon>FrmPhieuTiepNhan.vb</DependentUpon>
+    <EmbeddedResource Include="FrmLapPhieuTiepNhan.resx">
+      <DependentUpon>FrmLapPhieuTiepNhan.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmQLHieuXe.resx">
       <DependentUpon>FrmQLHieuXe.vb</DependentUpon>

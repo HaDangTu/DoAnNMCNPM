@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FrmPhieuThuTien
+Partial Class FrmLapPhieuThuTien
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -36,10 +36,9 @@ Partial Class FrmPhieuThuTien
         Me.tbSotienthu = New System.Windows.Forms.TextBox()
         Me.dtpNgaythutien = New System.Windows.Forms.DateTimePicker()
         Me.btLapphieu = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.maphieu = New System.Windows.Forms.Label()
         Me.tbMaphieu = New System.Windows.Forms.TextBox()
+        Me.btRefresh = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
@@ -163,32 +162,12 @@ Partial Class FrmPhieuThuTien
         'btLapphieu
         '
         Me.btLapphieu.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btLapphieu.Location = New System.Drawing.Point(118, 305)
+        Me.btLapphieu.Location = New System.Drawing.Point(244, 321)
         Me.btLapphieu.Name = "btLapphieu"
         Me.btLapphieu.Size = New System.Drawing.Size(75, 23)
         Me.btLapphieu.TabIndex = 13
         Me.btLapphieu.Text = "Lập phiếu"
         Me.btLapphieu.UseVisualStyleBackColor = True
-        '
-        'Button1
-        '
-        Me.Button1.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(274, 305)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 14
-        Me.Button1.Text = "Cập nhật"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(430, 305)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 15
-        Me.Button2.Text = "Xóa phiếu"
-        Me.Button2.UseVisualStyleBackColor = True
         '
         'maphieu
         '
@@ -205,19 +184,27 @@ Partial Class FrmPhieuThuTien
         Me.tbMaphieu.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbMaphieu.Location = New System.Drawing.Point(109, 116)
         Me.tbMaphieu.Name = "tbMaphieu"
-        Me.tbMaphieu.ReadOnly = True
         Me.tbMaphieu.Size = New System.Drawing.Size(210, 25)
         Me.tbMaphieu.TabIndex = 17
+        '
+        'btRefresh
+        '
+        Me.btRefresh.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btRefresh.Location = New System.Drawing.Point(337, 321)
+        Me.btRefresh.Name = "btRefresh"
+        Me.btRefresh.Size = New System.Drawing.Size(75, 23)
+        Me.btRefresh.TabIndex = 18
+        Me.btRefresh.Text = "Refresh"
+        Me.btRefresh.UseVisualStyleBackColor = True
         '
         'FrmLapPhieuThuTien
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(684, 377)
+        Me.Controls.Add(Me.btRefresh)
         Me.Controls.Add(Me.tbMaphieu)
         Me.Controls.Add(Me.maphieu)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.btLapphieu)
         Me.Controls.Add(Me.dtpNgaythutien)
         Me.Controls.Add(Me.tbSotienthu)
@@ -253,8 +240,7 @@ Partial Class FrmPhieuThuTien
     Friend WithEvents tbSotienthu As TextBox
     Friend WithEvents dtpNgaythutien As DateTimePicker
     Friend WithEvents btLapphieu As Button
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
     Friend WithEvents maphieu As Label
     Friend WithEvents tbMaphieu As TextBox
+    Friend WithEvents btRefresh As Button
 End Class

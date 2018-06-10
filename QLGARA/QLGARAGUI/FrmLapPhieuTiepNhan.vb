@@ -1,7 +1,7 @@
 ﻿Imports QLGARABUS
 Imports QLGARADTO
 Imports Utility
-Public Class FrmPhieuTiepNhan
+Public Class FrmLapPhieuTiepNhan
     Private phieutiepnhanBUS As New PhieuTiepNhanBUS()
     Private khachhangBUS As New KhachHangBUS()
     Private thongtinxeBUS As New ThongTinXeBUS()
@@ -143,7 +143,7 @@ Public Class FrmPhieuTiepNhan
             End If
         End If
 
-        'kiểm tra đã biển số xe này đã có chưa 
+        'kiểm tra biển số xe này đã có chưa 
         'nếu chưa có thì lưu lại đồng thời lưu phiếu tiếp nhận mới
         If (thongtinxeBUS.isvalidthongtinxe(thongtinxeDTO) = False) Then
             Dim nextmattxe = "1"
@@ -160,7 +160,7 @@ Public Class FrmPhieuTiepNhan
                                 MessageBoxButtons.OK, MessageBoxIcon.Error)
                 System.Console.WriteLine(result.SystemMessage)
             End If
-
+            phieutiepnhanDTO.MaTTXe = thongtinxeDTO.MaTTXe
         Else
             Dim listofthongtinxe As New List(Of ThongTinXeDTO)()
             LoadListofthongtinxe(listofthongtinxe)

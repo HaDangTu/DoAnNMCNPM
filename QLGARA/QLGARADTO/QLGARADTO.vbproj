@@ -64,10 +64,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DanhSachXeDTO.vb" />
+    <Compile Include="DoanhSoDTO.vb" />
     <Compile Include="HieuXeDTO.vb" />
     <Compile Include="HoSoSuaChuaDTO.vb" />
     <Compile Include="KhachHangDTO.vb" />
     <Compile Include="LoaiTienCongDTO.vb" />
+    <Compile Include="LuotSuaChuaDTO.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -87,8 +89,10 @@
     <Compile Include="PhieuThuTienDTO.vb" />
     <Compile Include="PhieuTiepNhanDTO.vb" />
     <Compile Include="PhuTungDTO.vb" />
+    <Compile Include="ThanhTienDTO.vb" />
     <Compile Include="ThongTinXeDTO.vb" />
     <Compile Include="TTPhieuSuaChuaDTO.vb" />
+    <Compile Include="TTDoanhSoDTO.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

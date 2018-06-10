@@ -12,25 +12,6 @@ Public Class DanhSachXeBUS
                                                ListofDanhSachXe)
     End Function
 
-    'Public Function Select_By_BienSo(bienso As String, ByRef ListofDanhSachXe As List(Of DanhSachXeDTO)) As Result
-    '    Return danhsachxeDAL.Select_By_BienSo(bienso, ListofDanhSachXe)
-    'End Function
-
-    'Public Function Select_By_HieuXe(MaHX As String, ByRef ListofDanhSachXe As List(Of DanhSachXeDTO)) As Result
-    '    Return danhsachxeDAL.Select_By_HieuXe(MaHX, ListofDanhSachXe)
-    'End Function
-
-    'Public Function Select_By_MaKH(MaKH As String, ByRef ListofDanhSachXe As List(Of DanhSachXeDTO)) As Result
-    '    Return danhsachxeDAL.Select_By_MaKH(MaKH, ListofDanhSachXe)
-    'End Function
-
-    'Public Function Select_By_MaTTXe(MaTTXe As String, ByRef ListofDanhSachXe As List(Of DanhSachXeDTO)) As Result
-    '    Return danhsachxeDAL.Select_By_MaTTXe(MaTTXe, ListofDanhSachXe)
-    'End Function
-
-    'Public Function Select_By_TenKH(TenKH As String, ByRef ListofDanhSachXe As List(Of DanhSachXeDTO)) As Result
-    '    Return danhsachxeDAL.Select_By_TenKH(TenKH, ListofDanhSachXe)
-    'End Function
 
     Public Function Select_By_TienNo(TienNoMin As Double, ByRef TienNoMax As Double,
              ListofDanhSachXe As List(Of DanhSachXeDTO)) As Result

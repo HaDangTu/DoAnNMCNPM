@@ -230,11 +230,11 @@ Public Class PhieuTiepNhanDAL
         Dim Phieutiepnhan As New PhieuTiepNhanDTO()
         Dim query As String
         query = String.Empty
-        query &= "SELECT [MaPhieuTN], [TT_XE].[MaTTXe], [NgayNhan]"
+        query &= "SELECT Top 1 [MaPhieuTN], [TT_XE].[MaTTXe], [NgayNhan]"
         query &= " FROM [PHIEUTIEPNHAN], [TT_XE]"
         query &= " WHERE PHIEUTIEPNHAN.MaTTXe = TT_XE.MaTTXe "
         query &= " AND [BienSo] = @BienSo"
-        query &= " ORDER BY [MaPhieuTN] DESC"
+        query &= " ORDER BY [NgayNhan] DESC"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()

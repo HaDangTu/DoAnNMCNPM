@@ -1,7 +1,7 @@
 ﻿Imports QLGARABUS
 Imports QLGARADTO
 Imports Utility
-Public Class FrmPhieuThuTien
+Public Class FrmLapPhieuThuTien
     Dim phieuthutienBUS As New PhieuThuTienBUS()
     Dim phieutiepnhanBUS As New PhieuTiepNhanBUS()
     Dim khachhangBUS As New KhachHangBUS()
@@ -85,5 +85,23 @@ Public Class FrmPhieuThuTien
                             MessageBoxButtons.OK, MessageBoxIcon.Error)
             System.Console.WriteLine(result.SystemMessage)
         End If
+    End Sub
+
+    Private Sub btRefresh_Click(sender As Object, e As EventArgs) Handles btRefresh.Click
+        tbBiensoxe.Text = String.Empty
+        tbDienThoai.Text = String.Empty
+        tbEmail.Text = String.Empty
+        tbSotienthu.Text = String.Empty
+        tbTenchuxe.Text = String.Empty
+
+        Dim nextMaPhieuTT = "1"
+        Dim result As Result
+        result = phieuthutienBUS.BuildMaPhieutt(nextMaPhieuTT)
+        If (result.FlagResult = False) Then
+            MessageBox.Show("Lấy mã phiếu thu tiền kế tiếp không thành công", "Error", MessageBoxButtons.OK,
+                            MessageBoxIcon.Error)
+            Return
+        End If
+        tbMaphieu.Text = nextMaPhieuTT
     End Sub
 End Class

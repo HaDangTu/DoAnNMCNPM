@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DanhSachXeDAL.vb" />
+    <Compile Include="DoanhSoDAL.vb" />
     <Compile Include="HieuXeDAL.vb" />
     <Compile Include="HoSoSuaChuaDAL.vb" />
     <Compile Include="KhachhangDAL.vb" />
@@ -90,6 +91,7 @@
     <Compile Include="PhuTungDAL.vb" />
     <Compile Include="ThongTinXeDAL.vb" />
     <Compile Include="TTPhieuSuaChuaDAL.vb" />
+    <Compile Include="TTDoanhSoDAL.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
