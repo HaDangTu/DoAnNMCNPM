@@ -49,7 +49,7 @@ Partial Class FrmLapBaoCaoDoanhSo
         '
         Me.maphieu.AutoSize = True
         Me.maphieu.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.maphieu.Location = New System.Drawing.Point(327, 60)
+        Me.maphieu.Location = New System.Drawing.Point(358, 60)
         Me.maphieu.Name = "maphieu"
         Me.maphieu.Size = New System.Drawing.Size(45, 17)
         Me.maphieu.TabIndex = 17
@@ -76,6 +76,7 @@ Partial Class FrmLapBaoCaoDoanhSo
         '
         'dgvDoanhSo
         '
+        Me.dgvDoanhSo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.dgvDoanhSo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvDoanhSo.Location = New System.Drawing.Point(12, 143)
         Me.dgvDoanhSo.Name = "dgvDoanhSo"
@@ -86,7 +87,7 @@ Partial Class FrmLapBaoCaoDoanhSo
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(9, 63)
+        Me.Label3.Location = New System.Drawing.Point(9, 60)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(84, 17)
         Me.Label3.TabIndex = 22
@@ -114,9 +115,9 @@ Partial Class FrmLapBaoCaoDoanhSo
         'tbThang
         '
         Me.tbThang.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbThang.Location = New System.Drawing.Point(438, 52)
+        Me.tbThang.Location = New System.Drawing.Point(438, 54)
         Me.tbThang.Name = "tbThang"
-        Me.tbThang.Size = New System.Drawing.Size(210, 25)
+        Me.tbThang.Size = New System.Drawing.Size(29, 25)
         Me.tbThang.TabIndex = 26
         '
         'Button1
