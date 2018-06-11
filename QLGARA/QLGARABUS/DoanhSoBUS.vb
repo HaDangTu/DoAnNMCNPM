@@ -5,8 +5,8 @@ Imports Utility
 Public Class DoanhSoBUS
     Private doanhsoDAL As New DoanhSoDAL
 
-    Public Function isvalidMonth(thang As DateTime) As Boolean
-        If (thang.Month > Now.Month) Then
+    Public Function isvalidMonth(thang As Integer) As Boolean
+        If (thang < 0 Or thang > 12 Or thang > Now.Month) Then
             Return False
         End If
         Return True

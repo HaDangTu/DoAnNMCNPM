@@ -89,6 +89,7 @@
     <Compile Include="PhieuThuTienBUS.vb" />
     <Compile Include="PhieuTiepNhanBUS.vb" />
     <Compile Include="PhuTungBUS.vb" />
+    <Compile Include="ThamSoBUS.vb" />
     <Compile Include="ThongTinXeBUS.vb" />
     <Compile Include="TTBaoCaoTonBUS.vb" />
     <Compile Include="TTDoanhSoBUS.vb" />

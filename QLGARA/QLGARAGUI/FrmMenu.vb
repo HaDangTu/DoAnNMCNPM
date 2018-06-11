@@ -46,4 +46,10 @@
         frmLapBaoCaoTon.MdiParent = Me
         frmLapBaoCaoTon.Show()
     End Sub
+
+    Private Sub ThayĐổiToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThayĐổiToolStripMenuItem.Click
+        Dim frmThaydoiQD As New FrmThayDoiQuyDinh()
+        frmThaydoiQD.MdiParent = Me
+        frmThaydoiQD.Show()
+    End Sub
 End Class

@@ -92,6 +92,7 @@
     <Compile Include="PhieuThuTienDTO.vb" />
     <Compile Include="PhieuTiepNhanDTO.vb" />
     <Compile Include="PhuTungDTO.vb" />
+    <Compile Include="ThamSoDTO.vb" />
     <Compile Include="ThanhTienDTO.vb" />
     <Compile Include="ThongTinXeDTO.vb" />
     <Compile Include="TTBaoCaoTonDTO.vb" />

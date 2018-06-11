@@ -63,6 +63,13 @@ Public Class FrmLapBaoCaoDoanhSo
         doanhsoDTO.TongDoanhThu = doanhsoBUS.TongDoanhThu(doanhsoDTO.Thang)
         tbTongDoanhSo.Text = doanhsoDTO.TongDoanhThu.ToString()
 
+        'kiểm tra tháng có hợp lệ hay không
+        If (doanhsoBUS.isvalidMonth(Integer.Parse(tbThang.Text) = False)) Then
+            MessageBox.Show("Tháng không hợp lệ ", "Error", MessageBoxButtons.OK,
+                             MessageBoxIcon.Error)
+            Return
+        End If
+
         'Insert DOANHSO
         result = doanhsoBUS.Insert(doanhsoDTO)
         If (result.FlagResult = True) Then
