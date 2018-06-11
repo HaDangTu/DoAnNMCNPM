@@ -15,7 +15,7 @@ Public Class TTNhapPhuTungDAL
 
     Public Function BuildMaTTNhapPT(ByRef nextMaTTNhapPT As String) As Result
         nextMaTTNhapPT = String.Empty
-        Dim prefix = "TP"
+        Dim prefix = "NP"
         nextMaTTNhapPT = prefix
 
         Dim query As String
@@ -103,11 +103,13 @@ Public Class TTNhapPhuTungDAL
         Return New Result(True)
     End Function
 
-    Public Function Select_SoLuongNhap(ByRef ListofTTNhapPhuTung As List(Of Integer)) As Result
+    Public Function Select_SoLuongNhap(Thang As Integer, ByRef ListofTTNhapPhuTung As List(Of Integer)) As Result
         Dim query As String
         query = String.Empty
-        query &= "SELECT [SoLuongNhap] "
-        query &= "FROM [NHAPPHUTUNG]"
+        query &= "SELECT sum ([SoLuongNhap]) [SLNhap] "
+        query &= "FROM [NHAPPHUTUNG], [TT_NHAPPHUTUNG] "
+        query &= "WHERE month(NgayNhap) = @Thang "
+        query &= "GROUP BY [MaPhuTung]"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -115,6 +117,7 @@ Public Class TTNhapPhuTungDAL
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
+                    .Parameters.AddWithValue("@Thang", Thang)
                 End With
                 Try
                     conn.Open()
@@ -123,7 +126,7 @@ Public Class TTNhapPhuTungDAL
                     If reader.HasRows = True Then
                         ListofTTNhapPhuTung.Clear()
                         While reader.Read()
-                            ListofTTNhapPhuTung.Add(reader("SoLuongNhap"))
+                            ListofTTNhapPhuTung.Add(reader("SLNhap"))
                         End While
                     End If
 

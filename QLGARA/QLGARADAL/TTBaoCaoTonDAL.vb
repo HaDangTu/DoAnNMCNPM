@@ -90,7 +90,6 @@ Public Class TTBaoCaoTonDAL
                     .Parameters.AddWithValue("@PhatSinh", ttbaocaoton.PhatSinh)
                     .Parameters.AddWithValue("@TonCuoi", ttbaocaoton.TonCuoi)
                     .Parameters.AddWithValue("@MaBaoCaoTon", ttbaocaoton.MaBaoCaoTon)
-
                 End With
                 Try
                     conn.Open()

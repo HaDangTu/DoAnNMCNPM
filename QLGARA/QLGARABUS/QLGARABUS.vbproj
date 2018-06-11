@@ -92,6 +92,7 @@
     <Compile Include="ThongTinXeBUS.vb" />
     <Compile Include="TTBaoCaoTonBUS.vb" />
     <Compile Include="TTDoanhSoBUS.vb" />
+    <Compile Include="TTNhapPhuTungBUS.vb" />
     <Compile Include="TTPhieuSuaChuaBUS.vb" />
   </ItemGroup>
   <ItemGroup>

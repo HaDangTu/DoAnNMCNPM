@@ -3,6 +3,7 @@ Imports QLGARADTO
 Imports Utility
 Public Class TTBaoCaoTonBUS
     Private ttbaocaotonDAL As New TTBaoCaoTonDAL()
+
     Public Function BuildMaTTBaoCaoTon(ByRef nextMaTTBaoCaoTon As String) As Result
         Return ttbaocaotonDAL.BuildMaTTBaoCaoTon(nextMaTTBaoCaoTon)
     End Function
