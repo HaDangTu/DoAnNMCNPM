@@ -25,11 +25,11 @@ Partial Class FrmLapBaoCaoTon
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.tbMaBaoCaoTon = New System.Windows.Forms.TextBox()
-        Me.tbThang = New System.Windows.Forms.TextBox()
         Me.maphieu = New System.Windows.Forms.Label()
         Me.dgvBaoCaoTon = New System.Windows.Forms.DataGridView()
         Me.btLapBaoCao = New System.Windows.Forms.Button()
         Me.btRefresh = New System.Windows.Forms.Button()
+        Me.cbThang = New System.Windows.Forms.ComboBox()
         CType(Me.dgvBaoCaoTon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -61,14 +61,6 @@ Partial Class FrmLapBaoCaoTon
         Me.tbMaBaoCaoTon.ReadOnly = True
         Me.tbMaBaoCaoTon.Size = New System.Drawing.Size(210, 25)
         Me.tbMaBaoCaoTon.TabIndex = 24
-        '
-        'tbThang
-        '
-        Me.tbThang.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbThang.Location = New System.Drawing.Point(489, 56)
-        Me.tbThang.Name = "tbThang"
-        Me.tbThang.Size = New System.Drawing.Size(29, 25)
-        Me.tbThang.TabIndex = 28
         '
         'maphieu
         '
@@ -102,22 +94,31 @@ Partial Class FrmLapBaoCaoTon
         'btRefresh
         '
         Me.btRefresh.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btRefresh.Location = New System.Drawing.Point(499, 358)
+        Me.btRefresh.Location = New System.Drawing.Point(676, 359)
         Me.btRefresh.Name = "btRefresh"
         Me.btRefresh.Size = New System.Drawing.Size(98, 46)
         Me.btRefresh.TabIndex = 31
         Me.btRefresh.Text = "Refresh"
         Me.btRefresh.UseVisualStyleBackColor = True
         '
+        'cbThang
+        '
+        Me.cbThang.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbThang.FormattingEnabled = True
+        Me.cbThang.Location = New System.Drawing.Point(460, 58)
+        Me.cbThang.Name = "cbThang"
+        Me.cbThang.Size = New System.Drawing.Size(38, 25)
+        Me.cbThang.TabIndex = 32
+        '
         'FrmLapBaoCaoTon
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(908, 420)
+        Me.Controls.Add(Me.cbThang)
         Me.Controls.Add(Me.btRefresh)
         Me.Controls.Add(Me.btLapBaoCao)
         Me.Controls.Add(Me.dgvBaoCaoTon)
-        Me.Controls.Add(Me.tbThang)
         Me.Controls.Add(Me.maphieu)
         Me.Controls.Add(Me.tbMaBaoCaoTon)
         Me.Controls.Add(Me.Label3)
@@ -133,9 +134,9 @@ Partial Class FrmLapBaoCaoTon
     Friend WithEvents Label1 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents tbMaBaoCaoTon As TextBox
-    Friend WithEvents tbThang As TextBox
     Friend WithEvents maphieu As Label
     Friend WithEvents dgvBaoCaoTon As DataGridView
     Friend WithEvents btLapBaoCao As Button
     Friend WithEvents btRefresh As Button
+    Friend WithEvents cbThang As ComboBox
 End Class

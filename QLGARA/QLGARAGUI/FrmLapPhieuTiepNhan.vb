@@ -23,7 +23,6 @@ Public Class FrmLapPhieuTiepNhan
             MessageBox.Show("Lấy mã phiếu kế tiếp không thành công",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             System.Console.WriteLine(result.SystemMessage)
-            Me.Close()
             Return
         End If
         tbMaphieu.Text = nextmaphieu

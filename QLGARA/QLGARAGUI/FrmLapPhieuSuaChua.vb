@@ -62,6 +62,7 @@ Public Class FrmLapPhieuSuaChua
 
         clDonGia.Name = "DonGia"
         clDonGia.HeaderText = "Đơn giá"
+        clDonGia.ReadOnly = True
         dgvTT_PhieuSC.Columns.Add(clDonGia)
 
 
@@ -75,6 +76,7 @@ Public Class FrmLapPhieuSuaChua
 
         clThanhTien.Name = "ThanhTien"
         clThanhTien.HeaderText = "Thành Tiền"
+        clThanhTien.ReadOnly = True
         dgvTT_PhieuSC.Columns.Add(clThanhTien)
     End Sub
     Private Sub FrmPhieuSuaChua_Load(sender As Object, e As EventArgs) Handles MyBase.Load

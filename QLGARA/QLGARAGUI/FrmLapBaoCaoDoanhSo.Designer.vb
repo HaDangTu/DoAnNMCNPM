@@ -30,8 +30,8 @@ Partial Class FrmLapBaoCaoDoanhSo
         Me.Label3 = New System.Windows.Forms.Label()
         Me.tbMaDoanhSo = New System.Windows.Forms.TextBox()
         Me.btLapBaoCao = New System.Windows.Forms.Button()
-        Me.tbThang = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.cbThang = New System.Windows.Forms.ComboBox()
         CType(Me.dgvDoanhSo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -112,14 +112,6 @@ Partial Class FrmLapBaoCaoDoanhSo
         Me.btLapBaoCao.Text = "Lập báo cáo"
         Me.btLapBaoCao.UseVisualStyleBackColor = True
         '
-        'tbThang
-        '
-        Me.tbThang.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbThang.Location = New System.Drawing.Point(438, 54)
-        Me.tbThang.Name = "tbThang"
-        Me.tbThang.Size = New System.Drawing.Size(29, 25)
-        Me.tbThang.TabIndex = 26
-        '
         'Button1
         '
         Me.Button1.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -130,13 +122,22 @@ Partial Class FrmLapBaoCaoDoanhSo
         Me.Button1.Text = "Refresh"
         Me.Button1.UseVisualStyleBackColor = True
         '
+        'cbThang
+        '
+        Me.cbThang.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbThang.FormattingEnabled = True
+        Me.cbThang.Location = New System.Drawing.Point(438, 52)
+        Me.cbThang.Name = "cbThang"
+        Me.cbThang.Size = New System.Drawing.Size(43, 25)
+        Me.cbThang.TabIndex = 28
+        '
         'FrmLapBaoCaoDoanhSo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(919, 532)
+        Me.Controls.Add(Me.cbThang)
         Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.tbThang)
         Me.Controls.Add(Me.btLapBaoCao)
         Me.Controls.Add(Me.tbMaDoanhSo)
         Me.Controls.Add(Me.Label3)
@@ -161,6 +162,6 @@ Partial Class FrmLapBaoCaoDoanhSo
     Friend WithEvents Label3 As Label
     Friend WithEvents tbMaDoanhSo As TextBox
     Friend WithEvents btLapBaoCao As Button
-    Friend WithEvents tbThang As TextBox
     Friend WithEvents Button1 As Button
+    Friend WithEvents cbThang As ComboBox
 End Class

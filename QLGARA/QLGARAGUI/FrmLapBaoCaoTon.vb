@@ -101,14 +101,14 @@ Public Class FrmLapBaoCaoTon
 
         'loadList
         LoadListofPhuTung(ListofPhuTung)
-        LoadListofTong_SL_DaSC(Integer.Parse(tbThang.Text), ListofTong_SL_DaSC)
-        LoadListofTong_SLPS(Integer.Parse(tbThang.Text), ListofTong_SLPS)
-        LoadListofSLNhap(Integer.Parse(tbThang.Text), ListofSoLuongNhap)
-        LoadListofTonCuoi(Integer.Parse(tbThang.Text) - 1, ListofTonCuoi) 'Tồn cuối của tháng trước
+        LoadListofTong_SL_DaSC(Integer.Parse(cbThang.SelectedValue), ListofTong_SL_DaSC)
+        LoadListofTong_SLPS(Integer.Parse(cbThang.SelectedValue), ListofTong_SLPS)
+        LoadListofSLNhap(Integer.Parse(cbThang.SelectedValue), ListofSoLuongNhap)
+        LoadListofTonCuoi(Integer.Parse(cbThang.SelectedValue) - 1, ListofTonCuoi) 'Tồn cuối của tháng trước
 
         'Mapping Data
         baocaotonDTO.MaBaoCaoTon = tbMaBaoCaoTon.Text
-        baocaotonDTO.Thang = Integer.Parse(tbThang.Text)
+        baocaotonDTO.Thang = Integer.Parse(cbThang.SelectedValue)
 
         For Each phutung As PhuTungDTO In ListofPhuTung
             Dim nextMaTTBaoCaoTon = "1"
@@ -213,6 +213,22 @@ Public Class FrmLapBaoCaoTon
             Return
         End If
         tbMaBaoCaoTon.Text = nextMaBaoCaoTon
+
+        Dim ListofMonth As New List(Of Integer)()
+        ListofMonth.Add(1)
+        ListofMonth.Add(2)
+        ListofMonth.Add(3)
+        ListofMonth.Add(4)
+        ListofMonth.Add(5)
+        ListofMonth.Add(6)
+        ListofMonth.Add(7)
+        ListofMonth.Add(8)
+        ListofMonth.Add(9)
+        ListofMonth.Add(10)
+        ListofMonth.Add(11)
+        ListofMonth.Add(12)
+
+        cbThang.DataSource = ListofMonth
     End Sub
 
     Private Sub btRefresh_Click(sender As Object, e As EventArgs) Handles btRefresh.Click

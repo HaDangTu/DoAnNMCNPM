@@ -55,16 +55,16 @@ Public Class FrmLapBaoCaoDoanhSo
         Dim i = 0
         Dim ListofLuotSuaChua As New List(Of LuotSuaChuaDTO)()
         Dim ListofThanhTien As New List(Of ThanhTienDTO)()
-        LoadListofLuotSuaChua(Integer.Parse(tbThang.Text), ListofLuotSuaChua)
-        LoadListofThanhTien(Integer.Parse(tbThang.Text), ListofThanhTien)
+        LoadListofLuotSuaChua(Integer.Parse(cbThang.SelectedValue), ListofLuotSuaChua)
+        LoadListofThanhTien(Integer.Parse(cbThang.SelectedValue), ListofThanhTien)
 
         doanhsoDTO.MaDoanhSo = tbMaDoanhSo.Text
-        doanhsoDTO.Thang = Convert.ToInt16(tbThang.Text)
+        doanhsoDTO.Thang = Convert.ToInt16(cbThang.SelectedValue)
         doanhsoDTO.TongDoanhThu = doanhsoBUS.TongDoanhThu(doanhsoDTO.Thang)
-        tbTongDoanhSo.Text = doanhsoDTO.TongDoanhThu.ToString()
+
 
         'kiểm tra tháng có hợp lệ hay không
-        If (doanhsoBUS.isvalidMonth(Integer.Parse(tbThang.Text) = False)) Then
+        If (doanhsoBUS.isvalidMonth(doanhsoDTO.Thang) = False) Then
             MessageBox.Show("Tháng không hợp lệ ", "Error", MessageBoxButtons.OK,
                              MessageBoxIcon.Error)
             Return
@@ -119,7 +119,7 @@ Public Class FrmLapBaoCaoDoanhSo
                 Return
             End If
         Next
-
+        tbTongDoanhSo.Text = doanhsoDTO.TongDoanhThu.ToString()
         LoadDGVDoanhSo(ListofThongTinDoanhSo)
     End Sub
 
@@ -134,6 +134,23 @@ Public Class FrmLapBaoCaoDoanhSo
             Return
         End If
         tbMaDoanhSo.Text = nextMaDoanhSo
+
+        Dim ListofMonth As New List(Of Integer)()
+        ListofMonth.Add(1)
+        ListofMonth.Add(2)
+        ListofMonth.Add(3)
+        ListofMonth.Add(4)
+        ListofMonth.Add(5)
+        ListofMonth.Add(6)
+        ListofMonth.Add(7)
+        ListofMonth.Add(8)
+        ListofMonth.Add(9)
+        ListofMonth.Add(10)
+        ListofMonth.Add(11)
+        ListofMonth.Add(12)
+
+        cbThang.DataSource = ListofMonth
+
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
