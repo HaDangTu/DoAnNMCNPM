@@ -1,8 +1,9 @@
 ﻿Imports QLGARADTO
-Imports System.Configuration
 Imports System.Data.SqlClient
+Imports System.Configuration
 Imports Utility
-Public Class TTNhapPhuTungDAL
+
+Public Class NhapPhatSinhDAL
     Private connectionstring As String
     Public Sub New()
         'Read ConnectionString value from App.config file
@@ -13,16 +14,16 @@ Public Class TTNhapPhuTungDAL
         connectionstring = connstring
     End Sub
 
-    Public Function BuildMaTTNhapPT(ByRef nextMaTTNhapPT As String) As Result
-        nextMaTTNhapPT = String.Empty
-        Dim prefix = "NT"
-        nextMaTTNhapPT = prefix
+    Public Function BuildMaPhieuNhapPS(ByRef nextMaPhieuNhapPS As String) As Result
+        nextMaPhieuNhapPS = String.Empty
+        Dim prefix = "PS"
+        nextMaPhieuNhapPS = prefix
 
         Dim query As String
         query = String.Empty
-        query &= "SELECT TOP 1 [MaTTNhapPhuTung]"
-        query &= " FROM [TT_NHAPPHUTUNG]"
-        query &= " ORDER BY [MaTTNhapPhuTung] DESC"
+        query &= "SELECT TOP 1 [MaPhieuNhapPS]"
+        query &= " FROM [NHAPPHATSINH]"
+        query &= " ORDER BY [MaPhieuNhapPS] DESC"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -39,7 +40,7 @@ Public Class TTNhapPhuTungDAL
                     Reader = comm.ExecuteReader()
                     If (Reader.HasRows = True) Then
                         While Reader.Read()
-                            msOnDB = Reader("MaTTNhapPhuTung")
+                            msOnDB = Reader("MaPhieuNhapPS")
                         End While
                     End If
 
@@ -53,30 +54,30 @@ Public Class TTNhapPhuTungDAL
                         Dim v = converttodecimal.ToString()
                         tmp1 = tmp.Substring(0, tmp.Length - v.Length)
                         tmp = converttodecimal.ToString()
-                        nextMaTTNhapPT = nextMaTTNhapPT + tmp1 + tmp
-                        System.Console.WriteLine(nextMaTTNhapPT)
+                        nextMaPhieuNhapPS = nextMaPhieuNhapPS + tmp1 + tmp
+                        System.Console.WriteLine(nextMaPhieuNhapPS)
                     End If
                 Catch ex As Exception
                     conn.Close() 'Thất bại
                     System.Console.WriteLine(ex.StackTrace)
-                    Return New Result(False, "Lấy mã thông tin nhập phụ tùng kế tiếp không thành công", ex.StackTrace)
+                    Return New Result(False, "Lấy mã phiếu nhập phát sinh kế tiếp không thành công", ex.StackTrace)
                 End Try
             End Using
         End Using
         Return New Result(True) 'Thành công
     End Function
 
-    Public Function Insert(ttnhapphutung As TTNhapPhuTungDTO) As Result
+    Public Function Insert(nhapphatsinh As NhapPhatSinhDTO) As Result
         Dim query As String
         query = String.Empty
-        query &= "INSERT INTO [TT_NHAPPHUTUNG]"
-        query &= " ([MaTTNhapPhuTung], [MaNhapPhuTung], [MaPhuTung], [SoLuongNhap], [DonGiaNhap])"
-        query &= " VALUES (@MaTTNhapPhuTung, @MaNhapPhuTung, @MaPhuTung, @SoLuongNhap, @DonGiaNhap)"
+        query &= "INSERT INTO [NHAPPHATSINH]"
+        query &= " ([MaPhieuNhapPS], [NgayNhapPS], [TongTienPS]) "
+        query &= " VALUES (@MaPhieuNhapPS, @NgayNhapPS, @TongTienPS)"
 
-        Dim nextMaTTNhapPT As String
-        nextMaTTNhapPT = "1"
-        BuildMaTTNhapPT(nextMaTTNhapPT)
-        ttnhapphutung.MaTTNhapPhuTung = nextMaTTNhapPT
+        Dim nextMaPhieuNhapPS As String
+        nextMaPhieuNhapPS = "1"
+        BuildMaPhieuNhapPS(nextMaPhieuNhapPS)
+        nhapphatsinh.MaPhieuNhapPS = nextMaPhieuNhapPS
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -84,11 +85,9 @@ Public Class TTNhapPhuTungDAL
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
-                    .Parameters.AddWithValue("@MaTTNhapPhuTung", ttnhapphutung.MaTTNhapPhuTung)
-                    .Parameters.AddWithValue("@MaNhapPhuTung", ttnhapphutung.MaNhapPhuTung)
-                    .Parameters.AddWithValue("@MaPhuTung", ttnhapphutung.MaPhuTung)
-                    .Parameters.AddWithValue("@SoLuongNhap", ttnhapphutung.SoLuongNhap)
-                    .Parameters.AddWithValue("@DonGiaNhap", ttnhapphutung.DonGiaNhap)
+                    .Parameters.AddWithValue("@MaPhieuNhapPS", nhapphatsinh.MaPhieuNhapPS)
+                    .Parameters.AddWithValue("@NgayNhapPS", nhapphatsinh.NgayNhapPS)
+                    .Parameters.AddWithValue("@TongTienPS", nhapphatsinh.TongTienPS)
                 End With
                 Try
                     conn.Open()
@@ -96,20 +95,19 @@ Public Class TTNhapPhuTungDAL
                 Catch ex As Exception
                     conn.Close()
                     System.Console.WriteLine(ex.StackTrace)
-                    Return New Result(False, "Thêm thông tin nhập phụ tùng thất bại", ex.StackTrace)
+                    Return New Result(False, "Thêm phiếu nhập phát sinh thất bại", ex.StackTrace)
                 End Try
             End Using
         End Using
         Return New Result(True)
     End Function
 
-    Public Function Select_SoLuongNhap(Thang As Integer, ByRef ListofTTNhapPhuTung As List(Of Integer)) As Result
+    Public Function Update(nhapphatsinh As NhapPhatSinhDTO) As Result
         Dim query As String
         query = String.Empty
-        query &= "SELECT sum ([SoLuongNhap]) [SLNhap] "
-        query &= "FROM [NHAPPHUTUNG], [TT_NHAPPHUTUNG] "
-        query &= "WHERE NHAPPHUTUNG.MaNhapPhuTung = TT_NHAPPHUTUNG.MaNhapPhuTung AND month(NgayNhap) = @Thang "
-        query &= "GROUP BY [MaPhuTung]"
+        query &= "UPDATE [NHAPPHATSINH]"
+        query &= " SET [NgayNhapPS] = @NgayNhapPS, [TongTienPS] = @TongTienPS "
+        query &= " WHERE [MaPhieuNhapPS] = @MaPhieuNhapPS"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -117,26 +115,48 @@ Public Class TTNhapPhuTungDAL
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
-                    .Parameters.AddWithValue("@Thang", Thang)
+                    .Parameters.AddWithValue("@MaPhieuNhapPS", nhapphatsinh.MaPhieuNhapPS)
+                    .Parameters.AddWithValue("@NgayNhapPS", nhapphatsinh.NgayNhapPS)
+                    .Parameters.AddWithValue("@TongTienPS", nhapphatsinh.TongTienPS)
                 End With
                 Try
                     conn.Open()
-                    Dim reader As SqlDataReader
-                    reader = comm.ExecuteReader()
-                    If reader.HasRows = True Then
-                        ListofTTNhapPhuTung.Clear()
-                        While reader.Read()
-                            ListofTTNhapPhuTung.Add(reader("SLNhap"))
-                        End While
-                    End If
-
+                    comm.ExecuteNonQuery()
                 Catch ex As Exception
                     conn.Close()
                     System.Console.WriteLine(ex.StackTrace)
-                    Return New Result(False, "Lấy tất cả số lượng nhập phụ tùng không thành công", ex.StackTrace)
+                    Return New Result(False, "Sửa thông tin nhập phát sinh thất bại", ex.StackTrace)
                 End Try
             End Using
         End Using
-        Return New Result(True) ' 
+        Return New Result(True)
+    End Function
+
+    Public Function Delete(MaPhieuNhapPS As String) As Result
+        Dim query As String
+        query = String.Empty
+        query &= " DELETE FROM [NHAPPHATSINH]"
+        query &= " WHERE [MaPhieuNhapPS] =  @MaPhieuNhapPS"
+
+
+        Using conn As New SqlConnection(connectionstring)
+            Using comm As New SqlCommand()
+                With comm
+                    .Connection = conn
+                    .CommandType = CommandType.Text
+                    .CommandText = query
+                    .Parameters.AddWithValue("@MaPhieuNhapPS", MaPhieuNhapPS)
+                End With
+                Try
+                    conn.Open()
+                    comm.ExecuteNonQuery()
+                Catch ex As Exception
+                    conn.Close()
+                    System.Console.WriteLine(ex.StackTrace)
+                    Return New Result(False, "Xóa phiếu nhập phát sinh thất bại", ex.StackTrace)
+                End Try
+            End Using
+        End Using
+        Return New Result(True)
     End Function
 End Class

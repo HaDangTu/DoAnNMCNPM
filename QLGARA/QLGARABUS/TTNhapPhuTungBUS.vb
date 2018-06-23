@@ -4,7 +4,7 @@ Imports Utility
 Public Class TTNhapPhuTungBUS
     Private ttnhapphutungDAL As New TTNhapPhuTungDAL()
 
-    Public Function buildMaNhapPhuTung(nextMaNhapPhuTung As String) As Result
+    Public Function BuildMaTTNhapPT(ByRef nextMaNhapPhuTung As String) As Result
         Return ttnhapphutungDAL.BuildMaTTNhapPT(nextMaNhapPhuTung)
     End Function
 

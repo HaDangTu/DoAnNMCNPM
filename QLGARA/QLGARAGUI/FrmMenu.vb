@@ -52,4 +52,16 @@
         frmThaydoiQD.MdiParent = Me
         frmThaydoiQD.Show()
     End Sub
+
+    Private Sub NhậpPhụTùngToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NhậpPhụTùngToolStripMenuItem.Click
+        Dim frmNhapPhuTung As New FrmNhapPhuTung()
+        frmNhapPhuTung.MdiParent = Me
+        frmNhapPhuTung.Show()
+    End Sub
+
+    Private Sub NhậpPhátSinhToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NhậpPhátSinhToolStripMenuItem.Click
+        Dim frmNhapPhatSinh As New FrmNhapPhatSinh()
+        frmNhapPhatSinh.MdiParent = Me
+        frmNhapPhatSinh.Show()
+    End Sub
 End Class

@@ -1,5 +1,7 @@
 ﻿Imports QLGARABUS
 Imports QLGARADTO
+Imports Microsoft.Office.Interop.Excel
+Imports System.IO
 Imports Utility
 
 Public Class FrmLapBaoCaoDoanhSo
@@ -166,5 +168,86 @@ Public Class FrmLapBaoCaoDoanhSo
             Return
         End If
         tbMaDoanhSo.Text = nextMaDoanhSo
+    End Sub
+
+    Private Sub btPrint_Click(sender As Object, e As EventArgs) Handles btPrint.Click
+        If (dgvDoanhSo.ColumnCount = 0 Or dgvDoanhSo.RowCount = 0) Then
+            MessageBox.Show("DataGridView trống", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        Dim dataset As New DataSet
+        Dim i = 0, j = 0
+        dataset.Tables.Add()
+
+        For i = 0 To dgvDoanhSo.ColumnCount - 1
+            dataset.Tables(0).Columns.Add(dgvDoanhSo.Columns(i).HeaderText)
+        Next
+
+        Dim datarow As DataRow
+        For i = 0 To dgvDoanhSo.RowCount - 1
+            datarow = dataset.Tables(0).NewRow
+
+            For j = 0 To dgvDoanhSo.ColumnCount - 1
+                datarow(j) = dgvDoanhSo.Rows(i).Cells(j).Value
+            Next
+
+            dataset.Tables(0).Rows.Add(datarow)
+        Next
+
+        Dim Excel As New ApplicationClass
+        Dim WBook As Workbook
+        Dim WSheet As Worksheet
+
+        WBook = Excel.Workbooks.Add()
+        WSheet = WBook.ActiveSheet()
+
+        Dim datatable As Data.DataTable = dataset.Tables(0)
+        Dim datacolumn As DataColumn
+        Dim datarow1 As DataRow
+
+        Dim colIndex As Integer = 0
+        Dim rowIndex As Integer = 3
+
+        Excel.Cells(1, 3) = "BÁO CÁO DOANH SỐ"
+
+        Excel.Cells(2, 2) = "Tháng"
+        Excel.Cells(2, 3) = cbThang.SelectedValue
+
+        Excel.Cells(3, 2) = "Tổng doanh số"
+        Excel.Cells(3, 3) = tbTongDoanhSo.Text
+
+        For Each datacolumn In datatable.Columns
+            colIndex = colIndex + 1
+            Excel.Cells(4, colIndex) = datacolumn.ColumnName
+        Next
+
+        For Each datarow1 In datatable.Rows
+            rowIndex = rowIndex + 1
+            colIndex = 0
+            For Each datacolumn In datatable.Columns
+                colIndex = colIndex + 1
+                Excel.Cells(rowIndex + 1, colIndex) = datarow1(datacolumn.ColumnName)
+            Next
+        Next
+
+        WSheet.Columns.AutoFit()
+        Dim fileName As String = "F:\Nhập môn CNPM\Thực hành\DoAN\DoAnNMCNPM\QLGARA\BaoCaoDoanhSo.xlsx"
+        Dim FileOpen As Boolean = False
+
+        Try
+            Dim filetmp As FileStream = File.OpenWrite(fileName)
+            filetmp.Close()
+        Catch ex As Exception
+            FileOpen = False
+        End Try
+
+        If File.Exists(fileName) Then
+            File.Delete(fileName)
+        End If
+
+        WBook.SaveAs(fileName)
+        Excel.Workbooks.Open(fileName)
+        Excel.Visible = True
     End Sub
 End Class

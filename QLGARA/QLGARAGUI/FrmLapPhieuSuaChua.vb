@@ -36,17 +36,11 @@ Public Class FrmLapPhieuSuaChua
         dgvTT_PhieuSC.AllowUserToAddRows = True
 
         Dim clNoiDung As New DataGridViewTextBoxColumn()
-        Dim cbVatTuPhuTung As New DataGridViewComboBoxColumn()
-        Dim clSoLuong As New DataGridViewTextBoxColumn()
-        Dim clDonGia As New DataGridViewTextBoxColumn()
-        Dim cbTienCong As New DataGridViewComboBoxColumn()
-        Dim clThanhTien As New DataGridViewTextBoxColumn()
-
         clNoiDung.Name = "NoiDung"
         clNoiDung.HeaderText = "Nội dung"
         dgvTT_PhieuSC.Columns.Add(clNoiDung)
 
-
+        Dim cbVatTuPhuTung As New DataGridViewComboBoxColumn()
         cbVatTuPhuTung.Name = "TenPhuTung"
         cbVatTuPhuTung.HeaderText = "Vật tư phụ tùng"
         cbVatTuPhuTung.DataSource = New BindingSource(ListofPhuTung, String.Empty)
@@ -54,18 +48,18 @@ Public Class FrmLapPhieuSuaChua
         cbVatTuPhuTung.ValueMember = "MaPhuTung"
         dgvTT_PhieuSC.Columns.Add(cbVatTuPhuTung)
 
-
+        Dim clSoLuong As New DataGridViewTextBoxColumn()
         clSoLuong.Name = "SoLuong"
         clSoLuong.HeaderText = "Số lượng"
         dgvTT_PhieuSC.Columns.Add(clSoLuong)
 
-
+        Dim clDonGia As New DataGridViewTextBoxColumn()
         clDonGia.Name = "DonGia"
         clDonGia.HeaderText = "Đơn giá"
         clDonGia.ReadOnly = True
         dgvTT_PhieuSC.Columns.Add(clDonGia)
 
-
+        Dim cbTienCong As New DataGridViewComboBoxColumn()
         cbTienCong.Name = "TienCong"
         cbTienCong.HeaderText = "Tiền công"
         cbTienCong.DataSource = New BindingSource(ListofTienCong, String.Empty)
@@ -73,7 +67,7 @@ Public Class FrmLapPhieuSuaChua
         cbTienCong.ValueMember = "MaTC"
         dgvTT_PhieuSC.Columns.Add(cbTienCong)
 
-
+        Dim clThanhTien As New DataGridViewTextBoxColumn()
         clThanhTien.Name = "ThanhTien"
         clThanhTien.HeaderText = "Thành Tiền"
         clThanhTien.ReadOnly = True

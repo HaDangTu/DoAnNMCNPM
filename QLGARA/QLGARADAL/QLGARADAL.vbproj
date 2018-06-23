@@ -86,6 +86,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="NhapPhatSinhDAL.vb" />
     <Compile Include="NhapPhuTungDAL.vb" />
     <Compile Include="PhieuSuaChuaDAL.vb" />
     <Compile Include="PhieuThuTienDAL.vb" />
@@ -94,6 +95,7 @@
     <Compile Include="ThamSoDAL.vb" />
     <Compile Include="ThongTinXeDAL.vb" />
     <Compile Include="TTBaoCaoTonDAL.vb" />
+    <Compile Include="TTPhatSinhDAL.vb" />
     <Compile Include="TTNhapPhuTungDAL.vb" />
     <Compile Include="TTPhieuSuaChuaDAL.vb" />
     <Compile Include="TTDoanhSoDAL.vb" />

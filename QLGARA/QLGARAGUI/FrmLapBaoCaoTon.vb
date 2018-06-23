@@ -1,5 +1,7 @@
 ﻿Imports QLGARABUS
 Imports QLGARADTO
+Imports Microsoft.Office.Interop.Excel
+Imports System.IO
 Imports Utility
 
 Public Class FrmLapBaoCaoTon
@@ -143,14 +145,24 @@ Public Class FrmLapBaoCaoTon
         j = 0
         'Tính Phát sinh + TonCuoi
         For n As Integer = 0 To ListofTTbaocaotonDTO.Count - 1
-            If (i < ListofTong_SLPS.Count Or j < ListofTong_SL_DaSC.Count) Then
+            If (i < ListofTong_SLPS.Count) Then
                 ListofTTbaocaotonDTO.Item(n) = New TTBaoCaoTonDTO(ListofTTbaocaotonDTO.ElementAt(n).MaTTBaoCaoTon,
                                                                   ListofTTbaocaotonDTO.ElementAt(n).TenPhuTung,
                                              ListofTTbaocaotonDTO.ElementAt(n).TonDau, ListofTong_SLPS.ElementAt(i),
                                              ListofTTbaocaotonDTO.ElementAt(n).TonDau + ListofTong_SLPS.ElementAt(i) -
-                                             ListofTong_SL_DaSC.ElementAt(j),
+                                             0,
                                              ListofTTbaocaotonDTO.ElementAt(i).MaBaoCaoTon)
                 i = i + 1
+            End If
+            If (j < ListofTong_SL_DaSC.Count) Then
+                ListofTTbaocaotonDTO.Item(n) = New TTBaoCaoTonDTO(ListofTTbaocaotonDTO.ElementAt(n).MaTTBaoCaoTon,
+                                                                  ListofTTbaocaotonDTO.ElementAt(n).TenPhuTung,
+                                                                  ListofTTbaocaotonDTO.ElementAt(n).TonDau,
+                                                                  ListofTTbaocaotonDTO.ElementAt(n).PhatSinh,
+                                                                  ListofTTbaocaotonDTO.ElementAt(n).TonDau +
+                                                                  ListofTTbaocaotonDTO.ElementAt(n).PhatSinh -
+                                                                  ListofTong_SL_DaSC.ElementAt(j),
+                                                                  ListofTTbaocaotonDTO.ElementAt(i).MaBaoCaoTon)
                 j = j + 1
             End If
         Next
@@ -234,6 +246,85 @@ Public Class FrmLapBaoCaoTon
     Private Sub btRefresh_Click(sender As Object, e As EventArgs) Handles btRefresh.Click
         Dim ListofTTBaocaoton As New List(Of TTBaoCaoTonDTO)()
         loaddgvBaoCaoTon(ListofTTBaocaoton)
-        tbThang.Text = String.Empty
+
+        'tbThang.Text = String.Empty
+    End Sub
+
+    Private Sub btPrint_Click(sender As Object, e As EventArgs) Handles btPrint.Click
+        If (dgvBaoCaoTon.ColumnCount = 0 Or dgvBaoCaoTon.RowCount = 0) Then
+            MessageBox.Show("DataGridView trống", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        Dim dataset As New DataSet
+        Dim i = 0, j = 0
+        dataset.Tables.Add()
+
+        For i = 0 To dgvBaoCaoTon.ColumnCount - 1
+            dataset.Tables(0).Columns.Add(dgvBaoCaoTon.Columns(i).HeaderText)
+        Next
+
+        Dim datarow As DataRow
+        For i = 0 To dgvBaoCaoTon.RowCount - 1
+            datarow = dataset.Tables(0).NewRow
+
+            For j = 0 To dgvBaoCaoTon.ColumnCount - 1
+                datarow(j) = dgvBaoCaoTon.Rows(i).Cells(j).Value
+            Next
+
+            dataset.Tables(0).Rows.Add(datarow)
+        Next
+
+        Dim Excel As New ApplicationClass
+        Dim WBook As Workbook
+        Dim WSheet As Worksheet
+
+        WBook = Excel.Workbooks.Add()
+        WSheet = WBook.ActiveSheet()
+
+        Dim datatable As Data.DataTable = dataset.Tables(0)
+        Dim datacolumn As DataColumn
+        Dim datarow1 As DataRow
+
+        Dim colIndex As Integer = 0
+        Dim rowIndex As Integer = 2
+
+        Excel.Cells(1, 3) = "BÁO CÁO TỒN"
+
+        Excel.Cells(2, 1) = "Tháng"
+        Excel.Cells(2, 2) = cbThang.SelectedValue
+
+        For Each datacolumn In datatable.Columns
+            colIndex = colIndex + 1
+            Excel.Cells(3, colIndex) = datacolumn.ColumnName
+        Next
+
+        For Each datarow1 In datatable.Rows
+            rowIndex = rowIndex + 1
+            colIndex = 0
+            For Each datacolumn In datatable.Columns
+                colIndex = colIndex + 1
+                Excel.Cells(rowIndex + 1, colIndex) = datarow1(datacolumn.ColumnName)
+            Next
+        Next
+
+        WSheet.Columns.AutoFit()
+        Dim fileName As String = "F:\Nhập môn CNPM\Thực hành\DoAN\DoAnNMCNPM\QLGARA\BaoCaoTon.xlsx"
+        Dim FileOpen As Boolean = False
+
+        Try
+            Dim filetmp As FileStream = File.OpenWrite(fileName)
+            filetmp.Close()
+        Catch ex As Exception
+            FileOpen = False
+        End Try
+
+        If File.Exists(fileName) Then
+            File.Delete(fileName)
+        End If
+
+        WBook.SaveAs(fileName)
+        Excel.Workbooks.Open(fileName)
+        Excel.Visible = True
     End Sub
 End Class

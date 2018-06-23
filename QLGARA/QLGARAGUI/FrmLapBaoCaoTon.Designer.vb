@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmLapBaoCaoTon
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FrmLapBaoCaoTon
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -30,6 +30,7 @@ Partial Class FrmLapBaoCaoTon
         Me.btLapBaoCao = New System.Windows.Forms.Button()
         Me.btRefresh = New System.Windows.Forms.Button()
         Me.cbThang = New System.Windows.Forms.ComboBox()
+        Me.btPrint = New System.Windows.Forms.Button()
         CType(Me.dgvBaoCaoTon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -94,7 +95,7 @@ Partial Class FrmLapBaoCaoTon
         'btRefresh
         '
         Me.btRefresh.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btRefresh.Location = New System.Drawing.Point(676, 359)
+        Me.btRefresh.Location = New System.Drawing.Point(676, 357)
         Me.btRefresh.Name = "btRefresh"
         Me.btRefresh.Size = New System.Drawing.Size(98, 46)
         Me.btRefresh.TabIndex = 31
@@ -110,11 +111,22 @@ Partial Class FrmLapBaoCaoTon
         Me.cbThang.Size = New System.Drawing.Size(38, 25)
         Me.cbThang.TabIndex = 32
         '
+        'btPrint
+        '
+        Me.btPrint.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btPrint.Location = New System.Drawing.Point(519, 358)
+        Me.btPrint.Name = "btPrint"
+        Me.btPrint.Size = New System.Drawing.Size(98, 46)
+        Me.btPrint.TabIndex = 33
+        Me.btPrint.Text = "Print"
+        Me.btPrint.UseVisualStyleBackColor = True
+        '
         'FrmLapBaoCaoTon
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(908, 420)
+        Me.Controls.Add(Me.btPrint)
         Me.Controls.Add(Me.cbThang)
         Me.Controls.Add(Me.btRefresh)
         Me.Controls.Add(Me.btLapBaoCao)
@@ -139,4 +151,5 @@ Partial Class FrmLapBaoCaoTon
     Friend WithEvents btLapBaoCao As Button
     Friend WithEvents btRefresh As Button
     Friend WithEvents cbThang As ComboBox
+    Friend WithEvents btPrint As Button
 End Class

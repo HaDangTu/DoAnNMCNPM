@@ -105,7 +105,7 @@ Public Class BaoCaoTonDAL
     Public Function Tong_SL_DaSC(Thang As Integer, ByRef ListofTong_SL_DaSC As List(Of Integer)) As Result
         Dim query As String
         query = String.Empty
-        query &= "SELECT Count (TT_PHIEUSUACHUA.MaPhuTung) [SoLuongDaSuaChua] "
+        query &= "SELECT Sum (SoLuong) [SoLuongDaSuaChua] "
         query &= "FROM [PHUTUNG], [TT_PHIEUSUACHUA] , [PHIEUSUACHUA] "
         query &= "WHERE PHUTUNG.MAPHUTUNG = TT_PHIEUSUACHUA.MaPhuTung AND "
         query &= "TT_PHIEUSUACHUA .MaPhieuSC = PHIEUSUACHUA.MaPhieuSC AND "

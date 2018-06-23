@@ -108,6 +108,18 @@
     <Compile Include="FrmLapPhieuTiepNhan.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FrmNhapPhatSinh.Designer.vb">
+      <DependentUpon>FrmNhapPhatSinh.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmNhapPhatSinh.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmNhapPhuTung.Designer.vb">
+      <DependentUpon>FrmNhapPhuTung.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmNhapPhuTung.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FrmQLHieuXe.Designer.vb">
       <DependentUpon>FrmQLHieuXe.vb</DependentUpon>
     </Compile>
@@ -167,6 +179,12 @@
     <EmbeddedResource Include="FrmLapPhieuTiepNhan.resx">
       <DependentUpon>FrmLapPhieuTiepNhan.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmNhapPhatSinh.resx">
+      <DependentUpon>FrmNhapPhatSinh.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmNhapPhuTung.resx">
+      <DependentUpon>FrmNhapPhuTung.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmQLHieuXe.resx">
       <DependentUpon>FrmQLHieuXe.vb</DependentUpon>
     </EmbeddedResource>
@@ -211,6 +229,35 @@
       <Project>{ac9d408a-10a6-4e83-9944-4b2864c6ba53}</Project>
       <Name>Utility</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

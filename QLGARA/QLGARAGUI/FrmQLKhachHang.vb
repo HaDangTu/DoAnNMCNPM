@@ -45,7 +45,7 @@ Public Class FrmQLKhachHang
 
     End Sub
 
-    Public Function loadListofKhachHang()
+    Public Sub loadListofKhachHang()
         Dim ListofKhachHang As New List(Of KhachHangDTO)()
         ListofKhachHang = khachhangBUS.SelectALL()
         dgvDanhSachKH.Columns.Clear()
@@ -84,7 +84,7 @@ Public Class FrmQLKhachHang
         clTienNo.HeaderText = "Tiền nợ"
         clTienNo.DataPropertyName = "TienNo"
         dgvDanhSachKH.Columns.Add(clTienNo)
-    End Function
+    End Sub
     Private Sub btcapnhat_Click(sender As Object, e As EventArgs) Handles btcapnhat.Click
 
         Dim currentRowIndex As Integer = dgvDanhSachKH.CurrentCellAddress.Y 'current row selected

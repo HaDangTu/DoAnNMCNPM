@@ -85,6 +85,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="NhapPhatSinhBUS.vb" />
+    <Compile Include="NhapPhuTungBUS.vb" />
     <Compile Include="PhieuSuaChuaBUS.vb" />
     <Compile Include="PhieuThuTienBUS.vb" />
     <Compile Include="PhieuTiepNhanBUS.vb" />
@@ -94,6 +96,7 @@
     <Compile Include="TTBaoCaoTonBUS.vb" />
     <Compile Include="TTDoanhSoBUS.vb" />
     <Compile Include="TTNhapPhuTungBUS.vb" />
+    <Compile Include="TTPhatSinhBUS.vb" />
     <Compile Include="TTPhieuSuaChuaBUS.vb" />
   </ItemGroup>
   <ItemGroup>

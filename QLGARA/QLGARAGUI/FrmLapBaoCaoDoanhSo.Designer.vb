@@ -32,6 +32,7 @@ Partial Class FrmLapBaoCaoDoanhSo
         Me.btLapBaoCao = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.cbThang = New System.Windows.Forms.ComboBox()
+        Me.btPrint = New System.Windows.Forms.Button()
         CType(Me.dgvDoanhSo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -115,7 +116,7 @@ Partial Class FrmLapBaoCaoDoanhSo
         'Button1
         '
         Me.Button1.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(537, 478)
+        Me.Button1.Location = New System.Drawing.Point(672, 478)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(91, 42)
         Me.Button1.TabIndex = 27
@@ -131,11 +132,22 @@ Partial Class FrmLapBaoCaoDoanhSo
         Me.cbThang.Size = New System.Drawing.Size(43, 25)
         Me.cbThang.TabIndex = 28
         '
+        'btPrint
+        '
+        Me.btPrint.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btPrint.Location = New System.Drawing.Point(502, 478)
+        Me.btPrint.Name = "btPrint"
+        Me.btPrint.Size = New System.Drawing.Size(91, 42)
+        Me.btPrint.TabIndex = 29
+        Me.btPrint.Text = "Print"
+        Me.btPrint.UseVisualStyleBackColor = True
+        '
         'FrmLapBaoCaoDoanhSo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(919, 532)
+        Me.Controls.Add(Me.btPrint)
         Me.Controls.Add(Me.cbThang)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.btLapBaoCao)
@@ -164,4 +176,5 @@ Partial Class FrmLapBaoCaoDoanhSo
     Friend WithEvents btLapBaoCao As Button
     Friend WithEvents Button1 As Button
     Friend WithEvents cbThang As ComboBox
+    Friend WithEvents btPrint As Button
 End Class

@@ -15,7 +15,7 @@ Public Class NhapPhuTungDAL
 
     Public Function BuildMaNhapPhuTung(ByRef nextMaNhapPhuTung As String) As Result
         nextMaNhapPhuTung = String.Empty
-        Dim prefix = "NT"
+        Dim prefix = "NP"
         nextMaNhapPhuTung = prefix
 
         Dim query As String
