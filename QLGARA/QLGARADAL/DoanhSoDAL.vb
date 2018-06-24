@@ -101,7 +101,7 @@ Public Class DoanhSoDAL
         Return New Result(True)
     End Function
 
-    Public Function TongDoanhThu(thang As Integer) As Integer
+    Public Function TongDoanhThu(thang As Integer, nam As Integer) As Integer
         Dim query As String
         Dim Tong As Double
         query = String.Empty
@@ -111,7 +111,7 @@ Public Class DoanhSoDAL
         query &= "WHERE PHUTUNG.MaPhuTung = TT_PHIEUSUACHUA.MaPhuTung AND "
         query &= "TT_PHIEUSUACHUA.MaTienCong = LOAITIENCONG.MaTienCong AND "
         query &= "PHIEUSUACHUA.MaPhieuSC = TT_PHIEUSUACHUA.MaPhieuSC AND "
-        query &= "month(NgaySC) = @Thang) A "
+        query &= "month(NgaySC) = @Thang AND year(NgaySC) = @Nam ) A "
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -120,6 +120,7 @@ Public Class DoanhSoDAL
                     .CommandType = CommandType.Text
                     .CommandText = query
                     .Parameters.AddWithValue("@Thang", thang)
+                    .Parameters.AddWithValue("@Nam", nam)
                 End With
                 Try
                     conn.Open()
@@ -140,12 +141,12 @@ Public Class DoanhSoDAL
         Return Tong
     End Function
 
-    Public Function TongSoLuotSua(thang As Integer) As Integer
+    Public Function TongSoLuotSua(thang As Integer, nam As Integer) As Integer
         Dim query As String
         query = String.Empty
         query &= "Select Count ([MaPhieuSC]) [TongSoLuotSua] "
         query &= "FROM [PHIEUSUACHUA] "
-        query &= "WHERE month(NgaySC) = @Thang"
+        query &= "WHERE month(NgaySC) = @Thang AND year(NgaySC) = @Nam "
 
         Dim Tong As Integer
         Using conn As New SqlConnection(connectionstring)
@@ -155,6 +156,7 @@ Public Class DoanhSoDAL
                     .CommandType = CommandType.Text
                     .CommandText = query
                     .Parameters.AddWithValue("@Thang", thang)
+                    .Parameters.AddWithValue("@Nam", nam)
                 End With
                 Try
                     conn.Open()
@@ -176,7 +178,7 @@ Public Class DoanhSoDAL
         Return Tong
     End Function
 
-    Public Function SoLuotSC_1_HieuXe(thang As Integer) As List(Of LuotSuaChuaDTO)
+    Public Function SoLuotSC_1_HieuXe(thang As Integer, nam As Integer) As List(Of LuotSuaChuaDTO)
         Dim query As String
         Dim ListofLuotSuaChua As New List(Of LuotSuaChuaDTO)()
         query = String.Empty
@@ -185,7 +187,7 @@ Public Class DoanhSoDAL
         query &= "WHERE PHIEUSUACHUA.MaPhieuTN = PHIEUTIEPNHAN.MaPhieuTN AND "
         query &= "PHIEUTIEPNHAN.MaTTXe = TT_XE.MaTTXe AND "
         query &= "TT_XE.MaHX = HIEUXE.MaHX AND "
-        query &= "month(NgaySC) = @Thang "
+        query &= "month(NgaySC) = @Thang AND year(NgaySC) = @Nam "
         query &= "Group By TenHX"
 
         Using conn As New SqlConnection(connectionstring)
@@ -195,6 +197,7 @@ Public Class DoanhSoDAL
                     .CommandType = CommandType.Text
                     .CommandText = query
                     .Parameters.AddWithValue("@Thang", thang)
+                    .Parameters.AddWithValue("@Nam", nam)
                 End With
                 Try
                     conn.Open()
@@ -215,7 +218,7 @@ Public Class DoanhSoDAL
         Return ListofLuotSuaChua
     End Function
 
-    Public Function ThanhTien(thang As Integer) As List(Of ThanhTienDTO)
+    Public Function ThanhTien(thang As Integer, nam As Integer) As List(Of ThanhTienDTO)
         Dim query As String
         Dim ListofThanhTien As New List(Of ThanhTienDTO)()
         query = String.Empty
@@ -228,7 +231,7 @@ Public Class DoanhSoDAL
         query &= "PHIEUSUACHUA.MaPhieuSC = TT_PHIEUSUACHUA.MaPhieuSC AND "
         query &= "TT_PHIEUSUACHUA.MaPhuTung = PHUTUNG.MaPhuTung AND "
         query &= "TT_PHIEUSUACHUA.MaTienCong = LOAITIENCONG.MaTienCong AND "
-        query &= "month(NgaySC) = @Thang) A "
+        query &= "month(NgaySC) = @Thang AND year(NgaySC) = @Nam) A "
         query &= "Group by [TenHX] "
 
         Using conn As New SqlConnection(connectionstring)
@@ -238,6 +241,7 @@ Public Class DoanhSoDAL
                     .CommandType = CommandType.Text
                     .CommandText = query
                     .Parameters.AddWithValue("@Thang", thang)
+                    .Parameters.AddWithValue("@Nam", nam)
                 End With
                 Try
                     conn.Open()

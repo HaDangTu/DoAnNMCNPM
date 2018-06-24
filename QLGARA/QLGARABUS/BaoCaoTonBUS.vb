@@ -19,17 +19,17 @@ Public Class BaoCaoTonBUS
         Return baocaotonDAL.Insert(baocaoton)
     End Function
 
-    Public Function Tong_SL_DaSC(Thang As Integer, ByRef ListofTong_SL_DaSC As List(Of Integer)) As Result
-        Return baocaotonDAL.Tong_SL_DaSC(Thang, ListofTong_SL_DaSC)
+    Public Function Tong_SL_DaSC(Thang As Integer, nam As Integer, ByRef ListofTong_SL_DaSC As List(Of Integer)) As Result
+        Return baocaotonDAL.Tong_SL_DaSC(Thang, nam, ListofTong_SL_DaSC)
     End Function
 
-    Public Function Tong_SLPS(Thang As Integer, ByRef ListofTong_SLPS As List(Of Integer)) As Result
-        Return baocaotonDAL.Tong_SLPS(Thang, ListofTong_SLPS)
+    Public Function Tong_SLPS(Thang As Integer, nam As Integer, ByRef ListofTong_SLPS As List(Of Integer)) As Result
+        Return baocaotonDAL.Tong_SLPS(Thang, nam, ListofTong_SLPS)
     End Function
 
-    Public Function Select_TonCuoi_byThang(Thang As Integer,
+    Public Function Select_TonCuoi_byMaBaoCaoTon(MaBaoCaoTon As String,
                                            ByRef ListofTonCuoi As List(Of Integer)) As Result
-        Return baocaotonDAL.Select_TonCuoi_ByThang(Thang, ListofTonCuoi)
+        Return baocaotonDAL.Select_TonCuoi_ByThang(MaBaoCaoTon, ListofTonCuoi)
     End Function
 
 

@@ -102,14 +102,14 @@ Public Class BaoCaoTonDAL
         Return New Result(True)
     End Function
 
-    Public Function Tong_SL_DaSC(Thang As Integer, ByRef ListofTong_SL_DaSC As List(Of Integer)) As Result
+    Public Function Tong_SL_DaSC(Thang As Integer, Nam As Integer, ByRef ListofTong_SL_DaSC As List(Of Integer)) As Result
         Dim query As String
         query = String.Empty
         query &= "SELECT Sum (SoLuong) [SoLuongDaSuaChua] "
         query &= "FROM [PHUTUNG], [TT_PHIEUSUACHUA] , [PHIEUSUACHUA] "
         query &= "WHERE PHUTUNG.MAPHUTUNG = TT_PHIEUSUACHUA.MaPhuTung AND "
         query &= "TT_PHIEUSUACHUA .MaPhieuSC = PHIEUSUACHUA.MaPhieuSC AND "
-        query &= "MONTH(NgaySC) = @Thang "
+        query &= "MONTH(NgaySC) = @Thang AND Year(NgaySC) = @Nam "
         query &= "GROUP BY PHUTUNG.MaPhuTung "
         query &= "ORDER BY PHUTUNG.MaPhuTung ASC "
 
@@ -120,6 +120,7 @@ Public Class BaoCaoTonDAL
                     .CommandType = CommandType.Text
                     .CommandText = query
                     .Parameters.AddWithValue("@Thang", Thang)
+                    .Parameters.AddWithValue("@Nam", Nam)
                 End With
                 Try
                     conn.Open()
@@ -143,14 +144,14 @@ Public Class BaoCaoTonDAL
         Return New Result(True) ' 
     End Function
 
-    Public Function Tong_SLPS(Thang As Integer, ByRef ListofTong_SLPS As List(Of Integer)) As Result
+    Public Function Tong_SLPS(Thang As Integer, Nam As Integer, ByRef ListofTong_SLPS As List(Of Integer)) As Result
         Dim query As String
         query = String.Empty
         query &= "SELECT Sum(SoLuongPS) [SoLuongPhatSinh] "
         query &= "FROM [PHUTUNG], [NHAPPHATSINH], [TT_PHATSINH] "
         query &= "WHERE PHUTUNG.MaPhuTung = TT_PHATSINH.MaPhuTung AND "
         query &= "TT_PHATSINH.MaPhieuNhapPS = NHAPPHATSINH.MaPhieuNhapPS AND "
-        query &= "MONTH(NgayNhapPS) = @Thang "
+        query &= "MONTH(NgayNhapPS) = @Thang AND YEAR(NgayNhapPS) = @Nam "
         query &= "GROUP BY PHUTUNG.MaPhuTung "
         query &= "ORDER BY PHUTUNG.MaPhuTung ASC "
 
@@ -161,6 +162,7 @@ Public Class BaoCaoTonDAL
                     .CommandType = CommandType.Text
                     .CommandText = query
                     .Parameters.AddWithValue("@Thang", Thang)
+                    .Parameters.AddWithValue("@Nam", Nam)
                 End With
                 Try
                     conn.Open()
@@ -184,12 +186,12 @@ Public Class BaoCaoTonDAL
         Return New Result(True) ' 
     End Function
 
-    Public Function Select_TonCuoi_ByThang(Thang As Integer, ByRef ListofTonCuoi As List(Of Integer)) As Result
+    Public Function Select_TonCuoi_ByThang(MaBaoCaoTon As String, ByRef ListofTonCuoi As List(Of Integer)) As Result
         Dim query As String
         query = String.Empty
         query &= "SELECT [TonCuoi] "
         query &= "FROM [TT_BAOCAOTON], [BAOCAOTON] "
-        query &= "WHERE TT_BAOCAOTON.MaBaoCaoTon = BAOCAOTON.MaBaoCaoTon AND Thang = @Thang "
+        query &= "WHERE TT_BAOCAOTON.MaBaoCaoTon = BAOCAOTON.MaBaoCaoTon AND BAOCAOTON.MaBaoCaoTon = @MaBaoCaoTon "
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -197,6 +199,7 @@ Public Class BaoCaoTonDAL
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
+                    .Parameters.AddWithValue("@MaBaoCaoTon", MaBaoCaoTon)
                 End With
                 Try
                     conn.Open()

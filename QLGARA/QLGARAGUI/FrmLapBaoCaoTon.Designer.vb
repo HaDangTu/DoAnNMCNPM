@@ -29,8 +29,8 @@ Partial Class FrmLapBaoCaoTon
         Me.dgvBaoCaoTon = New System.Windows.Forms.DataGridView()
         Me.btLapBaoCao = New System.Windows.Forms.Button()
         Me.btRefresh = New System.Windows.Forms.Button()
-        Me.cbThang = New System.Windows.Forms.ComboBox()
         Me.btPrint = New System.Windows.Forms.Button()
+        Me.dtpThang = New System.Windows.Forms.DateTimePicker()
         CType(Me.dgvBaoCaoTon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -85,7 +85,7 @@ Partial Class FrmLapBaoCaoTon
         'btLapBaoCao
         '
         Me.btLapBaoCao.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btLapBaoCao.Location = New System.Drawing.Point(364, 358)
+        Me.btLapBaoCao.Location = New System.Drawing.Point(278, 362)
         Me.btLapBaoCao.Name = "btLapBaoCao"
         Me.btLapBaoCao.Size = New System.Drawing.Size(98, 46)
         Me.btLapBaoCao.TabIndex = 30
@@ -95,39 +95,38 @@ Partial Class FrmLapBaoCaoTon
         'btRefresh
         '
         Me.btRefresh.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btRefresh.Location = New System.Drawing.Point(676, 357)
+        Me.btRefresh.Location = New System.Drawing.Point(590, 361)
         Me.btRefresh.Name = "btRefresh"
         Me.btRefresh.Size = New System.Drawing.Size(98, 46)
         Me.btRefresh.TabIndex = 31
         Me.btRefresh.Text = "Refresh"
         Me.btRefresh.UseVisualStyleBackColor = True
         '
-        'cbThang
-        '
-        Me.cbThang.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbThang.FormattingEnabled = True
-        Me.cbThang.Location = New System.Drawing.Point(460, 58)
-        Me.cbThang.Name = "cbThang"
-        Me.cbThang.Size = New System.Drawing.Size(38, 25)
-        Me.cbThang.TabIndex = 32
-        '
         'btPrint
         '
         Me.btPrint.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btPrint.Location = New System.Drawing.Point(519, 358)
+        Me.btPrint.Location = New System.Drawing.Point(433, 362)
         Me.btPrint.Name = "btPrint"
         Me.btPrint.Size = New System.Drawing.Size(98, 46)
         Me.btPrint.TabIndex = 33
         Me.btPrint.Text = "Print"
         Me.btPrint.UseVisualStyleBackColor = True
         '
+        'dtpThang
+        '
+        Me.dtpThang.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpThang.Location = New System.Drawing.Point(460, 58)
+        Me.dtpThang.Name = "dtpThang"
+        Me.dtpThang.Size = New System.Drawing.Size(211, 25)
+        Me.dtpThang.TabIndex = 34
+        '
         'FrmLapBaoCaoTon
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(908, 420)
+        Me.Controls.Add(Me.dtpThang)
         Me.Controls.Add(Me.btPrint)
-        Me.Controls.Add(Me.cbThang)
         Me.Controls.Add(Me.btRefresh)
         Me.Controls.Add(Me.btLapBaoCao)
         Me.Controls.Add(Me.dgvBaoCaoTon)
@@ -150,6 +149,6 @@ Partial Class FrmLapBaoCaoTon
     Friend WithEvents dgvBaoCaoTon As DataGridView
     Friend WithEvents btLapBaoCao As Button
     Friend WithEvents btRefresh As Button
-    Friend WithEvents cbThang As ComboBox
     Friend WithEvents btPrint As Button
+    Friend WithEvents dtpThang As DateTimePicker
 End Class

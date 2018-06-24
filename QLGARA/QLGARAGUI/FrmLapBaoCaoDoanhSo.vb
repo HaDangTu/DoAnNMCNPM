@@ -8,12 +8,12 @@ Public Class FrmLapBaoCaoDoanhSo
     Private doanhsoBUS As New DoanhSoBUS()
     Private ttdoanhsoBUS As New TTDoanhSoBUS()
 
-    Public Sub LoadListofLuotSuaChua(thang As Integer, ByRef ListofLuotSuaChua As List(Of LuotSuaChuaDTO))
-        ListofLuotSuaChua = doanhsoBUS.SoLuotSC_1_HieuXe(thang)
+    Public Sub LoadListofLuotSuaChua(thang As Integer, nam As Integer, ByRef ListofLuotSuaChua As List(Of LuotSuaChuaDTO))
+        ListofLuotSuaChua = doanhsoBUS.SoLuotSC_1_HieuXe(thang, nam)
     End Sub
 
-    Public Sub LoadListofThanhTien(thang As Integer, ByRef ListofThanhTien As List(Of ThanhTienDTO))
-        ListofThanhTien = doanhsoBUS.ThanhTien(thang)
+    Public Sub LoadListofThanhTien(thang As Integer, nam As Integer, ByRef ListofThanhTien As List(Of ThanhTienDTO))
+        ListofThanhTien = doanhsoBUS.ThanhTien(thang, nam)
     End Sub
 
     Public Sub LoadDGVDoanhSo(ListofTT_DoanhSo As List(Of TTDoanhSoDTO))
@@ -55,18 +55,19 @@ Public Class FrmLapBaoCaoDoanhSo
         Dim doanhsoDTO As New DoanhSoDTO()
         Dim result As Result
         Dim i = 0
+
         Dim ListofLuotSuaChua As New List(Of LuotSuaChuaDTO)()
         Dim ListofThanhTien As New List(Of ThanhTienDTO)()
-        LoadListofLuotSuaChua(Integer.Parse(cbThang.SelectedValue), ListofLuotSuaChua)
-        LoadListofThanhTien(Integer.Parse(cbThang.SelectedValue), ListofThanhTien)
+        LoadListofLuotSuaChua(dtpThang.Value.Month, dtpThang.Value.Year, ListofLuotSuaChua)
+        LoadListofThanhTien(dtpThang.Value.Month, dtpThang.Value.Year, ListofThanhTien)
 
         doanhsoDTO.MaDoanhSo = tbMaDoanhSo.Text
-        doanhsoDTO.Thang = Convert.ToInt16(cbThang.SelectedValue)
-        doanhsoDTO.TongDoanhThu = doanhsoBUS.TongDoanhThu(doanhsoDTO.Thang)
+        doanhsoDTO.Thang = Convert.ToInt16(dtpThang.Value.Month)
+        doanhsoDTO.TongDoanhThu = doanhsoBUS.TongDoanhThu(doanhsoDTO.Thang, dtpThang.Value.Year)
 
 
         'kiểm tra tháng có hợp lệ hay không
-        If (doanhsoBUS.isvalidMonth(doanhsoDTO.Thang) = False) Then
+        If (doanhsoBUS.isvalidMonth(doanhsoDTO.Thang, dtpThang.Value.Year) = False) Then
             MessageBox.Show("Tháng không hợp lệ ", "Error", MessageBoxButtons.OK,
                              MessageBoxIcon.Error)
             Return
@@ -93,7 +94,7 @@ Public Class FrmLapBaoCaoDoanhSo
                 Return
             End If
             ListofThongTinDoanhSo.Add(New TTDoanhSoDTO(nextMaTTDoanhSo, Suachua.TenHX, Suachua.SoLuotSuaChua,
-                                                       0, Suachua.SoLuotSuaChua / doanhsoBUS.TongSoLuotSua(doanhsoDTO.Thang),
+                                                       0, Suachua.SoLuotSuaChua / doanhsoBUS.TongSoLuotSua(doanhsoDTO.Thang, dtpThang.Value.Year),
                                                        doanhsoDTO.MaDoanhSo))
 
         Next
@@ -126,6 +127,7 @@ Public Class FrmLapBaoCaoDoanhSo
     End Sub
 
     Private Sub FrmLapBaoCaoDoanhSo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim ListofThongTinDoanhSo As New List(Of TTDoanhSoDTO)()
         Dim nextMaDoanhSo = "1"
         Dim result As Result
         result = doanhsoBUS.BuildMaDoanhSo(nextMaDoanhSo)
@@ -136,23 +138,7 @@ Public Class FrmLapBaoCaoDoanhSo
             Return
         End If
         tbMaDoanhSo.Text = nextMaDoanhSo
-
-        Dim ListofMonth As New List(Of Integer)()
-        ListofMonth.Add(1)
-        ListofMonth.Add(2)
-        ListofMonth.Add(3)
-        ListofMonth.Add(4)
-        ListofMonth.Add(5)
-        ListofMonth.Add(6)
-        ListofMonth.Add(7)
-        ListofMonth.Add(8)
-        ListofMonth.Add(9)
-        ListofMonth.Add(10)
-        ListofMonth.Add(11)
-        ListofMonth.Add(12)
-
-        cbThang.DataSource = ListofMonth
-
+        LoadDGVDoanhSo(ListofThongTinDoanhSo)
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -212,7 +198,7 @@ Public Class FrmLapBaoCaoDoanhSo
         Excel.Cells(1, 3) = "BÁO CÁO DOANH SỐ"
 
         Excel.Cells(2, 2) = "Tháng"
-        Excel.Cells(2, 3) = cbThang.SelectedValue
+        Excel.Cells(2, 3) = dtpThang.Value.Month
 
         Excel.Cells(3, 2) = "Tổng doanh số"
         Excel.Cells(3, 3) = tbTongDoanhSo.Text

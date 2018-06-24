@@ -13,9 +13,31 @@ Public Class FrmLapBaoCaoTon
         ListofPhuTung = phutungbus.Sellect_All()
     End Sub
 
-    Public Sub LoadListofTong_SL_DaSC(Thang As Integer, ByRef ListofTong_SL_DaSC As List(Of Integer))
+    Public Function GetPreviousMaBaoCaoTon(maBaoCaoTon As String) As String
+        Dim tmpMaBaoCaoTon
+        Dim prefix = "CT"
+        tmpMaBaoCaoTon = String.Empty
+        tmpMaBaoCaoTon = prefix
+
+        Dim tmp As String
+        Dim tmp1 As String
+        tmp = maBaoCaoTon.Substring(2)
+        Dim converttodecimal As Decimal
+        converttodecimal = Convert.ToDecimal(tmp)
+        converttodecimal -= 1
+        If (converttodecimal = 0) Then
+            Return String.Empty
+        End If
+        Dim v = converttodecimal.ToString()
+        tmp1 = tmp.Substring(0, tmp.Length - v.Length)
+        tmp = converttodecimal.ToString()
+        tmpMaBaoCaoTon = tmpMaBaoCaoTon + tmp1 + tmp
+        maBaoCaoTon = tmpMaBaoCaoTon
+        Return maBaoCaoTon
+    End Function
+    Public Sub LoadListofTong_SL_DaSC(Thang As Integer, nam As Integer, ByRef ListofTong_SL_DaSC As List(Of Integer))
         Dim result As Result
-        result = baocaotonBUS.Tong_SL_DaSC(Thang, ListofTong_SL_DaSC)
+        result = baocaotonBUS.Tong_SL_DaSC(Thang, nam, ListofTong_SL_DaSC)
         If (result.FlagResult = False) Then
             MessageBox.Show("Lấy tổng số lượng đã sửa chữa của từng loại phụ tùng thất bại", "Error",
                             MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -24,9 +46,9 @@ Public Class FrmLapBaoCaoTon
         End If
     End Sub
 
-    Public Sub LoadListofTong_SLPS(Thang As Integer, ByRef ListofTong_SLPS As List(Of Integer))
+    Public Sub LoadListofTong_SLPS(Thang As Integer, nam As Integer, ByRef ListofTong_SLPS As List(Of Integer))
         Dim result As Result
-        result = baocaotonBUS.Tong_SLPS(Thang, ListofTong_SLPS)
+        result = baocaotonBUS.Tong_SLPS(Thang, nam, ListofTong_SLPS)
         If (result.FlagResult = False) Then
             MessageBox.Show("Lấy tổng số lượng phát sinh của từng loại phụ tùng thất bại", "Error",
                             MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -35,15 +57,19 @@ Public Class FrmLapBaoCaoTon
         End If
     End Sub
 
-    Public Sub LoadListofTonCuoi(Thang As Integer, ByRef ListofTonCuoi As List(Of Integer))
+    Public Sub LoadListofTonCuoi(maBaoCaoTon As String, ByRef ListofTonCuoi As List(Of Integer))
         Dim result As Result
-        result = baocaotonBUS.Select_TonCuoi_byThang(Thang, ListofTonCuoi)
-        If (result.FlagResult = False) Then
-            'MessageBox.Show("Lấy số lượng tồn cuối của từng loại phụ tùng thất bại", "Error",
-            '                MessageBoxButtons.OK, MessageBoxIcon.Error)
-            'System.Console.WriteLine(result.SystemMessage)
-            'Return
+        maBaoCaoTon = GetPreviousMaBaoCaoTon(maBaoCaoTon)
+        If (maBaoCaoTon = "") Then
             ListofTonCuoi = Nothing
+        Else
+            result = baocaotonBUS.Select_TonCuoi_byMaBaoCaoTon(maBaoCaoTon, ListofTonCuoi)
+            If (result.FlagResult = False) Then
+                MessageBox.Show("Lấy số lượng tồn cuối của từng loại phụ tùng thất bại", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error)
+                System.Console.WriteLine(result.SystemMessage)
+                Return
+            End If
         End If
     End Sub
 
@@ -103,14 +129,16 @@ Public Class FrmLapBaoCaoTon
 
         'loadList
         LoadListofPhuTung(ListofPhuTung)
-        LoadListofTong_SL_DaSC(Integer.Parse(cbThang.SelectedValue), ListofTong_SL_DaSC)
-        LoadListofTong_SLPS(Integer.Parse(cbThang.SelectedValue), ListofTong_SLPS)
-        LoadListofSLNhap(Integer.Parse(cbThang.SelectedValue), ListofSoLuongNhap)
-        LoadListofTonCuoi(Integer.Parse(cbThang.SelectedValue) - 1, ListofTonCuoi) 'Tồn cuối của tháng trước
+        LoadListofTong_SL_DaSC(dtpThang.Value.Month, dtpThang.Value.Year, ListofTong_SL_DaSC)
+        LoadListofTong_SLPS(dtpThang.Value.Month, dtpThang.Value.Year, ListofTong_SLPS)
+        LoadListofSLNhap(dtpThang.Value.Month, ListofSoLuongNhap)
+
 
         'Mapping Data
         baocaotonDTO.MaBaoCaoTon = tbMaBaoCaoTon.Text
-        baocaotonDTO.Thang = Integer.Parse(cbThang.SelectedValue)
+        baocaotonDTO.Thang = dtpThang.Value.Month
+
+        LoadListofTonCuoi(baocaotonDTO.MaBaoCaoTon, ListofTonCuoi) 'Tồn cuối của tháng trước
 
         For Each phutung As PhuTungDTO In ListofPhuTung
             Dim nextMaTTBaoCaoTon = "1"
@@ -225,22 +253,6 @@ Public Class FrmLapBaoCaoTon
             Return
         End If
         tbMaBaoCaoTon.Text = nextMaBaoCaoTon
-
-        Dim ListofMonth As New List(Of Integer)()
-        ListofMonth.Add(1)
-        ListofMonth.Add(2)
-        ListofMonth.Add(3)
-        ListofMonth.Add(4)
-        ListofMonth.Add(5)
-        ListofMonth.Add(6)
-        ListofMonth.Add(7)
-        ListofMonth.Add(8)
-        ListofMonth.Add(9)
-        ListofMonth.Add(10)
-        ListofMonth.Add(11)
-        ListofMonth.Add(12)
-
-        cbThang.DataSource = ListofMonth
     End Sub
 
     Private Sub btRefresh_Click(sender As Object, e As EventArgs) Handles btRefresh.Click
@@ -292,7 +304,7 @@ Public Class FrmLapBaoCaoTon
         Excel.Cells(1, 3) = "BÁO CÁO TỒN"
 
         Excel.Cells(2, 1) = "Tháng"
-        Excel.Cells(2, 2) = cbThang.SelectedValue
+        Excel.Cells(2, 2) = dtpThang.Value.Month
 
         For Each datacolumn In datatable.Columns
             colIndex = colIndex + 1
