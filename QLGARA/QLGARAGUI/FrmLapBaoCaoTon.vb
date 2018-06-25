@@ -73,9 +73,9 @@ Public Class FrmLapBaoCaoTon
         End If
     End Sub
 
-    Public Sub LoadListofSLNhap(Thang As Integer, ByRef ListofSoLuongNhap As List(Of Integer))
+    Public Sub LoadListofSLNhap(Thang As Integer, Nam As Integer, ByRef ListofSoLuongNhap As List(Of Integer))
         Dim result As Result
-        result = ttnhapphutung.Select_SoLuongNhap(Thang, ListofSoLuongNhap)
+        result = ttnhapphutung.Select_SoLuongNhap(Thang, Nam, ListofSoLuongNhap)
         If (result.FlagResult = False) Then
             MessageBox.Show("Lấy số lượng nhập của từng loại phụ tùng thất bại", "Error",
                             MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -125,13 +125,13 @@ Public Class FrmLapBaoCaoTon
         Dim ListofTTbaocaotonDTO As New List(Of TTBaoCaoTonDTO)()
         Dim ListofSoLuongNhap As New List(Of Integer)()
         Dim ListofTonCuoi As New List(Of Integer)()
-        Dim i = 0, j = 0
+        'Dim i = 0, j = 0
 
         'loadList
         LoadListofPhuTung(ListofPhuTung)
         LoadListofTong_SL_DaSC(dtpThang.Value.Month, dtpThang.Value.Year, ListofTong_SL_DaSC)
         LoadListofTong_SLPS(dtpThang.Value.Month, dtpThang.Value.Year, ListofTong_SLPS)
-        LoadListofSLNhap(dtpThang.Value.Month, ListofSoLuongNhap)
+        LoadListofSLNhap(dtpThang.Value.Month, dtpThang.Value.Year, ListofSoLuongNhap)
 
 
         'Mapping Data
@@ -149,53 +149,41 @@ Public Class FrmLapBaoCaoTon
 
         'Tính Tồn đầu
         For n As Integer = 0 To ListofTTbaocaotonDTO.Count - 1
-
             If (IsNothing(ListofTonCuoi) = False) Then
-                If (i < ListofTonCuoi.Count And
-                    j < ListofSoLuongNhap.Count) Then
-                    ListofTTbaocaotonDTO.Item(n) = New TTBaoCaoTonDTO(ListofTTbaocaotonDTO.ElementAt(n).MaTTBaoCaoTon,
-                                                                      ListofTTbaocaotonDTO.ElementAt(n).TenPhuTung,
-    ListofTonCuoi.ElementAt(i) + ListofSoLuongNhap.ElementAt(j), 0, 0, ListofTTbaocaotonDTO.ElementAt(n).MaBaoCaoTon)
-                    i = i + 1
-                    j = j + 1
-                End If
+                ListofTTbaocaotonDTO(n) = New TTBaoCaoTonDTO(ListofTTbaocaotonDTO(n).MaTTBaoCaoTon,
+                                                           ListofTTbaocaotonDTO(n).TenPhuTung,
+                                                           ListofTonCuoi(n) + ListofSoLuongNhap(n),
+                                                          0, 0,
+                                                          ListofTTbaocaotonDTO(n).MaBaoCaoTon)
             Else
-                If (j < ListofSoLuongNhap.Count) Then
-                    ListofTTbaocaotonDTO.Item(n) = New TTBaoCaoTonDTO(ListofTTbaocaotonDTO.ElementAt(n).MaTTBaoCaoTon,
-                                                                      ListofTTbaocaotonDTO.ElementAt(n).TenPhuTung,
-    ListofSoLuongNhap.ElementAt(j), 0, 0, ListofTTbaocaotonDTO.ElementAt(n).MaBaoCaoTon)
-                    j = j + 1
-                End If
+                ListofTTbaocaotonDTO(n) = New TTBaoCaoTonDTO(ListofTTbaocaotonDTO(n).MaTTBaoCaoTon,
+                                                           ListofTTbaocaotonDTO(n).TenPhuTung,
+                                                           ListofSoLuongNhap(n),
+                                                          0, 0,
+                                                          ListofTTbaocaotonDTO(n).MaBaoCaoTon)
             End If
+        Next
 
-        Next
-        i = 0
-        j = 0
-        'Tính Phát sinh + TonCuoi
+        'Tính Phát sinh
         For n As Integer = 0 To ListofTTbaocaotonDTO.Count - 1
-            If (i < ListofTong_SLPS.Count) Then
-                ListofTTbaocaotonDTO.Item(n) = New TTBaoCaoTonDTO(ListofTTbaocaotonDTO.ElementAt(n).MaTTBaoCaoTon,
-                                                                  ListofTTbaocaotonDTO.ElementAt(n).TenPhuTung,
-                                             ListofTTbaocaotonDTO.ElementAt(n).TonDau, ListofTong_SLPS.ElementAt(i),
-                                             ListofTTbaocaotonDTO.ElementAt(n).TonDau + ListofTong_SLPS.ElementAt(i) -
-                                             0,
-                                             ListofTTbaocaotonDTO.ElementAt(i).MaBaoCaoTon)
-                i = i + 1
-            End If
-            If (j < ListofTong_SL_DaSC.Count) Then
-                ListofTTbaocaotonDTO.Item(n) = New TTBaoCaoTonDTO(ListofTTbaocaotonDTO.ElementAt(n).MaTTBaoCaoTon,
-                                                                  ListofTTbaocaotonDTO.ElementAt(n).TenPhuTung,
-                                                                  ListofTTbaocaotonDTO.ElementAt(n).TonDau,
-                                                                  ListofTTbaocaotonDTO.ElementAt(n).PhatSinh,
-                                                                  ListofTTbaocaotonDTO.ElementAt(n).TonDau +
-                                                                  ListofTTbaocaotonDTO.ElementAt(n).PhatSinh -
-                                                                  ListofTong_SL_DaSC.ElementAt(j),
-                                                                  ListofTTbaocaotonDTO.ElementAt(i).MaBaoCaoTon)
-                j = j + 1
-            End If
+            ListofTTbaocaotonDTO(n) = New TTBaoCaoTonDTO(ListofTTbaocaotonDTO(n).MaTTBaoCaoTon,
+                                                          ListofTTbaocaotonDTO(n).TenPhuTung,
+                                                          ListofTTbaocaotonDTO(n).TonDau,
+                                                         ListofTong_SLPS(n),
+                                                         0,
+                                                         ListofTTbaocaotonDTO(n).MaBaoCaoTon)
         Next
-        i = 0
-        j = 0
+
+        'Tính Tồn cuối
+        For n As Integer = 0 To ListofTTbaocaotonDTO.Count - 1
+            ListofTTbaocaotonDTO(n) = New TTBaoCaoTonDTO(ListofTTbaocaotonDTO(n).MaTTBaoCaoTon,
+                                                                      ListofTTbaocaotonDTO(n).TenPhuTung,
+                                                                      ListofTTbaocaotonDTO(n).TonDau,
+                                                                      ListofTTbaocaotonDTO(n).PhatSinh,
+                   ListofTTbaocaotonDTO(n).TonDau + ListofTTbaocaotonDTO(n).PhatSinh - ListofTong_SL_DaSC(n),
+                                                                      ListofTTbaocaotonDTO(n).MaBaoCaoTon)
+        Next
+
         'Kiểm tra tháng nhập vào có hợp lệ hay không
         If (baocaotonBUS.isValidThang(baocaotonDTO.Thang) = False) Then
             MessageBox.Show("Tháng không hợp lệ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

@@ -236,4 +236,45 @@ Public Class KhachhangDAL
         End Using
         Return Khachhang
     End Function
+
+    Public Function SelectMaKH(tenKH As String, diachi As String, dienthoai As String) As KhachHangDTO
+        Dim Khachhang As New KhachHangDTO()
+        Dim query As String
+        query = String.Empty
+        query &= "SELECT [KHACHHANG].[MaKH], [TenKH], [DiaChi], [DienThoai], [TienNo]"
+        query &= " FROM [KHACHHANG] "
+        query &= " WHERE [TenKH] = @TenKH AND [DiaChi] = @DiaChi AND [DienThoai] = @DienThoai "
+
+        Using conn As New SqlConnection(connectionstring)
+            Using comm As New SqlCommand()
+                With comm
+                    .Connection = conn
+                    .CommandType = CommandType.Text
+                    .CommandText = query
+                    .Parameters.AddWithValue("@TenKH", tenKH)
+                    .Parameters.AddWithValue("@DiaChi", diachi)
+                    .Parameters.AddWithValue("@DienThoai", dienthoai)
+                End With
+                Try
+                    conn.Open()
+                    comm.ExecuteNonQuery()
+                    Dim reader As SqlDataReader
+                    reader = comm.ExecuteReader()
+                    If (reader.HasRows) Then
+                        While (reader.Read())
+                            Khachhang = New KhachHangDTO(reader("MaKH"), reader("TenKH"),
+                                                         reader("DiaChi"), reader("DienThoai"),
+                                                         reader("TienNo"))
+
+                        End While
+                    End If
+                Catch ex As Exception
+                    conn.Close()
+                    System.Console.WriteLine(ex.StackTrace)
+                    Return Nothing
+                End Try
+            End Using
+        End Using
+        Return Khachhang
+    End Function
 End Class

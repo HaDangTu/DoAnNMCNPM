@@ -40,4 +40,8 @@ Public Class KhachHangBUS
     Public Function SelectMaKH_ByBienSo(bienso As String) As KhachHangDTO
         Return khachhangDAL.SelectMaKH_byBienso(bienso)
     End Function
+
+    Public Function SelectMaKH(tenKH As String, diachi As String, dienthoai As String) As KhachHangDTO
+        Return khachhangDAL.SelectMaKH(tenKH, diachi, dienthoai)
+    End Function
 End Class

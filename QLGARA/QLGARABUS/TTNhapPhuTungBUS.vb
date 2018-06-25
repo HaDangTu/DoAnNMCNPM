@@ -12,7 +12,7 @@ Public Class TTNhapPhuTungBUS
         Return ttnhapphutungDAL.Insert(ttnhapphutung)
     End Function
 
-    Public Function Select_SoLuongNhap(Thang As Integer, ByRef ListofSoLuongNhap As List(Of Integer)) As Result
-        Return ttnhapphutungDAL.Select_SoLuongNhap(Thang, ListofSoLuongNhap)
+    Public Function Select_SoLuongNhap(Thang As Integer, Nam As Integer, ByRef ListofSoLuongNhap As List(Of Integer)) As Result
+        Return ttnhapphutungDAL.Select_SoLuongNhap(Thang, Nam, ListofSoLuongNhap)
     End Function
 End Class

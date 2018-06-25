@@ -79,10 +79,11 @@ Partial Class FrmLapPhieuTiepNhan
         '
         'tbMaCxe
         '
-        Me.tbMaCxe.Location = New System.Drawing.Point(83, 13)
+        Me.tbMaCxe.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbMaCxe.Location = New System.Drawing.Point(83, 11)
         Me.tbMaCxe.Name = "tbMaCxe"
         Me.tbMaCxe.ReadOnly = True
-        Me.tbMaCxe.Size = New System.Drawing.Size(100, 20)
+        Me.tbMaCxe.Size = New System.Drawing.Size(100, 25)
         Me.tbMaCxe.TabIndex = 4
         '
         'Label7
@@ -162,10 +163,11 @@ Partial Class FrmLapPhieuTiepNhan
         '
         'tbMaphieu
         '
+        Me.tbMaphieu.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbMaphieu.Location = New System.Drawing.Point(81, 77)
         Me.tbMaphieu.Name = "tbMaphieu"
         Me.tbMaphieu.ReadOnly = True
-        Me.tbMaphieu.Size = New System.Drawing.Size(100, 20)
+        Me.tbMaphieu.Size = New System.Drawing.Size(100, 25)
         Me.tbMaphieu.TabIndex = 2
         '
         'Label6
@@ -283,7 +285,7 @@ Partial Class FrmLapPhieuTiepNhan
         Me.Button1.Text = "Tiếp nhận"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'FrmPhieuTiepNhan
+        'FrmLapPhieuTiepNhan
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -300,7 +302,7 @@ Partial Class FrmLapPhieuTiepNhan
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Label1)
-        Me.Name = "FrmPhieuTiepNhan"
+        Me.Name = "FrmLapPhieuTiepNhan"
         Me.Text = "Form1"
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()

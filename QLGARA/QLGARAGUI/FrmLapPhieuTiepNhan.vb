@@ -140,10 +140,12 @@ Public Class FrmLapPhieuTiepNhan
                                 MessageBoxButtons.OK, MessageBoxIcon.Error)
                 System.Console.WriteLine(result.SystemMessage)
             End If
+        Else
+            khachhangDTO = khachhangBUS.SelectMaKH(tbTenCxe.Text, tbDiaChi.Text, tbDienThoai.Text)
         End If
 
         'kiểm tra biển số xe này đã có chưa 
-        'nếu chưa có thì lưu lại đồng thời lưu phiếu tiếp nhận mới
+        'nếu chưa có thì lưu lại 
         If (thongtinxeBUS.isvalidthongtinxe(thongtinxeDTO) = False) Then
             Dim nextmattxe = "1"
             thongtinxeBUS.BuildMaTTXe(nextmattxe)

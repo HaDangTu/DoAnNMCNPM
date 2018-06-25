@@ -105,12 +105,14 @@ Public Class BaoCaoTonDAL
     Public Function Tong_SL_DaSC(Thang As Integer, Nam As Integer, ByRef ListofTong_SL_DaSC As List(Of Integer)) As Result
         Dim query As String
         query = String.Empty
-        query &= "SELECT Sum (SoLuong) [SoLuongDaSuaChua] "
+        query &= "SELECT SoLuongDaSuaChua "
+        query &= "FROM (SELECT TenPhuTung, Sum (SoLuong) [SoLuongDaSuaChua] "
         query &= "FROM [PHUTUNG], [TT_PHIEUSUACHUA] , [PHIEUSUACHUA] "
         query &= "WHERE PHUTUNG.MAPHUTUNG = TT_PHIEUSUACHUA.MaPhuTung AND "
         query &= "TT_PHIEUSUACHUA .MaPhieuSC = PHIEUSUACHUA.MaPhieuSC AND "
         query &= "MONTH(NgaySC) = @Thang AND Year(NgaySC) = @Nam "
-        query &= "GROUP BY PHUTUNG.MaPhuTung "
+        query &= "GROUP BY PHUTUNG.MaPhuTung, TenPhuTung)  "
+        query &= "A right join [PHUTUNG] on A.TenPhuTung = PHUTUNG.TenPhuTung "
         query &= "ORDER BY PHUTUNG.MaPhuTung ASC "
 
         Using conn As New SqlConnection(connectionstring)
@@ -129,7 +131,12 @@ Public Class BaoCaoTonDAL
                     If reader.HasRows = True Then
                         ListofTong_SL_DaSC.Clear()
                         While reader.Read()
-                            ListofTong_SL_DaSC.Add(reader("SoLuongDaSuaChua"))
+                            If (IsDBNull(reader("SoLuongDaSuaChua")) = True) Then
+                                ListofTong_SL_DaSC.Add(0)
+                            Else
+                                ListofTong_SL_DaSC.Add(reader("SoLuongDaSuaChua"))
+                            End If
+
                         End While
                     End If
 
@@ -147,12 +154,14 @@ Public Class BaoCaoTonDAL
     Public Function Tong_SLPS(Thang As Integer, Nam As Integer, ByRef ListofTong_SLPS As List(Of Integer)) As Result
         Dim query As String
         query = String.Empty
-        query &= "SELECT Sum(SoLuongPS) [SoLuongPhatSinh] "
+        query &= "SELECT SoLuongPhatSinh "
+        query &= "FROM (SELECT TenPhuTung, Sum(SoLuongPS) [SoLuongPhatSinh] "
         query &= "FROM [PHUTUNG], [NHAPPHATSINH], [TT_PHATSINH] "
         query &= "WHERE PHUTUNG.MaPhuTung = TT_PHATSINH.MaPhuTung AND "
         query &= "TT_PHATSINH.MaPhieuNhapPS = NHAPPHATSINH.MaPhieuNhapPS AND "
         query &= "MONTH(NgayNhapPS) = @Thang AND YEAR(NgayNhapPS) = @Nam "
-        query &= "GROUP BY PHUTUNG.MaPhuTung "
+        query &= "GROUP BY PHUTUNG.MaPhuTung, TenPhuTung) "
+        query &= "B right join [PHUTUNG] ON B.TenPhuTung = PHUTUNG.TenPhuTung "
         query &= "ORDER BY PHUTUNG.MaPhuTung ASC "
 
         Using conn As New SqlConnection(connectionstring)
@@ -171,7 +180,12 @@ Public Class BaoCaoTonDAL
                     If reader.HasRows = True Then
                         ListofTong_SLPS.Clear()
                         While reader.Read()
-                            ListofTong_SLPS.Add(reader("SoLuongPhatSinh"))
+                            If (IsDBNull(reader("SoLuongPhatSinh")) = True) Then
+                                ListofTong_SLPS.Add(0)
+                            Else
+                                ListofTong_SLPS.Add(reader("SoLuongPhatSinh"))
+                            End If
+
                         End While
                     End If
 
@@ -189,9 +203,10 @@ Public Class BaoCaoTonDAL
     Public Function Select_TonCuoi_ByThang(MaBaoCaoTon As String, ByRef ListofTonCuoi As List(Of Integer)) As Result
         Dim query As String
         query = String.Empty
-        query &= "SELECT [TonCuoi] "
+        query &= "SELECT TenPhuTung, [TonCuoi] "
         query &= "FROM [TT_BAOCAOTON], [BAOCAOTON] "
         query &= "WHERE TT_BAOCAOTON.MaBaoCaoTon = BAOCAOTON.MaBaoCaoTon AND BAOCAOTON.MaBaoCaoTon = @MaBaoCaoTon "
+        query &= "Order by TenPhuTung ASC"
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()

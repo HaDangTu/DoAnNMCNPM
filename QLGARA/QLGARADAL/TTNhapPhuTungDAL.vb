@@ -103,13 +103,19 @@ Public Class TTNhapPhuTungDAL
         Return New Result(True)
     End Function
 
-    Public Function Select_SoLuongNhap(Thang As Integer, ByRef ListofTTNhapPhuTung As List(Of Integer)) As Result
+    Public Function Select_SoLuongNhap(Thang As Integer, Nam As Integer, ByRef ListofTTNhapPhuTung As List(Of Integer)) As Result
         Dim query As String
         query = String.Empty
-        query &= "SELECT sum ([SoLuongNhap]) [SLNhap] "
-        query &= "FROM [NHAPPHUTUNG], [TT_NHAPPHUTUNG] "
-        query &= "WHERE NHAPPHUTUNG.MaNhapPhuTung = TT_NHAPPHUTUNG.MaNhapPhuTung AND month(NgayNhap) = @Thang "
-        query &= "GROUP BY [MaPhuTung]"
+        query &= "SELECT SLNhap "
+        query &= "FROM (SELECT TenPhuTung, sum ([SoLuongNhap]) [SLNhap] "
+        query &= "FROM [NHAPPHUTUNG], [TT_NHAPPHUTUNG], [PHUTUNG] "
+        query &= "WHERE NHAPPHUTUNG.MaNhapPhuTung = TT_NHAPPHUTUNG.MaNhapPhuTung  "
+        query &= "AND PHUTUNG.MaPhuTung = TT_NHAPPHUTUNG .MaPhuTung "
+        query &= "AND month(NgayNhap) = @Thang And year(NgayNhap) = @Nam "
+        query &= "GROUP BY PHUTUNG.MaPhuTung, TenPhuTung) "
+        query &= "C right join [PHUTUNG] ON C.TenPhuTung = PHUTUNG.TenPhuTung "
+        query &= "ORDER BY PHUTUNG.MaPhuTung ASC "
+
 
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
@@ -118,6 +124,7 @@ Public Class TTNhapPhuTungDAL
                     .CommandType = CommandType.Text
                     .CommandText = query
                     .Parameters.AddWithValue("@Thang", Thang)
+                    .Parameters.AddWithValue("@Nam", Nam)
                 End With
                 Try
                     conn.Open()
@@ -126,7 +133,12 @@ Public Class TTNhapPhuTungDAL
                     If reader.HasRows = True Then
                         ListofTTNhapPhuTung.Clear()
                         While reader.Read()
-                            ListofTTNhapPhuTung.Add(reader("SLNhap"))
+                            If (IsDBNull(reader("SLNhap")) = True) Then
+                                ListofTTNhapPhuTung.Add(0)
+                            Else
+                                ListofTTNhapPhuTung.Add(reader("SLNhap"))
+                            End If
+
                         End While
                     End If
 

@@ -139,11 +139,11 @@ Partial Class FrmLapPhieuSuaChua
         Me.btRefresh.Text = "Refresh"
         Me.btRefresh.UseVisualStyleBackColor = True
         '
-        'FrmPhieuSuaChua
+        'FrmLapPhieuSuaChua
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(895, 567)
+        Me.ClientSize = New System.Drawing.Size(895, 488)
         Me.Controls.Add(Me.btRefresh)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.dgvTT_PhieuSC)
@@ -155,7 +155,7 @@ Partial Class FrmLapPhieuSuaChua
         Me.Controls.Add(Me.tbBienSo)
         Me.Controls.Add(Me.tbMaPhieuSC)
         Me.Controls.Add(Me.Label1)
-        Me.Name = "FrmPhieuSuaChua"
+        Me.Name = "FrmLapPhieuSuaChua"
         Me.Text = "FrmPhieuSuaChua"
         CType(Me.dgvTT_PhieuSC, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

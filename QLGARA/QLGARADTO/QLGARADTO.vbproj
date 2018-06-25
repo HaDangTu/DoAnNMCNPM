@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="BaoCaoTonDTO.vb" />
     <Compile Include="DanhSachXeDTO.vb" />
+    <Compile Include="DaSuaChuaDTO.vb" />
     <Compile Include="DoanhSoDTO.vb" />
     <Compile Include="HieuXeDTO.vb" />
     <Compile Include="HoSoSuaChuaDTO.vb" />
@@ -88,13 +89,16 @@
     </Compile>
     <Compile Include="NhapPhatSinhDTO.vb" />
     <Compile Include="NhapPhuTungDTO.vb" />
+    <Compile Include="PhatSinhDTO.vb" />
     <Compile Include="PhieuSuaChuaDTO.vb" />
     <Compile Include="PhieuThuTienDTO.vb" />
     <Compile Include="PhieuTiepNhanDTO.vb" />
     <Compile Include="PhuTungDTO.vb" />
+    <Compile Include="SLNhapDTO.vb" />
     <Compile Include="ThamSoDTO.vb" />
     <Compile Include="ThanhTienDTO.vb" />
     <Compile Include="ThongTinXeDTO.vb" />
+    <Compile Include="TonCuoiDTO.vb" />
     <Compile Include="TTBaoCaoTonDTO.vb" />
     <Compile Include="TTNhapPhuTungDTO.vb" />
     <Compile Include="TTPhatSinhDTO.vb" />
