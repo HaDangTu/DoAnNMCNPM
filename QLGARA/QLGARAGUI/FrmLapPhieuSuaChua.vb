@@ -92,12 +92,16 @@ Public Class FrmLapPhieuSuaChua
 
     Private Sub btLapPhieu_Click(sender As Object, e As EventArgs) Handles btLapPhieu.Click
         Dim phieusuachuaDTO As New PhieuSuaChuaDTO()
-        Dim tt_phieusuachuaDTO As New TTPhieuSuaChuaDTO()
+        Dim Listoftt_phieusuachuaDTO As New List(Of TTPhieuSuaChuaDTO)()
         Dim khachhangDTO As New KhachHangDTO()
         Dim result As Result
-        Dim ListofPhuTungDTO As New List(Of PhuTungDTO)()
-        LoadListofPhuTung(ListofPhuTungDTO)
+        Dim ListofPhuTung As New List(Of PhuTungDTO)
+        ListofPhuTung = phutungBUS.Sellect_All()
 
+        If (phieusuachuaBUS.isvalidTBBienSo(tbBienSo.Text) = False) Then
+            MessageBox.Show("Thông tin biển số xe bị thiếu")
+            Return
+        End If
         'Tìm mã phiếu tiếp nhận thông qua biển số
         Dim maphieutiepnhan As String
         maphieutiepnhan = phieutiepnhanBUS.SelectPhieutiepnhan_ByBienso(tbBienSo.Text).MaPhieu
@@ -107,6 +111,13 @@ Public Class FrmLapPhieuSuaChua
             If (phutungBUS.isvalidPhuTung(row.Cells("TenPhuTung").Value) = False And
                  row.Cells("TenPhuTung").Value <> "") Then
                 MessageBox.Show("Không có phụ tùng này")
+                Return
+            End If
+        Next
+        For Each row As DataGridViewRow In dgvTT_PhieuSC.Rows
+            If (phutungBUS.isValidSLPhuTung(row.Cells("TenPhuTung").Value, row.Cells("SoLuong").Value) = False And
+                    row.Cells("TenPhuTung").Value <> "") Then
+                MessageBox.Show("Loại phụ tùng " + row.Cells("TenPhuTung").Value + " đã hết ")
                 Return
             End If
         Next
@@ -159,43 +170,50 @@ Public Class FrmLapPhieuSuaChua
                             MessageBoxIcon.Error)
             Return
         End If
-        Dim i = 0
+        Dim i = 0, j = 0
         'Insert Thông tin sửa chữa
-        tt_phieusuachuaDTO.MaPhieuSC = phieusuachuaDTO.MaPhieuSC
+
         For Each row As DataGridViewRow In dgvTT_PhieuSC.Rows
             If (row.Cells("TenPhuTung").Value <> "") Then
                 Dim nextMaTTPhieuSC = "1"
                 tt_phieusuachuaBUS.BuildMaTTPhieuSC(nextMaTTPhieuSC)
-                tt_phieusuachuaDTO.MaTTPhieuSuaChua = nextMaTTPhieuSC
-
-                tt_phieusuachuaDTO.MaPhuTung = row.Cells("TenPhuTung").Value
-                tt_phieusuachuaDTO.MaTienCong = row.Cells("TienCong").Value
-                tt_phieusuachuaDTO.SoLuong = Convert.ToDouble(row.Cells("SoLuong").Value)
-                tt_phieusuachuaDTO.NoiDung = row.Cells("NoiDung").Value
-                If (i < ListofPhuTungDTO.Count) Then
-                    ListofPhuTungDTO(i).SoLuongCon = ListofPhuTungDTO(i).SoLuongCon - tt_phieusuachuaDTO.SoLuong
-                    i = i + 1
-                End If
-                result = tt_phieusuachuaBUS.Insert(tt_phieusuachuaDTO)
-                If (result.FlagResult = True) Then
-                    MessageBox.Show("Thêm thông tin phiếu sửa chữa thành công.", "Information", MessageBoxButtons.OK,
-                                    MessageBoxIcon.Information)
-                Else
-                    MessageBox.Show("Thêm thông tin phiếu sửa chữa không thành công.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    System.Console.WriteLine(result.SystemMessage)
-                    Return
-                End If
+                Listoftt_phieusuachuaDTO.Add(New TTPhieuSuaChuaDTO(nextMaTTPhieuSC,
+                                                                   phieusuachuaDTO.MaPhieuSC,
+                                                                   row.Cells("TenPhuTung").Value,
+                                                                   row.Cells("NoiDung").Value,
+                                                                   Convert.ToDouble(row.Cells("SoLuong").Value),
+                                                                   row.Cells("TienCong").Value))
             End If
         Next
-        i = 0
 
+        For i = 0 To ListofPhuTung.Count - 1
+            For j = 0 To Listoftt_phieusuachuaDTO.Count - 1
+                If (ListofPhuTung(i).MaPhuTung = Listoftt_phieusuachuaDTO(j).MaPhuTung) Then
+                    ListofPhuTung(i) = New PhuTungDTO(ListofPhuTung(i).MaPhuTung, ListofPhuTung(i).TenPhuTung,
+                                                       ListofPhuTung(i).DonGia,
+                                                       ListofPhuTung(i).SoLuongCon - Listoftt_phieusuachuaDTO(j).SoLuong)
+                End If
+            Next
+        Next
+
+        For Each tt_phieuSC As TTPhieuSuaChuaDTO In Listoftt_phieusuachuaDTO
+            result = tt_phieusuachuaBUS.Insert(tt_phieuSC)
+            If (result.FlagResult = True) Then
+                MessageBox.Show("Nhập thông tin phiếu sửa chữa thành công", "Information", MessageBoxButtons.OK,
+                                MessageBoxIcon.Information)
+            Else
+                MessageBox.Show("Nhập thông tin phiếu sửa chữa không thành công", "Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error)
+                Return
+            End If
+        Next
         'Cập nhật lại tiền nợ của khách hàng
         khachhangDTO = khachhangBUS.SelectMaKH_ByBienSo(tbBienSo.Text)
         khachhangDTO = New KhachHangDTO(khachhangDTO.MaKH, khachhangDTO.TenKH,
                                          khachhangDTO.DiaChi, khachhangDTO.DienThoai,
                                         khachhangDTO.TienNo + TongThanhTien)
-        'Cập nhật lại SoLuonCon của Phụ tùng
-        For Each phutung In ListofPhuTungDTO
+        'Cập nhật lại SoLuongCon của Phụ tùng
+        For Each phutung In ListofPhuTung
             phutungBUS.Update(phutung)
         Next
 

@@ -111,6 +111,8 @@ Partial Class FrmNhapPhuTung
         '
         'dgvDanhSachNhapPT
         '
+        Me.dgvDanhSachNhapPT.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvDanhSachNhapPT.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvDanhSachNhapPT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvDanhSachNhapPT.Location = New System.Drawing.Point(12, 226)
         Me.dgvDanhSachNhapPT.Name = "dgvDanhSachNhapPT"

@@ -73,7 +73,7 @@ Partial Class FrmLapBaoCaoDoanhSo
         '
         Me.tbTongDoanhSo.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbTongDoanhSo.Location = New System.Drawing.Point(440, 120)
-        Me.tbTongDoanhSo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbTongDoanhSo.Margin = New System.Windows.Forms.Padding(4)
         Me.tbTongDoanhSo.Name = "tbTongDoanhSo"
         Me.tbTongDoanhSo.ReadOnly = True
         Me.tbTongDoanhSo.Size = New System.Drawing.Size(265, 25)
@@ -81,10 +81,12 @@ Partial Class FrmLapBaoCaoDoanhSo
         '
         'dgvDoanhSo
         '
+        Me.dgvDoanhSo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvDoanhSo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvDoanhSo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.dgvDoanhSo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvDoanhSo.Location = New System.Drawing.Point(16, 187)
-        Me.dgvDoanhSo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dgvDoanhSo.Margin = New System.Windows.Forms.Padding(4)
         Me.dgvDoanhSo.Name = "dgvDoanhSo"
         Me.dgvDoanhSo.Size = New System.Drawing.Size(903, 340)
         Me.dgvDoanhSo.TabIndex = 21
@@ -104,7 +106,7 @@ Partial Class FrmLapBaoCaoDoanhSo
         '
         Me.tbMaDoanhSo.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbMaDoanhSo.Location = New System.Drawing.Point(114, 72)
-        Me.tbMaDoanhSo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbMaDoanhSo.Margin = New System.Windows.Forms.Padding(4)
         Me.tbMaDoanhSo.Name = "tbMaDoanhSo"
         Me.tbMaDoanhSo.ReadOnly = True
         Me.tbMaDoanhSo.Size = New System.Drawing.Size(156, 25)
@@ -114,7 +116,7 @@ Partial Class FrmLapBaoCaoDoanhSo
         '
         Me.btLapBaoCao.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btLapBaoCao.Location = New System.Drawing.Point(252, 546)
-        Me.btLapBaoCao.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btLapBaoCao.Margin = New System.Windows.Forms.Padding(4)
         Me.btLapBaoCao.Name = "btLapBaoCao"
         Me.btLapBaoCao.Size = New System.Drawing.Size(121, 55)
         Me.btLapBaoCao.TabIndex = 25
@@ -125,7 +127,7 @@ Partial Class FrmLapBaoCaoDoanhSo
         '
         Me.Button1.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.Location = New System.Drawing.Point(610, 546)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(121, 55)
         Me.Button1.TabIndex = 27
@@ -136,7 +138,7 @@ Partial Class FrmLapBaoCaoDoanhSo
         '
         Me.btPrint.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btPrint.Location = New System.Drawing.Point(429, 546)
-        Me.btPrint.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btPrint.Margin = New System.Windows.Forms.Padding(4)
         Me.btPrint.Name = "btPrint"
         Me.btPrint.Size = New System.Drawing.Size(121, 55)
         Me.btPrint.TabIndex = 29
@@ -146,7 +148,7 @@ Partial Class FrmLapBaoCaoDoanhSo
         'dtpThang
         '
         Me.dtpThang.Location = New System.Drawing.Point(440, 70)
-        Me.dtpThang.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dtpThang.Margin = New System.Windows.Forms.Padding(4)
         Me.dtpThang.Name = "dtpThang"
         Me.dtpThang.Size = New System.Drawing.Size(212, 25)
         Me.dtpThang.TabIndex = 30
@@ -168,7 +170,7 @@ Partial Class FrmLapBaoCaoDoanhSo
         Me.Controls.Add(Me.maphieu)
         Me.Controls.Add(Me.Label1)
         Me.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FrmLapBaoCaoDoanhSo"
         Me.Text = "FrmBaoCaoDoanhSo"
         CType(Me.dgvDoanhSo, System.ComponentModel.ISupportInitialize).EndInit()

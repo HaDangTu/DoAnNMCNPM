@@ -1,0 +1,1 @@
+SQLCMD -S LAPTOPDELL -E -i CreateDB_QLGARA.sql

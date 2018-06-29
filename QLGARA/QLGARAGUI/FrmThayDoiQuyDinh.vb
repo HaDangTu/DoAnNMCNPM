@@ -7,7 +7,7 @@ Public Class FrmThayDoiQuyDinh
     Dim macdinh As New ThamSoDTO()
     Public Sub loadQuyDinh(ByRef thamso As ThamSoDTO)
         Dim result As Result
-        result = thamsoBUS.SelectALL(thamso)
+        result = thamsoBUS.Select_SoXeSuaChua(thamso)
         If (result.FlagResult = False) Then
             MessageBox.Show("Lấy thông tin quy định thất bại", "Error", MessageBoxButtons.OK,
                             MessageBoxIcon.Error)

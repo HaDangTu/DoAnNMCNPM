@@ -54,6 +54,11 @@ Public Class FrmQLHieuXe
             hieuxeDTO.NhanSua = rbNo.Text
         End If
 
+        If (hieuxeBUS.isValidTenHieuXe(tbTenHX.Text) = False) Then
+            MessageBox.Show("Tên hiệu xe bị thiếu.", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
         Dim result As Result
         result = hieuxeBUS.Insert(hieuxeDTO)
         If (result.FlagResult = True) Then

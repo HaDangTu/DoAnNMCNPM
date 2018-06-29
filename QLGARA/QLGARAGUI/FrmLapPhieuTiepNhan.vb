@@ -58,7 +58,7 @@ Public Class FrmLapPhieuTiepNhan
 
         Dim listofHoSoSuaChua As List(Of HoSoSuaChuaDTO)
         listofHoSoSuaChua = New List(Of HoSoSuaChuaDTO)()
-        result = hososuachuaBUS.SelectALL(listofHoSoSuaChua)
+        result = hososuachuaBUS.SelectALL(dtpNgTiepNhan.Value, listofHoSoSuaChua)
         If (result.FlagResult = False) Then
             MessageBox.Show("Lấy hồ sơ sửa chữa không thành công",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -109,6 +109,12 @@ Public Class FrmLapPhieuTiepNhan
         Dim thongtinxeDTO As New ThongTinXeDTO()
         Dim phieutiepnhanDTO As New PhieuTiepNhanDTO()
         Dim result As Result
+
+        If (phieutiepnhanBUS.isValidThongTin(tbTenCxe.Text, tbDiaChi.Text, tbDienThoai.Text, tbBsoxe.Text) = False) Then
+            MessageBox.Show("Thiếu thông tin cần thiết ", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
         'thông tin khách hàng
         khachhangDTO.TenKH = tbTenCxe.Text
         khachhangDTO.DiaChi = tbDiaChi.Text
@@ -120,6 +126,16 @@ Public Class FrmLapPhieuTiepNhan
         phieutiepnhanDTO.MaPhieu = tbMaphieu.Text
         phieutiepnhanDTO.NgayTiepNhan = dtpNgTiepNhan.Value
 
+        If (khachhangBUS.isValidName(tbTenCxe.Text) = False) Then
+            MessageBox.Show("Tên tối thiểu 2 tiếng, không chứa các kí tự đặc biệt và số ", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        If (khachhangBUS.isValidSoDienThoai(tbDienThoai.Text) = False) Then
+            MessageBox.Show("Số điện thoại không hợp lệ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
         'kiểm tra số lượng xe tiếp nhận
         If (phieutiepnhanBUS.isvalidNumber() = False) Then
             MessageBox.Show("Vượt quá số lượng xe tiếp nhận sửa chữa trong ngày")
@@ -182,6 +198,10 @@ Public Class FrmLapPhieuTiepNhan
             Dim nextMaphieu = "1"
             result = phieutiepnhanBUS.BuildMaPhieuTN(nextMaphieu)
             tbMaphieu.Text = nextMaphieu
+            tbBsoxe.Text = String.Empty
+            tbDiaChi.Text = String.Empty
+            tbTenCxe.Text = String.Empty
+
 
         Else
             MessageBox.Show("Thêm phiếu tiếp nhận không thành công.", "Error",
@@ -193,7 +213,7 @@ Public Class FrmLapPhieuTiepNhan
         'Cập nhật danh sách hồ sơ sửa chữa
         Dim listofHoSoSuaChua As List(Of HoSoSuaChuaDTO)
         listofHoSoSuaChua = New List(Of HoSoSuaChuaDTO)()
-        result = hososuachuaBUS.SelectALL(listofHoSoSuaChua)
+        result = hososuachuaBUS.SelectALL(dtpNgTiepNhan.Value, listofHoSoSuaChua)
         If (result.FlagResult = False) Then
             MessageBox.Show("Lấy hồ sơ sửa chữa không thành công",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

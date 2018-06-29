@@ -22,6 +22,8 @@ Partial Class FrmTraCuu
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -140,7 +142,6 @@ Partial Class FrmTraCuu
         Me.tbTienNoMax.Name = "tbTienNoMax"
         Me.tbTienNoMax.Size = New System.Drawing.Size(147, 25)
         Me.tbTienNoMax.TabIndex = 11
-        Me.tbTienNoMax.Text = "0"
         '
         'Panel1
         '
@@ -192,7 +193,6 @@ Partial Class FrmTraCuu
         Me.tbTienNoMin.Name = "tbTienNoMin"
         Me.tbTienNoMin.Size = New System.Drawing.Size(147, 25)
         Me.tbTienNoMin.TabIndex = 17
-        Me.tbTienNoMin.Text = "0"
         '
         'cbHieuXe
         '
@@ -242,7 +242,25 @@ Partial Class FrmTraCuu
         '
         'dgvDanhSachXe
         '
+        Me.dgvDanhSachXe.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvDanhSachXe.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDanhSachXe.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvDanhSachXe.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvDanhSachXe.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvDanhSachXe.Location = New System.Drawing.Point(0, 29)
         Me.dgvDanhSachXe.Name = "dgvDanhSachXe"
         Me.dgvDanhSachXe.Size = New System.Drawing.Size(826, 194)

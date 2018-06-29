@@ -13,19 +13,23 @@ Public Class HoSoSuaChuaDAL
         connectionstring = connstring
     End Sub
 
-    Public Function Sellect_All(ByRef listHoSoSuaChua As List(Of HoSoSuaChuaDTO)) As Result
+    Public Function Sellect_All(ngaynhan As DateTime, ByRef listHoSoSuaChua As List(Of HoSoSuaChuaDTO)) As Result
         Dim query As String
         query = String.Empty
-        query &= "SELECT [BienSo], [TenKH], [DienThoai], [DiaChi], [TenHX]"
-        query &= "FROM [TT_XE], [KHACHHANG], [HIEUXE]"
-        query &= "WHERE TT_XE.MaKH = KHACHHANG.MaKH AND TT_XE.MaHX = HIEUXE.MaHX"
-
+        query &= "SELECT [BienSo], [TenKH], [DienThoai], [DiaChi], [TenHX] "
+        query &= "FROM [TT_XE], [KHACHHANG], [HIEUXE], [PHIEUTIEPNHAN] "
+        query &= "WHERE TT_XE.MaKH = KHACHHANG.MaKH AND TT_XE.MaHX = HIEUXE.MaHX AND  "
+        query &= "PHIEUTIEPNHAN.MaTTXe = TT_XE.MaTTXe AND MONTH(NgayNhan) = @Thang "
+        query &= "AND DAY(NgayNhan) = @Ngay AND YEAR(NgayNhan) = @Nam "
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
                 With comm
                     .Connection = conn
                     .CommandType = CommandType.Text
                     .CommandText = query
+                    .Parameters.AddWithValue("@Thang", ngaynhan.Month)
+                    .Parameters.AddWithValue("@Ngay", ngaynhan.Day)
+                    .Parameters.AddWithValue("@Nam", ngaynhan.Year)
                 End With
                 Try
                     conn.Open()

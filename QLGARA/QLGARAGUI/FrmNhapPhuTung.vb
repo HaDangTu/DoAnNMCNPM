@@ -56,9 +56,11 @@ Public Class FrmNhapPhuTung
     Private Sub btNhapPhuTung_Click(sender As Object, e As EventArgs) Handles btNhapPhuTung.Click
         Dim nhapphutungDTO As New NhapPhuTungDTO()
         Dim ListofTTNhapPT As New List(Of TTNhapPhuTungDTO)()
-        Dim i = 0
+        Dim i = 0, j = 0
         Dim TongTienNhap As Double = 0
         Dim result As Result
+        Dim ListofPhuTung As New List(Of PhuTungDTO)
+        ListofPhuTung = phutungBUS.Sellect_All()
 
         'Mapping data
         nhapphutungDTO.MaNhapPhuTung = tbMaNhapPT.Text
@@ -82,10 +84,24 @@ Public Class FrmNhapPhuTung
             End If
         Next
 
+        For i = 0 To ListofPhuTung.Count - 1
+            For j = 0 To ListofTTNhapPT.Count - 1
+                If (ListofPhuTung(i).MaPhuTung = ListofTTNhapPT(j).MaPhuTung) Then
+                    ListofPhuTung(i) = New PhuTungDTO(ListofPhuTung(i).MaPhuTung, ListofPhuTung(i).TenPhuTung,
+                                                       ListofPhuTung(i).DonGia,
+                                                       ListofPhuTung(i).SoLuongCon + ListofTTNhapPT(j).SoLuongNhap)
+                End If
+            Next
+        Next
+
         For Each ttnhapphutung As TTNhapPhuTungDTO In ListofTTNhapPT
-            TongTienNhap = TongTienNhap + ttnhapphutung.DonGiaNhap
+            TongTienNhap = TongTienNhap + (ttnhapphutung.DonGiaNhap * ttnhapphutung.SoLuongNhap)
         Next
         nhapphutungDTO.TongTienNhap = TongTienNhap
+
+        For Each phutung In ListofPhuTung
+            phutungBUS.Update(phutung)
+        Next
         'Business
 
         'Insert

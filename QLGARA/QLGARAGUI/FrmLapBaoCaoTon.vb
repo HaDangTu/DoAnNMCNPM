@@ -121,7 +121,7 @@ Public Class FrmLapBaoCaoTon
         Dim baocaotonDTO As New BaoCaoTonDTO()
         Dim ListofPhuTung As New List(Of PhuTungDTO)()
         Dim ListofTong_SL_DaSC As New List(Of Integer)()
-        Dim ListofTong_SLPS As New List(Of Integer)()
+        'Dim ListofTong_SLPS As New List(Of Integer)()
         Dim ListofTTbaocaotonDTO As New List(Of TTBaoCaoTonDTO)()
         Dim ListofSoLuongNhap As New List(Of Integer)()
         Dim ListofTonCuoi As New List(Of Integer)()
@@ -130,7 +130,7 @@ Public Class FrmLapBaoCaoTon
         'loadList
         LoadListofPhuTung(ListofPhuTung)
         LoadListofTong_SL_DaSC(dtpThang.Value.Month, dtpThang.Value.Year, ListofTong_SL_DaSC)
-        LoadListofTong_SLPS(dtpThang.Value.Month, dtpThang.Value.Year, ListofTong_SLPS)
+        'LoadListofTong_SLPS(dtpThang.Value.Month, dtpThang.Value.Year, ListofTong_SLPS)
         LoadListofSLNhap(dtpThang.Value.Month, dtpThang.Value.Year, ListofSoLuongNhap)
 
 
@@ -152,13 +152,13 @@ Public Class FrmLapBaoCaoTon
             If (IsNothing(ListofTonCuoi) = False) Then
                 ListofTTbaocaotonDTO(n) = New TTBaoCaoTonDTO(ListofTTbaocaotonDTO(n).MaTTBaoCaoTon,
                                                            ListofTTbaocaotonDTO(n).TenPhuTung,
-                                                           ListofTonCuoi(n) + ListofSoLuongNhap(n),
+                                                           ListofTonCuoi(n),
                                                           0, 0,
                                                           ListofTTbaocaotonDTO(n).MaBaoCaoTon)
             Else
                 ListofTTbaocaotonDTO(n) = New TTBaoCaoTonDTO(ListofTTbaocaotonDTO(n).MaTTBaoCaoTon,
                                                            ListofTTbaocaotonDTO(n).TenPhuTung,
-                                                           ListofSoLuongNhap(n),
+                                                           0,
                                                           0, 0,
                                                           ListofTTbaocaotonDTO(n).MaBaoCaoTon)
             End If
@@ -169,7 +169,7 @@ Public Class FrmLapBaoCaoTon
             ListofTTbaocaotonDTO(n) = New TTBaoCaoTonDTO(ListofTTbaocaotonDTO(n).MaTTBaoCaoTon,
                                                           ListofTTbaocaotonDTO(n).TenPhuTung,
                                                           ListofTTbaocaotonDTO(n).TonDau,
-                                                         ListofTong_SLPS(n),
+                                                         ListofSoLuongNhap(n),
                                                          0,
                                                          ListofTTbaocaotonDTO(n).MaBaoCaoTon)
         Next

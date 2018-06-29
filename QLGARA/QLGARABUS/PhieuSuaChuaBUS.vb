@@ -4,6 +4,12 @@ Imports Utility
 Public Class PhieuSuaChuaBUS
     Private phieusuachuaDAL As New PhieuSuaChuaDAL()
 
+    Public Function isvalidTBBienSo(strbienso As String) As Boolean
+        If (strbienso.Trim() = "") Then
+            Return False
+        End If
+        Return True
+    End Function
     Public Function isvalidPhieuTN(maphieutiepnhan As String) As Boolean
         Dim ListofPhieuSC As New List(Of PhieuSuaChuaDTO)()
         For Each phieusuachua As PhieuSuaChuaDTO In ListofPhieuSC

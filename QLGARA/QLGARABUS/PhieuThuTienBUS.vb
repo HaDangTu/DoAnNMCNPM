@@ -5,6 +5,15 @@ Public Class PhieuThuTienBUS
     Dim phieuthutienDAL As New PhieuThuTienDAL()
     Dim khachangDAL As New KhachhangDAL()
     Dim thongtinxeDAL As New ThongTinXeDAL()
+
+    Public Function isValidThongTin(tenchuxe As String, dienthoai As String, biensoxe As String, sotienthu As String)
+        If (tenchuxe.Trim = "" Or dienthoai.Trim = "" Or biensoxe.Trim = "" Or sotienthu.Trim = "") Then
+            Return False
+        End If
+        Return True
+    End Function
+
+
     Public Function isvalidtenchuxe(tenchuxe As String) As Boolean
         Dim listofkhachhang As New List(Of KhachHangDTO)
         listofkhachhang = khachangDAL.SelectAll()

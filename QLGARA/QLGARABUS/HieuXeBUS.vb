@@ -4,6 +4,12 @@ Imports Utility
 Public Class HieuXeBUS
     Private hieuxeDAL As New HieuXeDAL()
 
+    Public Function isValidTenHieuXe(tenHX As String) As Boolean
+        If (tenHX.Trim = "") Then
+            Return False
+        End If
+        Return True
+    End Function
 
     Public Function Insert(hieuxeDTO As HieuXeDTO) As Result
         Return hieuxeDAL.Insert(hieuxeDTO)

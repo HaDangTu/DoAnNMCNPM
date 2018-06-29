@@ -15,6 +15,12 @@ Public Class FrmLapPhieuThuTien
 
     Private Sub btLapphieu_Click(sender As Object, e As EventArgs) Handles btLapphieu.Click
         Dim phieuthutienDTO As New PhieuThuTienDTO
+        If (phieuthutienBUS.isValidThongTin(tbTenchuxe.Text, tbDienThoai.Text,
+                                            tbBiensoxe.Text, tbSotienthu.Text) = False) Then
+            MessageBox.Show("Thiếu thông tin cần thiết để lập phiếu", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
 
         'phieuthutienDTO.MaPhieuThuTien = tbTenchuxe.Text
         'Dim listofphieutiepnhan As New List(Of PhieuTiepNhanDTO)()
@@ -30,6 +36,17 @@ Public Class FrmLapPhieuThuTien
         phieuthutienDTO.SoTienThu = Double.Parse(tbSotienthu.Text)
 
         Dim result As Result
+
+        If (khachhangBUS.isValidName(tbTenchuxe.Text) = False) Then
+            MessageBox.Show("Tên tối thiểu 2 tiếng, không chứa các kí tự đặc biệt và số ", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        If (khachhangBUS.isValidSoDienThoai(tbDienThoai.Text) = False) Then
+            MessageBox.Show("Số điện thoại không hợp lệ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
 
         'kiểm tra đã có biển số chưa
         If (phieuthutienBUS.isvalidbienso(tbBiensoxe.Text) = False) Then

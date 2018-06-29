@@ -4,9 +4,19 @@ Imports Utility
 
 Public Class PhieuTiepNhanBUS
     Private phieutiepnhanDAL As New PhieuTiepNhanDAL()
-
+    Private thamsoBUS As New ThamSoBUS()
     Public Function isvalidNumber() As Boolean
-        If (phieutiepnhanDAL.Count() > 30) Then
+        Dim thamsoDTO As New ThamSoDTO
+        thamsoBUS.Select_SoXeSuaChua(thamsoDTO)
+        If (phieutiepnhanDAL.Count() > thamsoDTO.SoXeSuaChua) Then
+            Return False
+        End If
+        Return True
+    End Function
+
+    Public Function isValidThongTin(tenchuxe As String, diachi As String, dienthoai As String,
+                                    bienso As String) As Boolean
+        If (tenchuxe.Trim = "" Or diachi.Trim = "" Or dienthoai.Trim = "" Or bienso.Trim = "") Then
             Return False
         End If
         Return True

@@ -72,6 +72,11 @@ Public Class TTPhieuSuaChuaDAL
         query &= " ([MaTTPhieuSuaChua], [MaPhieuSC], [MaPhuTung], [NoiDung], [SoLuong], [MaTienCong])"
         query &= " VALUES (@MaTTPhieuSuaChua, @MaPhieuSC, @MaPhuTung, @NoiDung, @SoLuong, @MaTienCong)"
 
+        Dim nextMaTTPhieuSC As String
+        nextMaTTPhieuSC = "1"
+        BuildMaTTPhieuSC(nextMaTTPhieuSC)
+        tt_phieusuachua.MaTTPhieuSuaChua = nextMaTTPhieuSC
+
         Using conn As New SqlConnection(connectionstring)
             Using comm As New SqlCommand()
                 With comm

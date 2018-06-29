@@ -79,6 +79,8 @@ Public Class FrmNhapPhatSinh
                                                        Double.Parse(row.Cells("DonGiaPS").Value)))
             End If
         Next
+        'Cập nhật lại số lượng còn
+
         'Tính tổng tiền phát sinh
         For Each ttphatsinh As TTPhatSinhDTO In ListofTTNhapPS
             TongTienPhatSinh = TongTienPhatSinh + (ttphatsinh.SoLuongPS * ttphatsinh.DonGiaPS)

@@ -42,7 +42,7 @@ Public Class ThamSoDAL
         Return New Result(True)
     End Function
 
-    Public Function SelectALL(ByRef thamso As ThamSoDTO) As Result
+    Public Function Select_SoXeSuaChua(ByRef thamso As ThamSoDTO) As Result
         Dim query As String
         query = String.Empty
         query &= "SELECT [SoXeSuaChua] "

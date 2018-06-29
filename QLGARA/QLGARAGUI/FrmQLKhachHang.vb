@@ -20,6 +20,22 @@ Public Class FrmQLKhachHang
         khachhangDTO.DienThoai = tbDienThoai.Text
         khachhangDTO.TienNo = Convert.ToInt64(tbTienNo.Text)
 
+        If (khachhangBUS.isValidThongTin(tbTenKH.Text, tbDienThoai.Text, tbDiaChi.Text, tbTienNo.Text) = False) Then
+            MessageBox.Show("Thiếu thông tin ", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        If (khachhangBUS.isValidName(tbTenKH.Text) = False) Then
+            MessageBox.Show("Tên tối thiểu 2 tiếng, không chứa các kí tự đặc biệt và số ", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        If (khachhangBUS.isValidSoDienThoai(tbDienThoai.Text) = False) Then
+            MessageBox.Show("Số điện thoại không hợp lệ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
         Dim result As Result
         result = khachhangBUS.Insert(khachhangDTO)
         If (result.FlagResult = True) Then

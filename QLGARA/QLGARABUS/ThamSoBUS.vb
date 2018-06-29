@@ -15,8 +15,8 @@ Public Class ThamSoBUS
         Return thamsoDAL.Update(thamso)
     End Function
 
-    Public Function SelectALL(ByRef thamso As ThamSoDTO) As Result
-        Return thamsoDAL.SelectALL(thamso)
+    Public Function Select_SoXeSuaChua(ByRef thamso As ThamSoDTO) As Result
+        Return thamsoDAL.Select_SoXeSuaChua(thamso)
     End Function
 
 End Class

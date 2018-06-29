@@ -16,6 +16,16 @@ Public Class PhuTungBUS
         Return False
     End Function
 
+    Public Function isValidSLPhuTung(maphutung As String, numSL As Integer) As Boolean
+        Dim ListofPhuTung As New List(Of PhuTungDTO)()
+        ListofPhuTung = phutungDAL.SelectAll()
+        For Each phutungDTO As PhuTungDTO In ListofPhuTung
+            If (phutungDTO.MaPhuTung = maphutung And phutungDTO.SoLuongCon < numSL) Then
+                Return False
+            End If
+        Next
+        Return True
+    End Function
     Public Function Insert(phutung As PhuTungDTO) As Result
         Return phutungDAL.Insert(phutung)
     End Function
